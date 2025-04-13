@@ -1,6 +1,6 @@
-﻿using Application.Abstractions.Infrastructure;
-using Application.Abstractions.Outbox;
+﻿using Application.Abstractions.Outbox;
 using Application.Abstractions.Persistence;
+using Application.Abstractions.Time;
 using Domain.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -16,12 +16,12 @@ public class ProcessOutboxMessagesJob(
     ILogger<ProcessOutboxMessagesJob> logger)
     : IProcessOutboxMessagesJob
 {
+    private const int BATCH_SIZE = 1000;
+
     private static readonly JsonSerializerSettings JsonSerializerSettings = new()
     {
         TypeNameHandling = TypeNameHandling.All
     };
-
-    private const int BATCH_SIZE = 1000;
 
     public async Task ProcessAsync()
     {

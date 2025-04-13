@@ -1,4 +1,4 @@
-﻿namespace Application.Abstractions.Infrastructure;
+﻿namespace Application.Abstractions.Time;
 
 public interface IDateTimeProvider
 {

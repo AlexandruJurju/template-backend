@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Persistence;
+﻿using Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Extensions;
 

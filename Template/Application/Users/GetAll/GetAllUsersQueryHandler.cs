@@ -6,11 +6,9 @@ namespace Application.Users.GetAll;
 
 public class GetAllUsersQueryHandler(IApplicationDbContext context)
 {
-    private readonly IApplicationDbContext _context = context;
-
     public async Task<Result<List<UserResponse>>> Handle(GetAllUsersQuery usersQuery, CancellationToken cancellationToken)
     {
-        var users = await _context.Users
+        var users = await context.Users
             .AsNoTracking()
             .Select(u => new UserResponse
             {

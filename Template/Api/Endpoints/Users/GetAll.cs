@@ -22,6 +22,7 @@ public class GetAll : IEndpoint
             .WithName("GetAll")
             .WithTags(Tags.Users)
             .WithOpenApi()
+            .RequireAuthorization(Roles.Member)
             .Produces<List<UserResponse>>();
     }
 }

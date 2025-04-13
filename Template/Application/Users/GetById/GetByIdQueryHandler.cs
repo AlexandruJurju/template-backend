@@ -5,18 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.GetById;
 
-public class GetByIdQueryHandler
+public class GetByIdQueryHandler(IApplicationDbContext context)
 {
-    private readonly IApplicationDbContext _context;
-
-    public GetByIdQueryHandler(IApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<Result<UserResponse>> Handle(GetUserByIdQuery query, CancellationToken cancellationToken)
     {
-        var user = await _context.Users
+        var user = await context.Users
             .Where(u => u.Id == query.UserId)
             .Select(u => new UserResponse
             {

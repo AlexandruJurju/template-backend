@@ -1,5 +1,6 @@
 ﻿namespace Application.Abstractions.Authentication;
 
+// this could also be a domain service
 public interface IPasswordHasher
 {
     string Hash(string password);

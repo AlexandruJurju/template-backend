@@ -1,12 +1,12 @@
-﻿using Application.Abstractions.Infrastructure;
-using Application.Abstractions.Persistence;
+﻿using Application.Abstractions.Persistence;
+using Application.Abstractions.Time;
 using Domain.Abstractions;
 using Domain.Infrastructure.Outbox;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
-namespace Persistence;
+namespace Infrastructure.Database;
 
 public sealed class ApplicationDbContext : DbContext, IApplicationDbContext
 {
@@ -24,6 +24,7 @@ public sealed class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<OutboxMessage> OutboxMessages { get; set; }
+    public DbSet<Role> Roles { get; set; }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {

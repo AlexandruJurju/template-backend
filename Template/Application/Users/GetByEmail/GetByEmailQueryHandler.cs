@@ -5,18 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.GetByEmail;
 
-public class GetByEmailQueryHandler
+public class GetByEmailQueryHandler(IApplicationDbContext context)
 {
-    private readonly IApplicationDbContext _context;
-
-    public GetByEmailQueryHandler(IApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<Result<UserResponse>> Handle(GetUserByEmailQuery query, CancellationToken cancellationToken)
     {
-        var user = await _context.Users
+        var user = await context.Users
             .Where(u => u.Email == query.Email)
             .Select(u => new UserResponse
             {

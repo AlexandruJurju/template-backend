@@ -6,7 +6,6 @@ using Hangfire;
 using HealthChecks.UI.Client;
 using Infrastructure;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Persistence;
 using Scalar.AspNetCore;
 using Serilog;
 
@@ -22,8 +21,7 @@ builder.Services.AddOpenApi();
 builder.Services
     .AddPresentation()
     .AddApplication(builder.Configuration)
-    .AddInfrastructure(builder.Configuration)
-    .AddPersistence(builder.Configuration);
+    .AddInfrastructure(builder.Configuration);
 
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 
@@ -61,6 +59,6 @@ app.UseExceptionHandler();
 
 app.UseAuthentication();
 
-// app.UseAuthorization();
+app.UseAuthorization();
 
 await app.RunAsync();

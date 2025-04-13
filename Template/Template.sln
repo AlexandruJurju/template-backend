@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{C61799DC-99C3-4E04-BF5A-1C70E7A691E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{90C9F3DF-4C10-4FF9-A9A2-4DD068AC7720}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,9 +35,5 @@ Global
 		{C61799DC-99C3-4E04-BF5A-1C70E7A691E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C61799DC-99C3-4E04-BF5A-1C70E7A691E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C61799DC-99C3-4E04-BF5A-1C70E7A691E3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{90C9F3DF-4C10-4FF9-A9A2-4DD068AC7720}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90C9F3DF-4C10-4FF9-A9A2-4DD068AC7720}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90C9F3DF-4C10-4FF9-A9A2-4DD068AC7720}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90C9F3DF-4C10-4FF9-A9A2-4DD068AC7720}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

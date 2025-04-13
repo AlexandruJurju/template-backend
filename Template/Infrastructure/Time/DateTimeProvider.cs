@@ -1,4 +1,4 @@
-﻿using Application.Abstractions.Infrastructure;
+﻿using Application.Abstractions.Time;
 
 namespace Infrastructure.Time;
 
