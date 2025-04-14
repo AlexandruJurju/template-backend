@@ -1,6 +1,8 @@
 ﻿using Api.ExceptionHandler;
+using Api.Extensions;
 using Application.Users.GetAll;
 using Domain.Abstractions.Result;
+using Domain.Users;
 using Wolverine;
 
 namespace Api.Endpoints.Users;
@@ -22,7 +24,7 @@ public class GetAll : IEndpoint
             .WithName("GetAll")
             .WithTags(Tags.Users)
             .WithOpenApi()
-            .RequireAuthorization(Roles.Member)
+            .HasPermission(Permissions.UsersRead)
             .Produces<List<UserResponse>>();
     }
 }
