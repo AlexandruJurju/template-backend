@@ -58,8 +58,8 @@ public static class DependencyInjection
 
     private static void AddCaching(IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("Cache") ??
-                               throw new ArgumentNullException(nameof(configuration));
+        string connectionString = configuration.GetConnectionString("Cache") ??
+                                  throw new ArgumentNullException(nameof(configuration));
 
         services.AddStackExchangeRedisCache(options => options.Configuration = connectionString);
 
@@ -68,22 +68,23 @@ public static class DependencyInjection
 
     private static void AddHangfire(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddHangfire(config => { config.UsePostgreSqlStorage(options => { options.UseNpgsqlConnection(configuration.GetConnectionString("Database")); }); });
+        services.AddHangfire(config =>
+            config.UsePostgreSqlStorage(
+                options => options.UseNpgsqlConnection(configuration.GetConnectionString("Database"))));
 
-        services.AddHangfireServer(options => { options.SchedulePollingInterval = TimeSpan.FromMinutes(1); });
+        services.AddHangfireServer(options => options.SchedulePollingInterval = TimeSpan.FromMinutes(1));
 
         services.AddScoped<IProcessOutboxMessagesJob, ProcessOutboxMessagesJob>();
     }
 
     private static void AddDatabase(IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("Database");
+        string? connectionString = configuration.GetConnectionString("Database");
 
-        services.AddDbContext<ApplicationDbContext>(
-            options => options
-                .UseNpgsql(connectionString, npgsqlOptions =>
-                    npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName))
-                .UseSnakeCaseNamingConvention());
+        services.AddDbContext<ApplicationDbContext>(options => options
+            .UseNpgsql(connectionString, npgsqlOptions =>
+                npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName))
+            .UseSnakeCaseNamingConvention());
 
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
     }

@@ -9,7 +9,7 @@ public class GetByIdQueryHandler(IApplicationDbContext context)
 {
     public async Task<Result<UserResponse>> Handle(GetUserByIdQuery query, CancellationToken cancellationToken)
     {
-        var user = await context.Users
+        UserResponse? user = await context.Users
             .Where(u => u.Id == query.UserId)
             .Select(u => new UserResponse
             {
@@ -22,7 +22,9 @@ public class GetByIdQueryHandler(IApplicationDbContext context)
             .SingleOrDefaultAsync(cancellationToken);
 
         if (user is null)
+        {
             return Result.Failure<UserResponse>(UserErrors.NotFound(query.UserId));
+        }
 
         return user;
     }

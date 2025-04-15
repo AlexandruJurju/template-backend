@@ -9,7 +9,7 @@ public class GetByEmailQueryHandler(IApplicationDbContext context)
 {
     public async Task<Result<UserResponse>> Handle(GetUserByEmailQuery query, CancellationToken cancellationToken)
     {
-        var user = await context.Users
+        UserResponse? user = await context.Users
             .Where(u => u.Email == query.Email)
             .Select(u => new UserResponse
             {
@@ -22,7 +22,9 @@ public class GetByEmailQueryHandler(IApplicationDbContext context)
             .FirstOrDefaultAsync(cancellationToken);
 
         if (user is null)
+        {
             return Result.Failure<UserResponse>(UserErrors.NotFound(query.Email));
+        }
 
         return Result.Success(user);
     }

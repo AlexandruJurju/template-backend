@@ -2,7 +2,9 @@
 using Application.Abstractions.Persistence;
 using Application.Abstractions.Time;
 using Domain.Abstractions;
+using Domain.Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Wolverine;
@@ -28,9 +30,9 @@ public class ProcessOutboxMessagesJob(
         logger.LogInformation("Starting to process outbox messages");
 
         // Use a transaction scope for atomicity
-        await using var transaction = await applicationDbContext.Database.BeginTransactionAsync();
+        await using IDbContextTransaction transaction = await applicationDbContext.Database.BeginTransactionAsync();
 
-        var outboxMessages = await applicationDbContext.OutboxMessages
+        List<OutboxMessage> outboxMessages = await applicationDbContext.OutboxMessages
             .Where(m => m.ProcessedOnUtc == null)
             .Take(BATCH_SIZE)
             .OrderBy(m => m.OccurredOnUtc)
@@ -44,17 +46,17 @@ public class ProcessOutboxMessagesJob(
 
         try
         {
-            foreach (var outboxMessage in outboxMessages)
+            foreach (OutboxMessage outboxMessage in outboxMessages)
             {
                 Exception? exception = null;
 
                 try
                 {
-                    var domainEvent = JsonConvert.DeserializeObject<IDomainEvent>(
+                    IDomainEvent domainEvent = JsonConvert.DeserializeObject<IDomainEvent>(
                         outboxMessage.Content,
                         JsonSerializerSettings)!;
 
-                    await messageBus.InvokeAsync(domainEvent);
+                    await messageBus.InvokeAsync(domainEvent).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
@@ -73,11 +75,11 @@ public class ProcessOutboxMessagesJob(
 
             await applicationDbContext.SaveChangesAsync();
 
-            await transaction.CommitAsync();
+            await transaction.CommitAsync().ConfigureAwait(false);
         }
         catch
         {
-            await transaction.RollbackAsync();
+            await transaction.RollbackAsync().ConfigureAwait(false);
             throw;
         }
     }

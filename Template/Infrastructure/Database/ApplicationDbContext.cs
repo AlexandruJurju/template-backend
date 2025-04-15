@@ -22,15 +22,16 @@ public sealed class ApplicationDbContext : DbContext, IApplicationDbContext
         _dateTimeProvider = dateTimeProvider;
     }
 
+    public DbSet<Role> Roles { get; set; }
+
     public DbSet<User> Users { get; set; }
     public DbSet<OutboxMessage> OutboxMessages { get; set; }
-    public DbSet<Role> Roles { get; set; }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         AddDomainEventsAsOutboxMessages();
 
-        var result = await base.SaveChangesAsync(cancellationToken);
+        int result = await base.SaveChangesAsync(cancellationToken);
 
         return result;
     }
@@ -47,7 +48,7 @@ public sealed class ApplicationDbContext : DbContext, IApplicationDbContext
             .Select(entry => entry.Entity)
             .SelectMany(entity =>
             {
-                var domainEvents = entity.DomainEvents;
+                List<IDomainEvent> domainEvents = entity.DomainEvents;
 
                 entity.ClearDomainEvents();
 

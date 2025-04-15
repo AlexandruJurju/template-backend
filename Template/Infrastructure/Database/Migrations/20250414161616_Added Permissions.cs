@@ -4,6 +4,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 #nullable disable
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+#pragma warning disable IDE0161 
+#pragma warning disable CA1861 
+#pragma warning disable IDE0053 
 
 namespace Infrastructure.Database.Migrations
 {

@@ -11,12 +11,14 @@ public sealed class RegisterUserCommandHandler(IApplicationDbContext context, IP
     public async Task<Result<Guid>> Handle(RegisterUserCommand command, CancellationToken cancellationToken)
     {
         if (await context.Users.AnyAsync(u => u.Email == command.Email, cancellationToken))
+        {
             return Result.Failure<Guid>(UserErrors.EmailNotUnique);
+        }
 
         var user = User.Create(command.Email, command.FirstName, command.LastName, passwordHasher.Hash(command.Password));
 
         context.Attach(user.Role!);
-        
+
         context.Users.Add(user);
 
         await context.SaveChangesAsync(cancellationToken);

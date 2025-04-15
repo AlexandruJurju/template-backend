@@ -7,7 +7,7 @@ using Wolverine;
 
 namespace Api.Endpoints.Users;
 
-public class Register : IEndpoint
+internal sealed class Register : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
@@ -21,7 +21,7 @@ public class Register : IEndpoint
                     request.LastName,
                     request.Password);
 
-                var result = await messageBus.InvokeAsync<Result<Guid>>(command, cancellationToken);
+                Result<Guid> result = await messageBus.InvokeAsync<Result<Guid>>(command, cancellationToken);
 
                 return result.Match(Results.Ok, CustomResults.Problem);
             })

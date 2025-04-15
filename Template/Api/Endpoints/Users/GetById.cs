@@ -6,7 +6,7 @@ using Wolverine;
 
 namespace Api.Endpoints.Users;
 
-public class GetById : IEndpoint
+internal sealed class GetById : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
@@ -14,7 +14,7 @@ public class GetById : IEndpoint
                 [FromRoute] Guid userId,
                 IMessageBus messageBus, CancellationToken cancellationToken) =>
             {
-                var result = await messageBus.InvokeAsync<Result<UserResponse>>(new GetUserByIdQuery(userId), cancellationToken);
+                Result<UserResponse> result = await messageBus.InvokeAsync<Result<UserResponse>>(new GetUserByIdQuery(userId), cancellationToken);
 
                 return result.Match(
                     Results.Ok,

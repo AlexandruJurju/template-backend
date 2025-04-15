@@ -10,11 +10,13 @@ public class LoggedInUserQueryHandler(IUserContext userContext, IApplicationDbCo
 {
     public async Task<Result<User>> Handle(LoggedInUserQuery query, CancellationToken cancellationToken)
     {
-        var user = await context.Users
+        User? user = await context.Users
             .SingleOrDefaultAsync(cancellationToken);
 
         if (user is null)
+        {
             return Result.Failure<User>(UserErrors.NotFound(userContext.UserId));
+        }
 
         return user;
     }

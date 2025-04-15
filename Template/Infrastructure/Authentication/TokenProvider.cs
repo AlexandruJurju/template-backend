@@ -12,7 +12,7 @@ internal sealed class TokenProvider(IConfiguration configuration) : ITokenProvid
 {
     public string Create(User user)
     {
-        var secretKey = configuration["Jwt:Secret"]!;
+        string secretKey = configuration["Jwt:Secret"]!;
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -32,7 +32,7 @@ internal sealed class TokenProvider(IConfiguration configuration) : ITokenProvid
 
         var handler = new JsonWebTokenHandler();
 
-        var token = handler.CreateToken(tokenDescriptor);
+        string? token = handler.CreateToken(tokenDescriptor);
 
         return token;
     }

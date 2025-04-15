@@ -6,14 +6,14 @@ using Wolverine;
 
 namespace Api.Endpoints.Users;
 
-public class LoggedInUser : IEndpoint
+internal sealed class LoggedInUser : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost("users/me", async (
                 IMessageBus messageBus, CancellationToken cancellationToken) =>
             {
-                var result = await messageBus.InvokeAsync<Result<UserResponse>>(new LoggedInUserQuery(), cancellationToken);
+                Result<UserResponse> result = await messageBus.InvokeAsync<Result<UserResponse>>(new LoggedInUserQuery(), cancellationToken);
 
                 return result.Match(
                     Results.Ok,

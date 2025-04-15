@@ -6,8 +6,7 @@ public class Result
 {
     public Result(bool isSuccess, Error error)
     {
-        if ((isSuccess && error != Error.None) ||
-            (!isSuccess && error == Error.None))
+        if (isSuccess && error != Error.None || !isSuccess && error == Error.None)
         {
             throw new ArgumentException("Invalid error", nameof(error));
         }
@@ -58,10 +57,8 @@ public class Result<TValue> : Result
         ? _value!
         : throw new InvalidOperationException("The value of a failure result can't be accessed.");
 
-    public static implicit operator Result<TValue>(TValue? value)
-    {
-        return value is not null ? Success(value) : Failure<TValue>(Error.NullValue);
-    }
+    public static implicit operator Result<TValue>(TValue? value) =>
+        value is not null ? Success(value) : Failure<TValue>(Error.NullValue);
 
     public static Result<TValue> ValidationFailure(Error error)
     {

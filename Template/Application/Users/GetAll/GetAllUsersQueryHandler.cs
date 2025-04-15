@@ -8,7 +8,7 @@ public class GetAllUsersQueryHandler(IApplicationDbContext context)
 {
     public async Task<Result<List<UserResponse>>> Handle(GetAllUsersQuery usersQuery, CancellationToken cancellationToken)
     {
-        var users = await context.Users
+        List<UserResponse> users = await context.Users
             .AsNoTracking()
             .Select(u => new UserResponse
             {

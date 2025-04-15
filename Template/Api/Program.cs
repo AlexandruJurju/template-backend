@@ -9,11 +9,10 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Scalar.AspNetCore;
 using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Host
-    .UseSerilog(
-        (context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration)
+    .UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration)
     );
 
 builder.Services.AddOpenApi();
@@ -25,7 +24,7 @@ builder.Services
 
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 app.MapEndpoints();
 
