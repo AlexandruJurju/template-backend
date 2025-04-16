@@ -69,8 +69,7 @@ public static class DependencyInjection
     private static void AddHangfire(IServiceCollection services, IConfiguration configuration)
     {
         services.AddHangfire(config =>
-            config.UsePostgreSqlStorage(
-                options => options.UseNpgsqlConnection(configuration.GetConnectionString("Database"))));
+            config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(configuration.GetConnectionString("Database"))));
 
         services.AddHangfireServer(options => options.SchedulePollingInterval = TimeSpan.FromMinutes(1));
 

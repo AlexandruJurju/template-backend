@@ -21,11 +21,6 @@ public class GetByIdQueryHandler(IApplicationDbContext context)
             .AsNoTracking()
             .SingleOrDefaultAsync(cancellationToken);
 
-        if (user is null)
-        {
-            return Result.Failure<UserResponse>(UserErrors.NotFound(query.UserId));
-        }
-
-        return user;
+        return user ?? Result.Failure<UserResponse>(UserErrors.NotFound(query.UserId));
     }
 }

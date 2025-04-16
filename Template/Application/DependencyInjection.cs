@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using FluentValidation;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Wolverine;
 using Wolverine.FluentValidation;
@@ -9,21 +10,26 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
-        services
-            .AddWolverine();
+        AddFluentValidation(services);
+        
+        AddWolverine(services);
+
         return services;
     }
 
-    private static IServiceCollection AddWolverine(this IServiceCollection services)
+    private static void AddFluentValidation(IServiceCollection services)
+    {
+        // Register all validators in the assembly
+        services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly, includeInternalTypes: true);
+    }
+
+    private static void AddWolverine(IServiceCollection services)
     {
         services.AddWolverine(options =>
         {
-            // Apply the validation middleware *and* discover and register Fluent Validation validators
             options.UseFluentValidation();
 
             options.Discovery.IncludeAssembly(typeof(DependencyInjection).Assembly);
         });
-
-        return services;
     }
 }

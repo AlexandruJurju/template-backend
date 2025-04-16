@@ -15,7 +15,7 @@ services:
     - "--mode=server"
     - "--frontend-port=57000"
     - "--backend-port=57200"
-    - "--roslyn-worker-port=57400"
+    - "--roslyn-worker-port=57403"
     - "--timeout=60"
     environment:
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
@@ -25,14 +25,14 @@ services:
     ports:
     - "127.0.0.1:57003:57000"
     - "127.0.0.1:57203:57200"
-    - "127.0.0.1:57403:57400"
+    - "127.0.0.1:57403:57403"
     volumes:
     - "X:\\Repos\\Template\\Template\\Api:/app:rw"
     - "X:\\Repos\\Template\\Template:/src:rw"
     - "C:\\Users\\realb\\.nuget\\packages:/home/app/.nuget/packages"
-    - "C:\\Users\\realb\\AppData\\Local\\JetBrains\\RiderRemoteDebugger\\2024.3.7\\\
+    - "C:\\Users\\realb\\AppData\\Local\\JetBrains\\RiderRemoteDebugger\\2025.1\\\
       Linux64:/opt/JetBrains/RiderDebuggerTools"
     - "C:\\Users\\realb\\AppData\\Local\\Programs\\Rider\\bin\\backend-log.xml:/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
-    - "C:\\Users\\realb\\AppData\\Local\\JetBrains\\Rider2024.3\\log\\DebuggerWorker\\\
-      JetBrains.Debugger.Worker.2025_4_14_20_41_16:/var/opt/JetBrains/RiderDebuggerTools:rw"
+    - "C:\\Users\\realb\\AppData\\Local\\JetBrains\\Rider2025.1\\log\\DebuggerWorker\\\
+      JetBrains.Debugger.Worker.2025_4_17_19_51_22:/var/opt/JetBrains/RiderDebuggerTools:rw"
     working_dir: "/app"

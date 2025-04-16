@@ -13,11 +13,6 @@ public class LoggedInUserQueryHandler(IUserContext userContext, IApplicationDbCo
         User? user = await context.Users
             .SingleOrDefaultAsync(cancellationToken);
 
-        if (user is null)
-        {
-            return Result.Failure<User>(UserErrors.NotFound(userContext.UserId));
-        }
-
-        return user;
+        return user ?? Result.Failure<User>(UserErrors.NotFound(userContext.UserId));
     }
 }

@@ -21,11 +21,8 @@ public class GetByEmailQueryHandler(IApplicationDbContext context)
             .AsNoTracking()
             .FirstOrDefaultAsync(cancellationToken);
 
-        if (user is null)
-        {
-            return Result.Failure<UserResponse>(UserErrors.NotFound(query.Email));
-        }
-
-        return Result.Success(user);
+        return user is null
+            ? Result.Failure<UserResponse>(UserErrors.NotFound(query.Email))
+            : Result.Success(user);
     }
 }
