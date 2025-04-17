@@ -12,14 +12,14 @@ public static class UserErrors
     {
         return Error.NotFound(
             "Users.NotFound",
-            $"The user with the Id = '{userId}' was not found");
+            $"The user with the Id: '{userId}' was not found");
     }
 
     public static Error NotFound(string email)
     {
         return Error.NotFound(
             "Users.NotFound",
-            $"The user with the Email = '{email}' was not found");
+            $"The user with the Email: '{email}' was not found");
     }
 
     public static Error Unauthorized()
