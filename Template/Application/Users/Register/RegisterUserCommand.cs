@@ -1,3 +1,6 @@
-﻿namespace Application.Users.Register;
+﻿using Application.Abstractions.Messaging;
 
-public sealed record RegisterUserCommand(string Email, string FirstName, string LastName, string Password);
+namespace Application.Users.Register;
+
+public sealed record RegisterUserCommand(string Email, string FirstName, string LastName, string Password)
+    : ICommand<Guid>;

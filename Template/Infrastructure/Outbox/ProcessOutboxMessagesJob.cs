@@ -3,18 +3,18 @@ using Application.Abstractions.Persistence;
 using Application.Abstractions.Time;
 using Domain.Abstractions;
 using Domain.Infrastructure.Outbox;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Wolverine;
 
 namespace Infrastructure.Outbox;
 
 public class ProcessOutboxMessagesJob(
+    ISender sender,
     IDateTimeProvider dateTimeProvider,
     IApplicationDbContext applicationDbContext,
-    IMessageBus messageBus,
     ILogger<ProcessOutboxMessagesJob> logger)
     : IProcessOutboxMessagesJob
 {
@@ -56,7 +56,7 @@ public class ProcessOutboxMessagesJob(
                         outboxMessage.Content,
                         JsonSerializerSettings)!;
 
-                    await messageBus.InvokeAsync(domainEvent).ConfigureAwait(false);
+                    await sender.Send(domainEvent);
                 }
                 catch (Exception ex)
                 {

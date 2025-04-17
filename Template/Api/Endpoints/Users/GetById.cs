@@ -1,8 +1,8 @@
 ﻿using Api.ExceptionHandler;
 using Application.Users.GetById;
 using Domain.Abstractions.Result;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Wolverine;
 
 namespace Api.Endpoints.Users;
 
@@ -12,9 +12,11 @@ internal sealed class GetById : IEndpoint
     {
         app.MapGet("users/{userId:guid}", async (
                 [FromRoute] Guid userId,
-                IMessageBus messageBus, CancellationToken cancellationToken) =>
+                ISender sender, CancellationToken cancellationToken) =>
             {
-                Result<UserResponse> result = await messageBus.InvokeAsync<Result<UserResponse>>(new GetUserByIdQuery(userId), cancellationToken);
+                var query = new GetUserByIdQuery(userId);
+
+                Result<UserResponse> result = await sender.Send(query, cancellationToken);
 
                 return result.Match(
                     Results.Ok,

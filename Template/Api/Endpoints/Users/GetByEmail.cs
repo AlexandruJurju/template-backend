@@ -1,8 +1,8 @@
 ﻿using Api.ExceptionHandler;
 using Application.Users.GetByEmail;
 using Domain.Abstractions.Result;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Wolverine;
 
 namespace Api.Endpoints.Users;
 
@@ -12,9 +12,11 @@ internal sealed class GetByEmail : IEndpoint
     {
         app.MapGet("users/{email}", async (
                 [FromRoute] string email,
-                IMessageBus messageBus, CancellationToken cancellationToken) =>
+                ISender sender, CancellationToken cancellationToken) =>
             {
-                Result<UserResponse> result = await messageBus.InvokeAsync<Result<UserResponse>>(new GetUserByEmailQuery(email), cancellationToken);
+                var query = new GetUserByEmailQuery(email);
+
+                Result<UserResponse> result = await sender.Send(query, cancellationToken);
 
                 return result.Match(
                     Results.Ok,

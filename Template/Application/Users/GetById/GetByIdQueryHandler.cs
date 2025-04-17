@@ -1,11 +1,13 @@
-﻿using Application.Abstractions.Persistence;
+﻿using Application.Abstractions.Messaging;
+using Application.Abstractions.Persistence;
 using Domain.Abstractions.Result;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.GetById;
 
-public class GetByIdQueryHandler(IApplicationDbContext context)
+internal sealed class GetUserByIdQueryHandler(IApplicationDbContext context)
+    : IQueryHandler<GetUserByIdQuery, UserResponse>
 {
     public async Task<Result<UserResponse>> Handle(GetUserByIdQuery query, CancellationToken cancellationToken)
     {
@@ -18,7 +20,6 @@ public class GetByIdQueryHandler(IApplicationDbContext context)
                 LastName = u.LastName,
                 Email = u.Email
             })
-            .AsNoTracking()
             .SingleOrDefaultAsync(cancellationToken);
 
         return user ?? Result.Failure<UserResponse>(UserErrors.NotFound(query.UserId));

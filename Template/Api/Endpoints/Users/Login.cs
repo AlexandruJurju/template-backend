@@ -1,8 +1,8 @@
 ﻿using Api.ExceptionHandler;
 using Application.Users.Login;
 using Domain.Abstractions.Result;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Wolverine;
 
 namespace Api.Endpoints.Users;
 
@@ -12,13 +12,13 @@ internal sealed class Login : IEndpoint
     {
         app.MapPost("users/login", async (
                 [FromBody] Request request,
-                IMessageBus messageBus, CancellationToken cancellationToken) =>
+                ISender sender, CancellationToken cancellationToken) =>
             {
                 var command = new LoginUserCommand(
                     request.Email,
                     request.Password);
 
-                Result<string> result = await messageBus.InvokeAsync<Result<string>>(command, cancellationToken);
+                Result<string> result = await sender.Send(command, cancellationToken);
 
                 return result.Match(Results.Ok, CustomResults.Problem);
             })

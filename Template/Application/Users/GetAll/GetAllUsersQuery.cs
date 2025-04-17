@@ -1,3 +1,5 @@
-﻿namespace Application.Users.GetAll;
+﻿using Application.Abstractions.Messaging;
 
-public record GetAllUsersQuery;
+namespace Application.Users.GetAll;
+
+public record GetAllUsersQuery : IQuery<IEnumerable<UserResponse>>;

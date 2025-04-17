@@ -2,7 +2,7 @@
 using Api.Extensions;
 using Application.Users.GetAll;
 using Domain.Abstractions.Result;
-using Wolverine;
+using MediatR;
 
 namespace Api.Endpoints.Users;
 
@@ -11,9 +11,11 @@ public class GetAll : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("users", async (
-                IMessageBus messageBus, CancellationToken cancellationToken) =>
+                ISender sender, CancellationToken cancellationToken) =>
             {
-                Result<List<UserResponse>> result = await messageBus.InvokeAsync<Result<List<UserResponse>>>(new GetAllUsersQuery(), cancellationToken);
+                var query = new GetAllUsersQuery();
+
+                Result<IEnumerable<UserResponse>> result = await sender.Send(query, cancellationToken);
 
                 return result.Match(
                     Results.Ok,
@@ -22,8 +24,8 @@ public class GetAll : IEndpoint
             })
             .WithName("GetAll")
             .WithTags(Tags.Users)
+            .Produces<IEnumerable<UserResponse>>()
             .WithOpenApi()
-            .HasPermission(Permissions.UsersRead)
-            .Produces<List<UserResponse>>();
+            .HasPermission(Permissions.UsersRead);
     }
 }

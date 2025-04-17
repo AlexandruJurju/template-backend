@@ -38,7 +38,7 @@ builder.Logging.AddOpenTelemetry(options =>
 
 builder.Services
     .AddPresentation()
-    .AddApplication(builder.Configuration)
+    .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());

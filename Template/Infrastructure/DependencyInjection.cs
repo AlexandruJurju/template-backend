@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -58,10 +59,21 @@ public static class DependencyInjection
 
     private static void AddCaching(IServiceCollection services, IConfiguration configuration)
     {
-        string connectionString = configuration.GetConnectionString("Cache") ??
-                                  throw new ArgumentNullException(nameof(configuration));
+        string connectionString = configuration.GetConnectionString("Cache")
+                                  ?? throw new ArgumentNullException(nameof(configuration));
 
         services.AddStackExchangeRedisCache(options => options.Configuration = connectionString);
+
+        services.AddHybridCache(options =>
+            options.DefaultEntryOptions = new HybridCacheEntryOptions
+            {
+                // Local cache expiration
+                LocalCacheExpiration = TimeSpan.FromMinutes(1),
+                // Distributed cache expiration
+                Expiration = TimeSpan.FromMinutes(5)
+            });
+        
+        
 
         services.AddSingleton<ICacheService, CacheService>();
     }

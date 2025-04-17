@@ -1,11 +1,13 @@
-﻿using Application.Abstractions.Persistence;
+﻿using Application.Abstractions.Messaging;
+using Application.Abstractions.Persistence;
 using Domain.Abstractions.Result;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.GetByEmail;
 
-public class GetByEmailQueryHandler(IApplicationDbContext context)
+internal sealed class GetUserByEmailQueryHandler(IApplicationDbContext context)
+    : IQueryHandler<GetUserByEmailQuery, UserResponse>
 {
     public async Task<Result<UserResponse>> Handle(GetUserByEmailQuery query, CancellationToken cancellationToken)
     {
@@ -18,11 +20,8 @@ public class GetByEmailQueryHandler(IApplicationDbContext context)
                 LastName = u.LastName,
                 Email = u.Email
             })
-            .AsNoTracking()
-            .FirstOrDefaultAsync(cancellationToken);
+            .SingleOrDefaultAsync(cancellationToken);
 
-        return user is null
-            ? Result.Failure<UserResponse>(UserErrors.NotFound(query.Email))
-            : Result.Success(user);
+        return user ?? Result.Failure<UserResponse>(UserErrors.NotFound(query.Email));
     }
 }

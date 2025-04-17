@@ -1,35 +1,23 @@
-﻿using FluentValidation;
-using Microsoft.Extensions.Configuration;
+﻿using Application.Abstractions.Behaviors;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using Wolverine;
-using Wolverine.FluentValidation;
 
 namespace Application;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        AddFluentValidation(services);
-        
-        AddWolverine(services);
+        services.AddMediatR(config =>
+        {
+            config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+
+            config.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
+            config.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
+        });
+
+        services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly, includeInternalTypes: true);
 
         return services;
-    }
-
-    private static void AddFluentValidation(IServiceCollection services)
-    {
-        // Register all validators in the assembly
-        services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly, includeInternalTypes: true);
-    }
-
-    private static void AddWolverine(IServiceCollection services)
-    {
-        services.AddWolverine(options =>
-        {
-            options.UseFluentValidation();
-
-            options.Discovery.IncludeAssembly(typeof(DependencyInjection).Assembly);
-        });
     }
 }
