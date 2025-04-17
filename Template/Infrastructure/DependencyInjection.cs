@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using Application.Abstractions.Authentication;
-using Application.Abstractions.Caching;
 using Application.Abstractions.Outbox;
 using Application.Abstractions.Persistence;
 using Application.Abstractions.Time;
@@ -8,7 +7,6 @@ using Hangfire;
 using Hangfire.PostgreSql;
 using Infrastructure.Authentication;
 using Infrastructure.Authorization;
-using Infrastructure.Caching;
 using Infrastructure.Database;
 using Infrastructure.Outbox;
 using Infrastructure.Time;
@@ -72,10 +70,6 @@ public static class DependencyInjection
                 // Distributed cache expiration
                 Expiration = TimeSpan.FromMinutes(5)
             });
-        
-        
-
-        services.AddSingleton<ICacheService, CacheService>();
     }
 
     private static void AddHangfire(IServiceCollection services, IConfiguration configuration)
