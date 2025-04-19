@@ -17,8 +17,6 @@ using CorsOptions = Api.Cors.CorsOptions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi();
-
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddOpenTelemetry()
@@ -53,10 +51,16 @@ app.UseBackgroundJobs();
 
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
-    
-    app.MapScalarApiReference();
-    
+    app.UseSwagger();
+
+    // app.UseSwaggerUI(options =>
+    // {
+    //     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    //     options.RoutePrefix = string.Empty;
+    // });
+
+    app.MapScalarApiReference(options => options.WithOpenApiRoutePattern("/swagger/v1/swagger.json"));
+
     app.ApplyMigrations();
 
     app.UseHangfireDashboard(options: new DashboardOptions

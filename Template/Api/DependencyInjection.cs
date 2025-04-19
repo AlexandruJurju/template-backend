@@ -1,5 +1,8 @@
-﻿using Api.Cors;
+﻿using System.Reflection;
+using Api.Cors;
 using Api.ExceptionHandler;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
 
 namespace Api;
 
@@ -10,6 +13,8 @@ public static class DependencyInjection
         services.AddExceptionHandler<GlobalExceptionHandler>();
 
         services.AddProblemDetails();
+
+        AddSwaggerGenWithAuth(services);
 
         AddCors(services, configuration);
 
@@ -27,5 +32,55 @@ public static class DependencyInjection
                     .AllowAnyMethod()
                     .AllowAnyHeader())
         );
+    }
+
+    private static void AddSwaggerGenWithAuth(IServiceCollection services)
+    {
+        services.AddEndpointsApiExplorer();
+
+        services.AddSwaggerGen();
+
+        services.AddSwaggerGen(options =>
+        {
+            options.CustomSchemaIds(id => id.FullName!.Replace('+', '-'));
+
+            // Fix conflict for api versions
+            options.ResolveConflictingActions(descriptions => descriptions.First());
+
+            // Add xml comments
+            string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            options.IncludeXmlComments(xmlPath);
+
+            // Configure authentication with jwt
+            var securityScheme = new OpenApiSecurityScheme
+            {
+                Name = "JWT Authentication",
+                Description = "Enter your JWT token in this field",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                Scheme = JwtBearerDefaults.AuthenticationScheme,
+                BearerFormat = "JWT"
+            };
+
+            options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, securityScheme);
+
+            var securityRequirement = new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = JwtBearerDefaults.AuthenticationScheme
+                        }
+                    },
+                    []
+                }
+            };
+
+            options.AddSecurityRequirement(securityRequirement);
+        });
     }
 }

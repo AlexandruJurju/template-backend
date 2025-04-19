@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Endpoints.Users;
 
+/// <summary>
+/// Authenticates a user and returns a JWT token
+/// </summary>
 internal sealed class Login : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
@@ -24,11 +27,21 @@ internal sealed class Login : IEndpoint
             })
             .WithName("LoginUser")
             .WithTags(Tags.Users)
-            .WithOpenApi()
+            .WithOpenApi(operation => new(operation)
+            {
+                Summary = "Authenticate user",
+                Description = "Authenticates user credentials and returns JWT token"
+            })
             .Produces<string>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound);
     }
 
+
+    /// <summary>
+    /// Login request payload
+    /// </summary>
+    /// <param name="Email">User's email address</param>
+    /// <param name="Password">User's password</param>
     private sealed record Request(string Email, string Password);
 }

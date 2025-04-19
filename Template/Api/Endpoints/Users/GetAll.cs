@@ -3,6 +3,7 @@ using Api.Extensions;
 using Application.Users.GetAll;
 using Domain.Abstractions.Result;
 using MediatR;
+using OpenTelemetry.Trace;
 
 namespace Api.Endpoints.Users;
 
@@ -24,8 +25,8 @@ public class GetAll : IEndpoint
             })
             .WithName("GetAll")
             .WithTags(Tags.Users)
+            .HasPermission(Permissions.UsersRead)
             .Produces<IEnumerable<UserResponse>>()
-            .WithOpenApi()
-            .HasPermission(Permissions.UsersRead);
+            .ProducesProblem(StatusCodes.Status401Unauthorized);
     }
 }
