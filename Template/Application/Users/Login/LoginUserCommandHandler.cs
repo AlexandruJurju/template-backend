@@ -16,6 +16,8 @@ internal sealed class LoginUserCommandHandler(
     public async Task<Result<string>> Handle(LoginUserCommand command, CancellationToken cancellationToken)
     {
         User? user = await context.Users
+            .Include(user => user.Role)
+            .ThenInclude(role => role!.Permissions)
             .AsNoTracking()
             .SingleOrDefaultAsync(u => u.Email == command.Email, cancellationToken);
 

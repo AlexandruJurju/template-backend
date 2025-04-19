@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 using Application.Abstractions.Authentication;
 using Domain.Users;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +23,9 @@ internal sealed class TokenProvider(IConfiguration configuration) : ITokenProvid
             Subject = new ClaimsIdentity(
             [
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email)
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim("role", user.Role.Name),
+                new Claim("permissions", JsonSerializer.Serialize(user.Role.Permissions.Select(p => p.Name).ToArray()), JsonClaimValueTypes.JsonArray)
             ]),
             Expires = DateTime.UtcNow.AddMinutes(configuration.GetValue<int>("Jwt:ExpirationInMinutes")),
             SigningCredentials = credentials,

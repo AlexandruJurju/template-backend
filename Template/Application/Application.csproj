@@ -15,8 +15,4 @@
         <InternalsVisibleTo Include="Application.UnitTests"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Users\Me\" />
-    </ItemGroup>
-
 </Project>

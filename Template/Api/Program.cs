@@ -15,9 +15,9 @@ using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
-
 builder.Services.AddOpenApi();
+
+builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService(builder.Environment.ApplicationName))
@@ -52,7 +52,9 @@ app.UseBackgroundJobs();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    
     app.MapScalarApiReference();
+    
     app.ApplyMigrations();
 
     app.UseHangfireDashboard(options: new DashboardOptions

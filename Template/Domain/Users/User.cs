@@ -23,8 +23,7 @@ public sealed class User : Entity
     public string FirstName { get; init; } = null!;
     public string LastName { get; init; } = null!;
     public string PasswordHash { get; init; } = null!;
-
-    public Role? Role { get; private set; }
+    public Role Role { get; private set; }
 
     public static User Create(string email, string firstName, string lastName, string passwordHash)
     {
