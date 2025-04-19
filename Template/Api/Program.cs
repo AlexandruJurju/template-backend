@@ -5,6 +5,7 @@ using Application;
 using Hangfire;
 using HealthChecks.UI.Client;
 using Infrastructure;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
@@ -12,6 +13,7 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
 using Serilog;
+using CorsOptions = Api.Cors.CorsOptions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +39,7 @@ builder.Logging.AddOpenTelemetry(options =>
 });
 
 builder.Services
-    .AddPresentation()
+    .AddPresentation(builder.Configuration)
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
@@ -76,6 +78,8 @@ app.UseRequestContextLogging();
 app.UseSerilogRequestLogging();
 
 app.UseExceptionHandler();
+
+app.UseCors(CorsOptions.PolicyName);
 
 app.UseAuthentication();
 
