@@ -11,7 +11,6 @@ public static class DependencyInjection
     public static IServiceCollection AddPresentation(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddExceptionHandler<GlobalExceptionHandler>();
-
         services.AddProblemDetails();
 
         AddSwaggerGenWithAuth(services);
