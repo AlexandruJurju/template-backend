@@ -29,9 +29,6 @@ public class ProcessOutboxMessagesJob(
     {
         logger.LogInformation("Starting to process outbox messages");
 
-        // Use a transaction scope for atomicity
-        await using IDbContextTransaction transaction = await applicationDbContext.Database.BeginTransactionAsync();
-
         List<OutboxMessage> outboxMessages = await applicationDbContext.OutboxMessages
             .Where(m => m.ProcessedOnUtc == null)
             .Take(BATCH_SIZE)
@@ -44,43 +41,34 @@ public class ProcessOutboxMessagesJob(
             return;
         }
 
-        try
+
+        foreach (OutboxMessage outboxMessage in outboxMessages)
         {
-            foreach (OutboxMessage outboxMessage in outboxMessages)
+            Exception? exception = null;
+
+            try
             {
-                Exception? exception = null;
+                IDomainEvent domainEvent = JsonConvert.DeserializeObject<IDomainEvent>(
+                    outboxMessage.Content,
+                    JsonSerializerSettings)!;
 
-                try
-                {
-                    IDomainEvent domainEvent = JsonConvert.DeserializeObject<IDomainEvent>(
-                        outboxMessage.Content,
-                        JsonSerializerSettings)!;
-
-                    await sender.Send(domainEvent);
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(
-                        ex,
-                        "Exception while processing outbox message {MessageId}",
-                        outboxMessage.Id
-                    );
-                    exception = ex;
-                }
-
-                // Update message status (whether success or failed)
-                outboxMessage.ProcessedOnUtc = dateTimeProvider.UtcNow;
-                outboxMessage.Error = exception?.ToString();
+                await sender.Send(domainEvent);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(
+                    ex,
+                    "Exception while processing outbox message {MessageId}",
+                    outboxMessage.Id
+                );
+                exception = ex;
             }
 
-            await applicationDbContext.SaveChangesAsync();
+            // Update message status (whether success or failed)
+            outboxMessage.ProcessedOnUtc = dateTimeProvider.UtcNow;
+            outboxMessage.Error = exception?.ToString();
+        }
 
-            await transaction.CommitAsync().ConfigureAwait(false);
-        }
-        catch
-        {
-            await transaction.RollbackAsync().ConfigureAwait(false);
-            throw;
-        }
+        await applicationDbContext.SaveChangesAsync();
     }
 }
