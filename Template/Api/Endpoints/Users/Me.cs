@@ -2,7 +2,7 @@
 using Application.Abstractions.Authentication;
 using Application.Users.GetById;
 using Domain.Abstractions.Result;
-using MediatR;
+using Mediator;
 
 namespace Api.Endpoints.Users;
 

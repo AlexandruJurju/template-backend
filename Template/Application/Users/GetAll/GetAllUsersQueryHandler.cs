@@ -8,7 +8,7 @@ namespace Application.Users.GetAll;
 public class GetAllUsersQueryHandler(IApplicationDbContext context)
     : IQueryHandler<GetAllUsersQuery, IEnumerable<UserResponse>>
 {
-    public async Task<Result<IEnumerable<UserResponse>>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
+    public async ValueTask<Result<IEnumerable<UserResponse>>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
     {
         List<UserResponse> users = await context.Users
             .AsNoTracking()

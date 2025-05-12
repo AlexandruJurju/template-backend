@@ -22,7 +22,7 @@ public static class DependencyInjection
 
     private static void AddCors(IServiceCollection services, IConfiguration configuration)
     {
-        CorsOptions corsOptions = configuration.GetSection(Cors.CorsOptions.SectionName).Get<CorsOptions>()!;
+        CorsOptions corsOptions = configuration.GetSection(CorsOptions.SectionName).Get<CorsOptions>()!;
 
         services.AddCors(options =>
             options.AddPolicy(CorsOptions.PolicyName, policy =>

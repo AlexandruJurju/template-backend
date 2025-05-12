@@ -2,8 +2,7 @@
 using Api.Extensions;
 using Application.Users.GetAll;
 using Domain.Abstractions.Result;
-using MediatR;
-using OpenTelemetry.Trace;
+using Mediator;
 
 namespace Api.Endpoints.Users;
 

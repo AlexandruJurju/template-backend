@@ -9,7 +9,7 @@ namespace Application.Users.GetById;
 internal sealed class GetUserByIdQueryHandler(IApplicationDbContext context)
     : IQueryHandler<GetUserByIdQuery, UserResponse>
 {
-    public async Task<Result<UserResponse>> Handle(GetUserByIdQuery query, CancellationToken cancellationToken)
+    public async ValueTask<Result<UserResponse>> Handle(GetUserByIdQuery query, CancellationToken cancellationToken)
     {
         UserResponse? user = await context.Users
             .Where(u => u.Id == query.UserId)

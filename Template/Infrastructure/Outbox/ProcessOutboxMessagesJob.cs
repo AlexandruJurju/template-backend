@@ -3,9 +3,8 @@ using Application.Abstractions.Persistence;
 using Application.Abstractions.Time;
 using Domain.Abstractions;
 using Domain.Infrastructure.Outbox;
-using MediatR;
+using Mediator;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 

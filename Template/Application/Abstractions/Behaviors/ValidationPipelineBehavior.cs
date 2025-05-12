@@ -2,25 +2,22 @@
 using Domain.Abstractions.Result;
 using FluentValidation;
 using FluentValidation.Results;
-using MediatR;
+using Mediator;
 
 namespace Application.Abstractions.Behaviors;
 
 internal sealed class ValidationPipelineBehavior<TRequest, TResponse>(
     IEnumerable<IValidator<TRequest>> validators)
     : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : class
+    where TRequest : IMessage
 {
-    public async Task<TResponse> Handle(
-        TRequest request,
-        RequestHandlerDelegate<TResponse> next,
-        CancellationToken cancellationToken)
+    public async ValueTask<TResponse> Handle(TRequest message, MessageHandlerDelegate<TRequest, TResponse> next, CancellationToken cancellationToken)
     {
-        ValidationFailure[] validationFailures = await ValidateAsync(request);
+        ValidationFailure[] validationFailures = await ValidateAsync(message, cancellationToken);
 
         if (validationFailures.Length == 0)
         {
-            return await next(cancellationToken);
+            return await next(message, cancellationToken);
         }
 
         if (typeof(TResponse).IsGenericType &&
@@ -36,7 +33,7 @@ internal sealed class ValidationPipelineBehavior<TRequest, TResponse>(
             {
                 return (TResponse)failureMethod.Invoke(
                     null,
-                    [CreateValidationError(validationFailures)]);
+                    [CreateValidationError(validationFailures)])!;
             }
         }
         else if (typeof(TResponse) == typeof(Result))
@@ -47,7 +44,7 @@ internal sealed class ValidationPipelineBehavior<TRequest, TResponse>(
         throw new ValidationException(validationFailures);
     }
 
-    private async Task<ValidationFailure[]> ValidateAsync(TRequest request)
+    private async Task<ValidationFailure[]> ValidateAsync(TRequest request, CancellationToken cancellationToken)
     {
         if (!validators.Any())
         {
@@ -57,7 +54,7 @@ internal sealed class ValidationPipelineBehavior<TRequest, TResponse>(
         var context = new ValidationContext<TRequest>(request);
 
         ValidationResult[] validationResults = await Task.WhenAll(
-            validators.Select(validator => validator.ValidateAsync(context)));
+            validators.Select(validator => validator.ValidateAsync(context, cancellationToken)));
 
         ValidationFailure[] validationFailures = validationResults
             .Where(validationResult => !validationResult.IsValid)

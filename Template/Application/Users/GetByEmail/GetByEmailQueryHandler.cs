@@ -9,7 +9,7 @@ namespace Application.Users.GetByEmail;
 internal sealed class GetUserByEmailQueryHandler(IApplicationDbContext context)
     : IQueryHandler<GetUserByEmailQuery, UserResponse>
 {
-    public async Task<Result<UserResponse>> Handle(GetUserByEmailQuery query, CancellationToken cancellationToken)
+    public async ValueTask<Result<UserResponse>> Handle(GetUserByEmailQuery query, CancellationToken cancellationToken)
     {
         UserResponse? user = await context.Users
             .Where(u => u.Email == query.Email)

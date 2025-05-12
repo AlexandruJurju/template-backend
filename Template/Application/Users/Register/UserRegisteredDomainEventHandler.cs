@@ -1,13 +1,12 @@
 ﻿using Domain.Users;
-using MediatR;
+using Mediator;
 
 namespace Application.Users.Register;
 
 public sealed class UserRegisteredDomainEventHandler : INotificationHandler<UserRegisteredDomainEvent>
 {
-    public Task Handle(UserRegisteredDomainEvent command, CancellationToken cancellationToken)
+    public ValueTask Handle(UserRegisteredDomainEvent notification, CancellationToken cancellationToken)
     {
-        // TODO: Send an email verification link, etc.
-        return Task.CompletedTask;
+        throw new NotImplementedException();
     }
 }

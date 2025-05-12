@@ -1,5 +1,5 @@
 ﻿using Domain.Abstractions.Result;
-using MediatR;
+using Mediator;
 
 namespace Application.Abstractions.Messaging;
 

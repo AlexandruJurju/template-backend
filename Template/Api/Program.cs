@@ -5,7 +5,6 @@ using Application;
 using Hangfire;
 using HealthChecks.UI.Client;
 using Infrastructure;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Npgsql;
 using OpenTelemetry;

@@ -1,7 +1,7 @@
 ﻿using Api.ExceptionHandler;
 using Application.Users.GetById;
 using Domain.Abstractions.Result;
-using MediatR;
+using Mediator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Endpoints.Users;

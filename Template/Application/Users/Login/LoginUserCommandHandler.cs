@@ -13,7 +13,7 @@ internal sealed class LoginUserCommandHandler(
     ITokenProvider tokenProvider)
     : ICommandHandler<LoginUserCommand, string>
 {
-    public async Task<Result<string>> Handle(LoginUserCommand command, CancellationToken cancellationToken)
+    public async ValueTask<Result<string>> Handle(LoginUserCommand command, CancellationToken cancellationToken)
     {
         User? user = await context.Users
             .Include(user => user.Role)
