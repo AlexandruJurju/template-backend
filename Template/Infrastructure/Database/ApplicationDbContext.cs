@@ -49,7 +49,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
             })
             .Select(domainEvent => new OutboxMessage(
                 Guid.NewGuid(),
-                TimeProvider.System.GetUtcNow().DateTime,
+                TimeProvider.System.GetUtcNow().UtcDateTime,
                 domainEvent.GetType().Name,
                 JsonConvert.SerializeObject(domainEvent, JsonSerializerSettings)
             ))

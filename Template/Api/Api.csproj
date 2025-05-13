@@ -4,6 +4,7 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);1591</NoWarn>
+        <PreserveCompilationContext>true</PreserveCompilationContext>
     </PropertyGroup>
 
     <ItemGroup>
@@ -29,6 +30,9 @@
     <ItemGroup>
         <Content Include="..\.dockerignore">
             <Link>.dockerignore</Link>
+        </Content>
+        <Content Update="EmailTemplates\UserRegistered.cshtml">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
 

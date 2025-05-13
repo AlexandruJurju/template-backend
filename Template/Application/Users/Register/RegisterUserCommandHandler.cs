@@ -1,5 +1,4 @@
 ﻿using Application.Abstractions.Authentication;
-using Application.Abstractions.Messaging;
 using Application.Abstractions.Persistence;
 using Domain.Abstractions.Result;
 using Domain.Users;
@@ -7,8 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.Register;
 
-internal sealed class RegisterUserCommandHandler(IApplicationDbContext context, IPasswordHasher passwordHasher)
-    : ICommandHandler<RegisterUserCommand, Guid>
+internal sealed class RegisterUserCommandHandler(
+    IApplicationDbContext context,
+    IPasswordHasher passwordHasher
+)
+    : Abstractions.Messaging.ICommandHandler<RegisterUserCommand, Guid>
 {
     public async ValueTask<Result<Guid>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {

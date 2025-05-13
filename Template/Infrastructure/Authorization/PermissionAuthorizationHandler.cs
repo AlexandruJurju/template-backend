@@ -7,7 +7,9 @@ namespace Infrastructure.Authorization;
 internal sealed class PermissionAuthorizationHandler(IServiceScopeFactory serviceScopeFactory)
     : AuthorizationHandler<PermissionRequirement>
 {
-    protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
+    protected override async Task HandleRequirementAsync(
+        AuthorizationHandlerContext context,
+        PermissionRequirement requirement)
     {
         if (context.User is not { Identity.IsAuthenticated: true })
         {

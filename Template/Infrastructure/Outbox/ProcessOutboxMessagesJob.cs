@@ -10,12 +10,12 @@ using Newtonsoft.Json;
 namespace Infrastructure.Outbox;
 
 public class ProcessOutboxMessagesJob(
-    ISender sender,
+    IMediator mediator,
     IApplicationDbContext applicationDbContext,
     ILogger<ProcessOutboxMessagesJob> logger)
     : IProcessOutboxMessagesJob
 {
-    private const int BatchSize = 1000;
+    private const int BATCH_SIZE = 1000;
 
     private static readonly JsonSerializerSettings JsonSerializerSettings = new()
     {
@@ -28,7 +28,7 @@ public class ProcessOutboxMessagesJob(
 
         List<OutboxMessage> outboxMessages = await applicationDbContext.OutboxMessages
             .Where(m => m.ProcessedOnUtc == null)
-            .Take(BatchSize)
+            .Take(BATCH_SIZE)
             .OrderBy(m => m.OccurredOnUtc)
             .ToListAsync();
 
@@ -38,36 +38,33 @@ public class ProcessOutboxMessagesJob(
             return;
         }
 
-        // Process messages in parallel
-        ParallelQuery<Task> processingTasks = outboxMessages
-            .AsParallel()
-            .Select(async outboxMessage =>
+
+        foreach (OutboxMessage outboxMessage in outboxMessages)
+        {
+            Exception? exception = null;
+
+            try
             {
-                Exception? exception = null;
+                IDomainEvent domainEvent = JsonConvert.DeserializeObject<IDomainEvent>(
+                    outboxMessage.Content,
+                    JsonSerializerSettings)!;
 
-                try
-                {
-                    IDomainEvent domainEvent = JsonConvert.DeserializeObject<IDomainEvent>(
-                        outboxMessage.Content,
-                        JsonSerializerSettings)!;
+                await mediator.Publish(domainEvent);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(
+                    ex,
+                    "Exception while processing outbox message {MessageId}",
+                    outboxMessage.Id
+                );
+                exception = ex;
+            }
 
-                    await sender.Send(domainEvent);
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(
-                        ex,
-                        "Exception while processing outbox message {MessageId}",
-                        outboxMessage.Id
-                    );
-                    exception = ex;
-                }
-
-                outboxMessage.ProcessedOnUtc = TimeProvider.System.GetUtcNow().DateTime;
-                outboxMessage.Error = exception?.ToString();
-            });
-
-        await Task.WhenAll(processingTasks);
+            // Update message status (whether success or failed)
+            outboxMessage.ProcessedOnUtc = TimeProvider.System.GetUtcNow().UtcDateTime;
+            outboxMessage.Error = exception?.ToString();
+        }
 
         await applicationDbContext.SaveChangesAsync();
     }

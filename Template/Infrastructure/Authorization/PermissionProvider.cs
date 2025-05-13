@@ -17,13 +17,5 @@ internal sealed class PermissionProvider(IApplicationDbContext context)
         var permissionsSet = permissions.Select(p => p.Name).ToHashSet();
 
         return permissionsSet;
-
-        // return
-        // [
-        //     ..await context.Users
-        //         .Where(u => u.Id == userId)
-        //         .SelectMany(u => u.Role!.Permissions.Select(p => p.Name))
-        //         .ToListAsync()
-        // ];
     }
 }

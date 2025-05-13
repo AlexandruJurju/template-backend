@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Application.Abstractions.Authentication;
+using Application.Abstractions.Email;
 using Application.Abstractions.Outbox;
 using Application.Abstractions.Persistence;
 using Hangfire;
@@ -7,6 +8,7 @@ using Hangfire.PostgreSql;
 using Infrastructure.Authentication;
 using Infrastructure.Authorization;
 using Infrastructure.Database;
+using Infrastructure.Email;
 using Infrastructure.Outbox;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -24,7 +26,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddDatabase(services, configuration);
-        
+
         AddHealthChecks(services, configuration);
 
         AddCaching(services, configuration);
@@ -35,9 +37,21 @@ public static class DependencyInjection
 
         AddAuthorizationInternal(services);
 
+        AddEmail(services, configuration);
+
         return services;
     }
-    
+
+    private static void AddEmail(IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<IEmailService, EmailService>();
+
+        services
+            .AddFluentEmail(configuration["Email:SenderEmail"], configuration["Email:Sender"])
+            .AddSmtpSender(configuration["Email:Host"], configuration.GetValue<int>("Email:Port"))
+            .AddRazorRenderer();
+    }
+
     private static void AddHealthChecks(IServiceCollection services, IConfiguration configuration)
     {
         services
@@ -77,11 +91,10 @@ public static class DependencyInjection
     {
         string? connectionString = configuration.GetConnectionString("Database");
 
-        services.AddDbContext<ApplicationDbContext>(
-            options => options
-                .UseNpgsql(connectionString, npgsqlOptions =>
-                    npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Default))
-                .UseSnakeCaseNamingConvention());
+        services.AddDbContext<ApplicationDbContext>(options => options
+            .UseNpgsql(connectionString, npgsqlOptions =>
+                npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Default))
+            .UseSnakeCaseNamingConvention());
 
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
     }

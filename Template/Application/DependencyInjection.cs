@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Behaviors;
+using Domain.Users;
 using FluentValidation;
 using Mediator;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,15 +12,15 @@ public static class DependencyInjection
     {
         services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly, includeInternalTypes: true);
 
-
         services.AddMediator(options =>
             {
-                options.Assemblies = [typeof(DependencyInjection)];
+                options.Assemblies = [typeof(DependencyInjection), typeof(UserRegisteredDomainEvent)];
                 options.ServiceLifetime = ServiceLifetime.Scoped;
+                options.NotificationPublisherType = typeof(ForeachAwaitPublisher);
             }
         );
         return services
-            .AddSingleton(typeof(IPipelineBehavior<,>), typeof(RequestLoggingPipelineBehavior<,>))
-            .AddSingleton(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+            .AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestLoggingPipelineBehavior<,>))
+            .AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
     }
 }

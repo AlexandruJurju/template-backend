@@ -47,3 +47,10 @@
     restart: always
     ports:
       - "6379:6379"
+
+  template.papercut:
+    image: changemakerstudiosus/papercut-smtp
+    container_name: template.papercut
+    ports:
+      - "8080:80"
+      - "25:25"

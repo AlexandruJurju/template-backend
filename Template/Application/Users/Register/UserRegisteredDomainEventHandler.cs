@@ -1,12 +1,27 @@
-﻿using Domain.Users;
+﻿using Application.Abstractions.Email;
+using Application.Abstractions.Persistence;
+using Domain.Users;
 using Mediator;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.Register;
 
-public sealed class UserRegisteredDomainEventHandler : INotificationHandler<UserRegisteredDomainEvent>
+internal sealed class UserRegisteredDomainEventHandler(
+    IEmailService emailService,
+    IApplicationDbContext dbContext
+) : INotificationHandler<UserRegisteredDomainEvent>
 {
-    public ValueTask Handle(UserRegisteredDomainEvent notification, CancellationToken cancellationToken)
+    public async ValueTask Handle(UserRegisteredDomainEvent notification, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        User? user = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == notification.UserId, cancellationToken);
+
+        if (user is null)
+        {
+            return;
+        }
+
+        var envelope = new EmailEnvelope(user.Email, "Registered", "You were registered!");
+
+        await emailService.SendEmail(envelope, "EmailTemplates/UserRegistered.cshtml", user);
     }
 }
