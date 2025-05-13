@@ -1,5 +1,4 @@
 ﻿using Application.Abstractions.Persistence;
-using Application.Abstractions.Time;
 using Domain.Abstractions;
 using Domain.Infrastructure.Outbox;
 using Domain.Users;
@@ -8,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.Database;
 
-public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDateTimeProvider dateTimeProvider) : DbContext(options), IApplicationDbContext
+public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options), IApplicationDbContext
 {
     private static readonly JsonSerializerSettings JsonSerializerSettings = new()
     {
@@ -50,7 +49,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
             })
             .Select(domainEvent => new OutboxMessage(
                 Guid.NewGuid(),
-                dateTimeProvider.UtcNow,
+                TimeProvider.System.GetUtcNow().DateTime,
                 domainEvent.GetType().Name,
                 JsonConvert.SerializeObject(domainEvent, JsonSerializerSettings)
             ))

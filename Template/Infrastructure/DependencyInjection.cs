@@ -2,14 +2,12 @@
 using Application.Abstractions.Authentication;
 using Application.Abstractions.Outbox;
 using Application.Abstractions.Persistence;
-using Application.Abstractions.Time;
 using Hangfire;
 using Hangfire.PostgreSql;
 using Infrastructure.Authentication;
 using Infrastructure.Authorization;
 using Infrastructure.Database;
 using Infrastructure.Outbox;
-using Infrastructure.Time;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -26,9 +24,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddDatabase(services, configuration);
-
-        AddServices(services);
-
+        
         AddHealthChecks(services, configuration);
 
         AddCaching(services, configuration);
@@ -41,12 +37,7 @@ public static class DependencyInjection
 
         return services;
     }
-
-    private static void AddServices(IServiceCollection services)
-    {
-        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-    }
-
+    
     private static void AddHealthChecks(IServiceCollection services, IConfiguration configuration)
     {
         services
