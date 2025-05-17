@@ -45,6 +45,7 @@ public static class DependencyInjection
     private static void AddEmail(IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<IEmailVerificationLinkFactory, EmailVerificationLinkFactory>();
 
         services
             .AddFluentEmail(configuration["Email:SenderEmail"], configuration["Email:Sender"])

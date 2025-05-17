@@ -1,3 +1,3 @@
 ﻿namespace Application.Abstractions.Email;
 
-public record EmailEnvelope(string ToMail, string Subject, string Body);
+public record EmailEnvelope(string ToMail, string Subject, string TemplateName);

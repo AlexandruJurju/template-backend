@@ -6,7 +6,18 @@ public static class UserErrors
 {
     public static readonly Error EmailNotUnique = Error.Conflict(
         "Users.EmailNotUnique",
-        "The provided email is not unique");
+        "The provided email is not unique"
+    );
+
+    public static readonly Error EmailVerificationTokenNotFound = Error.NotFound(
+        "Users.EmailVerificationTokenNotFound",
+        "No email verification token was found for the provided email"
+    );
+    
+    public static Error EmailNotSent() => Error.Problem(
+        "Users.EmailNotSent",
+        "Email could not be sent"
+    );
 
     public static Error NotFound(Guid userId)
     {

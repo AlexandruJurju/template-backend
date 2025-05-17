@@ -10,6 +10,8 @@ public interface IApplicationDbContext
 {
     DbSet<User> Users { get; }
     DbSet<OutboxMessage> OutboxMessages { get; }
+    DbSet<EmailVerificationToken> EmailVerificationTokens { get; }
+
     DatabaseFacade Database { get; }
     EntityEntry<TEntity> Attach<TEntity>(TEntity entity) where TEntity : class;
 

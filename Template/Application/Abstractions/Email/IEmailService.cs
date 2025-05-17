@@ -1,6 +1,8 @@
-﻿namespace Application.Abstractions.Email;
+﻿using Domain.Abstractions.Result;
+
+namespace Application.Abstractions.Email;
 
 public interface IEmailService
 {
-    Task SendEmail<TModel>(EmailEnvelope envelope, string templatePath, TModel model);
+    Task<Result> SendEmail<TModel>(EmailEnvelope envelope, TModel model);
 }
