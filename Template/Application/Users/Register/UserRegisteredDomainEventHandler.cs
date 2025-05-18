@@ -4,6 +4,7 @@ using Domain.Abstractions.Result;
 using Domain.Users;
 using Mediator;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Application.Users.Register;
 
@@ -21,7 +22,7 @@ internal sealed class UserRegisteredDomainEventHandler(
         {
             return;
         }
-
+        
         // todo: configure expire from config
         var token = new EmailVerificationToken
         {
