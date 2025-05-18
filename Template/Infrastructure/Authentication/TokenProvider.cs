@@ -25,7 +25,11 @@ internal sealed class TokenProvider(IConfiguration configuration) : ITokenProvid
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("role", user.Role.Name),
-                new Claim("permissions", JsonSerializer.Serialize(user.Role.Permissions.Select(p => p.Name).ToArray()), JsonClaimValueTypes.JsonArray)
+                new Claim(
+                    "permissions",
+                    JsonSerializer.Serialize(user.Role.Permissions.Select(p => p.Name).ToArray()),
+                    JsonClaimValueTypes.JsonArray
+                )
             ]),
             Expires = DateTime.UtcNow.AddMinutes(configuration.GetValue<int>("Jwt:ExpirationInMinutes")),
             SigningCredentials = credentials,

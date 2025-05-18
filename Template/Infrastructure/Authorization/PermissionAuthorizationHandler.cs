@@ -1,32 +1,31 @@
-﻿using Infrastructure.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Authorization;
 
 namespace Infrastructure.Authorization;
 
-internal sealed class PermissionAuthorizationHandler(IServiceScopeFactory serviceScopeFactory)
+internal sealed class PermissionAuthorizationHandler()
     : AuthorizationHandler<PermissionRequirement>
 {
-    protected override async Task HandleRequirementAsync(
+    protected override Task HandleRequirementAsync(
         AuthorizationHandlerContext context,
         PermissionRequirement requirement)
     {
         if (context.User is not { Identity.IsAuthenticated: true })
         {
-            return;
+            return Task.CompletedTask;
         }
 
-        using IServiceScope scope = serviceScopeFactory.CreateScope();
-
-        PermissionProvider permissionProvider = scope.ServiceProvider.GetRequiredService<PermissionProvider>();
-
-        Guid userId = context.User.GetUserId();
-
-        HashSet<string> permissions = await permissionProvider.GetForUserIdAsync(userId);
+        // If token contains a json array then the permissions will be interpreted as separate claims
+        // Use a HashSet to store unique permissions
+        var permissions = context.User
+            .FindAll("permissions")
+            .Select(c => c.Value)
+            .ToHashSet();
 
         if (permissions.Contains(requirement.Permission))
         {
             context.Succeed(requirement);
         }
+
+        return Task.CompletedTask;
     }
 }
