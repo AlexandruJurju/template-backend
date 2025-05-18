@@ -1,10 +1,10 @@
-﻿using Api.ExceptionHandler;
-using Application.Users.GetById;
+﻿using Application.Users.GetById;
 using Domain.Abstractions.Result;
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.ExceptionHandler;
 
-namespace Api.Endpoints.Users;
+namespace Presentation.Endpoints.Users;
 
 internal sealed class GetById : IEndpoint
 {

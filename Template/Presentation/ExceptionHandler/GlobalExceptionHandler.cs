@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.ExceptionHandler;
+namespace Presentation.ExceptionHandler;
 
 internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)
     : IExceptionHandler

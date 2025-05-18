@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Extensions;
+namespace Presentation.Extensions;
 
 public static class MigrationExtensions
 {

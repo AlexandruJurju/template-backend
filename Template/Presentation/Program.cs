@@ -1,6 +1,6 @@
 using System.Reflection;
-using Api;
-using Api.Extensions;
+using Presentation;
+using Presentation.Extensions;
 using Application;
 using Hangfire;
 using HealthChecks.UI.Client;
@@ -13,7 +13,7 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
 using Serilog;
-using CorsOptions = Api.Cors.CorsOptions;
+using CorsOptions = Presentation.Cors.CorsOptions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

@@ -1,11 +1,11 @@
-﻿using Api.ExceptionHandler;
-using Application.Users.Register;
+﻿using Application.Users.Register;
 using Domain.Abstractions.Result;
 using Domain.Users;
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.ExceptionHandler;
 
-namespace Api.Endpoints.Users;
+namespace Presentation.Endpoints.Users;
 
 internal sealed class Register : IEndpoint
 {

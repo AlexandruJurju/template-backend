@@ -1,6 +1,6 @@
 ﻿using Domain.Abstractions.Result;
 
-namespace Api.ExceptionHandler;
+namespace Presentation.ExceptionHandler;
 
 public static class CustomResults
 {

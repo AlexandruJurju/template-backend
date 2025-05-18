@@ -1,10 +1,10 @@
-﻿using Api.ExceptionHandler;
-using Api.Extensions;
+﻿using Presentation.Extensions;
 using Application.Users.GetAll;
 using Domain.Abstractions.Result;
 using Mediator;
+using Presentation.ExceptionHandler;
 
-namespace Api.Endpoints.Users;
+namespace Presentation.Endpoints.Users;
 
 public class GetAll : IEndpoint
 {

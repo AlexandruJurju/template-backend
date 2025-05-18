@@ -1,10 +1,10 @@
-﻿using Api.ExceptionHandler;
-using Application.Abstractions.Authentication;
+﻿using Application.Abstractions.Authentication;
 using Application.Users.GetById;
 using Domain.Abstractions.Result;
 using Mediator;
+using Presentation.ExceptionHandler;
 
-namespace Api.Endpoints.Users;
+namespace Presentation.Endpoints.Users;
 
 public class Me : IEndpoint
 {

@@ -1,7 +1,7 @@
 ﻿using Application.Abstractions.Outbox;
 using Hangfire;
 
-namespace Api.Extensions;
+namespace Presentation.Extensions;
 
 public static class BackgroundJobExtensions
 {

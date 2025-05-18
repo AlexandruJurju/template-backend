@@ -1,9 +1,9 @@
-﻿using Api.ExceptionHandler;
-using Application.Users.VerifyEmail;
+﻿using Application.Users.VerifyEmail;
 using Domain.Abstractions.Result;
 using Mediator;
+using Presentation.ExceptionHandler;
 
-namespace Api.Endpoints.Users;
+namespace Presentation.Endpoints.Users;
 
 public class VerifyLink : IEndpoint
 {

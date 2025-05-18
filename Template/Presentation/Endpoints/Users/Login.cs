@@ -1,11 +1,11 @@
-﻿using Api.ExceptionHandler;
-using Application.Users.Login;
+﻿using Application.Users.Login;
 using Domain.Abstractions.Result;
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
+using Presentation.ExceptionHandler;
 
-namespace Api.Endpoints.Users;
+namespace Presentation.Endpoints.Users;
 
 /// <summary>
 ///     Authenticates a user and returns a JWT token

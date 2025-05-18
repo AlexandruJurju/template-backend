@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using Api.Cors;
-using Api.ExceptionHandler;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
+using Presentation.Cors;
+using Presentation.ExceptionHandler;
 
-namespace Api;
+namespace Presentation;
 
 public static class DependencyInjection
 {

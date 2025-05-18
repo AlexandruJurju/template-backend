@@ -1,4 +1,4 @@
-﻿namespace Api.Endpoints;
+﻿namespace Presentation.Endpoints;
 
 public static class Permissions
 {

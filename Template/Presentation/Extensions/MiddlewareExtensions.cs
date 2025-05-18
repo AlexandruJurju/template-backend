@@ -1,6 +1,6 @@
-﻿using Api.Middleware;
+﻿using Presentation.Middleware;
 
-namespace Api.Extensions;
+namespace Presentation.Extensions;
 
 public static class MiddlewareExtensions
 {
