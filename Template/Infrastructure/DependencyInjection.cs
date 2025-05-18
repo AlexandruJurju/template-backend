@@ -63,8 +63,7 @@ public static class DependencyInjection
 
     private static void AddCaching(IServiceCollection services, IConfiguration configuration)
     {
-        string connectionString = configuration.GetConnectionString("Cache")
-                                  ?? throw new ArgumentNullException(nameof(configuration));
+        string connectionString = configuration.GetConnectionString("Cache");
 
         services.AddStackExchangeRedisCache(options => options.Configuration = connectionString);
 
