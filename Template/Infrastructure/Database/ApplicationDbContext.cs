@@ -1,5 +1,6 @@
 ﻿using Application.Abstractions.Persistence;
 using Domain.Abstractions;
+using Domain.EmailTemplates;
 using Domain.Infrastructure.Outbox;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,9 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.Database;
 
-public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options), IApplicationDbContext
+public sealed class ApplicationDbContext(
+    DbContextOptions<ApplicationDbContext> options
+) : DbContext(options), IApplicationDbContext
 {
     private static readonly JsonSerializerSettings JsonSerializerSettings = new()
     {
@@ -17,6 +20,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<EmailVerificationToken> EmailVerificationTokens { get; set; }
+    public DbSet<EmailTemplate> EmailTemplates { get; set; }
     public DbSet<OutboxMessage> OutboxMessages { get; set; }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

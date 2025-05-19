@@ -1,4 +1,5 @@
-﻿using Domain.Infrastructure.Outbox;
+﻿using Domain.EmailTemplates;
+using Domain.Infrastructure.Outbox;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -11,7 +12,7 @@ public interface IApplicationDbContext
     DbSet<User> Users { get; }
     DbSet<OutboxMessage> OutboxMessages { get; }
     DbSet<EmailVerificationToken> EmailVerificationTokens { get; }
-
+    DbSet<EmailTemplate> EmailTemplates { get; }
     DatabaseFacade Database { get; }
     EntityEntry<TEntity> Attach<TEntity>(TEntity entity) where TEntity : class;
 
