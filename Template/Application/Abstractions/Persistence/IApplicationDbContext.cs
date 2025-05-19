@@ -1,4 +1,5 @@
-﻿using Domain.EmailTemplates;
+﻿using Domain.ApiKeys;
+using Domain.EmailTemplates;
 using Domain.Infrastructure.Outbox;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ public interface IApplicationDbContext
     DbSet<OutboxMessage> OutboxMessages { get; }
     DbSet<EmailVerificationToken> EmailVerificationTokens { get; }
     DbSet<EmailTemplate> EmailTemplates { get; }
+    DbSet<ApiKey> ApiKeys { get; }
     DatabaseFacade Database { get; }
     EntityEntry<TEntity> Attach<TEntity>(TEntity entity) where TEntity : class;
 

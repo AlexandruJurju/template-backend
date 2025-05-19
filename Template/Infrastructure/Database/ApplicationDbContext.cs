@@ -1,5 +1,6 @@
 ﻿using Application.Abstractions.Persistence;
 using Domain.Abstractions;
+using Domain.ApiKeys;
 using Domain.EmailTemplates;
 using Domain.Infrastructure.Outbox;
 using Domain.Users;
@@ -22,6 +23,7 @@ public sealed class ApplicationDbContext(
     public DbSet<EmailVerificationToken> EmailVerificationTokens { get; set; }
     public DbSet<EmailTemplate> EmailTemplates { get; set; }
     public DbSet<OutboxMessage> OutboxMessages { get; set; }
+    public DbSet<ApiKey> ApiKeys { get; set; }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {

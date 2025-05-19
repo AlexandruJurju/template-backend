@@ -2,6 +2,7 @@
 using Domain.Abstractions.Result;
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.Authentication;
 using Presentation.ExceptionHandler;
 
 namespace Presentation.Endpoints.Users;
@@ -27,6 +28,8 @@ internal sealed class GetByEmail : IEndpoint
             .WithTags(Tags.Users)
             .WithOpenApi()
             .Produces<UserResponse>()
-            .ProducesProblem(StatusCodes.Status404NotFound);
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .ProducesProblem(StatusCodes.Status404NotFound)
+            .AddEndpointFilter<ApiKeyEndpointFilter>();
     }
 }

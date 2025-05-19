@@ -36,7 +36,6 @@ public static class DependencyInjection
     private static void AddSwaggerGenWithAuth(IServiceCollection services)
     {
         services.AddEndpointsApiExplorer();
-
         services.AddSwaggerGen();
 
         services.AddSwaggerGen(options =>
@@ -51,8 +50,8 @@ public static class DependencyInjection
             string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             options.IncludeXmlComments(xmlPath);
 
-            // Configure authentication with jwt
-            var securityScheme = new OpenApiSecurityScheme
+            // ================== JWT Configuration ==================
+            var jwtSecurityScheme = new OpenApiSecurityScheme
             {
                 Name = "JWT Authentication",
                 Description = "Enter your JWT token in this field",
@@ -62,10 +61,24 @@ public static class DependencyInjection
                 BearerFormat = "JWT"
             };
 
-            options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, securityScheme);
+            options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, jwtSecurityScheme);
 
-            var securityRequirement = new OpenApiSecurityRequirement
+            // ================== API Key Configuration ==================
+            var apiKeySecurityScheme = new OpenApiSecurityScheme
             {
+                Name = "X-ApiKey",
+                Description = "API Key authentication",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "ApiKeyScheme"
+            };
+
+            options.AddSecurityDefinition("ApiKey", apiKeySecurityScheme);
+
+            // ================== Combined Security Requirements ==================
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                // JWT Requirement
                 {
                     new OpenApiSecurityScheme
                     {
@@ -75,11 +88,21 @@ public static class DependencyInjection
                             Id = JwtBearerDefaults.AuthenticationScheme
                         }
                     },
-                    []
+                    Array.Empty<string>()
+                },
+                // API Key Requirement
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "ApiKey"
+                        }
+                    },
+                    Array.Empty<string>()
                 }
-            };
-
-            options.AddSecurityRequirement(securityRequirement);
+            });
         });
     }
 }
