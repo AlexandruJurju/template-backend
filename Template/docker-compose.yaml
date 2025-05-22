@@ -42,7 +42,7 @@
       - "8081:80"
   
   template.redis:
-    image: redis:latest
+    image: valkey/valkey
     container_name: template.redis
     restart: always
     ports:
