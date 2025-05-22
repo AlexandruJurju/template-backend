@@ -40,6 +40,9 @@ public static class DependencyInjection
 
         services.AddSwaggerGen(options =>
         {
+            // Fix problem with swagger and scalar ui -> treats strings as nullable even if they are not marked as nullable
+            options.SupportNonNullableReferenceTypes();
+
             options.CustomSchemaIds(id => id.FullName!.Replace('+', '-'));
 
             // Fix conflict for api versions

@@ -8,33 +8,46 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.Users.Login;
 
 internal sealed class LoginUserCommandHandler(
-    IApplicationDbContext context,
+    IApplicationDbContext dbContext,
     IPasswordHasher passwordHasher,
-    ITokenProvider tokenProvider)
-    : ICommandHandler<LoginUserCommand, string>
+    ITokenProvider tokenProvider
+) : ICommandHandler<LoginUserCommand, LoginResponse>
 {
-    public async ValueTask<Result<string>> Handle(LoginUserCommand command, CancellationToken cancellationToken)
+    public async ValueTask<Result<LoginResponse>> Handle(LoginUserCommand command, CancellationToken cancellationToken)
     {
-        User? user = await context.Users
+        User? user = await dbContext.Users
             .Include(user => user.Role)
-            .ThenInclude(role => role!.Permissions)
+            .ThenInclude(role => role.Permissions)
             .AsNoTracking()
             .SingleOrDefaultAsync(u => u.Email == command.Email, cancellationToken);
 
         if (user is null)
         {
-            return Result.Failure<string>(UserErrors.NotFound(command.Email));
+            return UserErrors.NotFound(command.Email);
         }
 
         bool verified = passwordHasher.Verify(command.Password, user.PasswordHash);
 
         if (!verified)
         {
-            return Result.Failure<string>(UserErrors.NotFound(command.Email));
+            return UserErrors.NotFound(command.Email);
         }
 
-        string token = tokenProvider.Create(user);
+        // todo: use config
+        var refreshToken = new Domain.Users.RefreshToken
+        {
+            Id = Guid.NewGuid(),
+            ExpiresOnUtc = TimeProvider.System.GetUtcNow().UtcDateTime.AddDays(7),
+            Token = tokenProvider.GenerateRefreshToken(),
+            UserId = user.Id
+        };
 
-        return token;
+        dbContext.RefreshTokens.Add(refreshToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
+
+        return new LoginResponse(
+            tokenProvider.GenerateToken(user),
+            refreshToken.Token
+        );
     }
 }

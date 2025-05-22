@@ -20,10 +20,12 @@ public sealed class ApplicationDbContext(
 
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
-    public DbSet<EmailVerificationToken> EmailVerificationTokens { get; set; }
-    public DbSet<EmailTemplate> EmailTemplates { get; set; }
     public DbSet<OutboxMessage> OutboxMessages { get; set; }
     public DbSet<ApiKey> ApiKeys { get; set; }
+    public DbSet<EmailVerificationToken> EmailVerificationTokens { get; set; }
+    public DbSet<EmailTemplate> EmailTemplates { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
+
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {

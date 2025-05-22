@@ -13,7 +13,12 @@ public static class UserErrors
         "Users.EmailVerificationTokenNotFound",
         "No email verification token was found for the provided email"
     );
-    
+
+
+    public static readonly Error RefreshTokenExpired = Error.Problem(
+        "Users.RefreshTokenExpired",
+        "The refresh token has expired");
+
     public static Error EmailNotSent() => Error.Problem(
         "Users.EmailNotSent",
         "Email could not be sent"

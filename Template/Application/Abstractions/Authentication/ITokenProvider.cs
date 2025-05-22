@@ -4,5 +4,6 @@ namespace Application.Abstractions.Authentication;
 
 public interface ITokenProvider
 {
-    string Create(User user);
+    string GenerateToken(User user);
+    string GenerateRefreshToken();
 }

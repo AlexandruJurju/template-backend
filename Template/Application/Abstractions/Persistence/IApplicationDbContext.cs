@@ -12,9 +12,11 @@ public interface IApplicationDbContext
 {
     DbSet<User> Users { get; }
     DbSet<OutboxMessage> OutboxMessages { get; }
+    
     DbSet<EmailVerificationToken> EmailVerificationTokens { get; }
     DbSet<EmailTemplate> EmailTemplates { get; }
     DbSet<ApiKey> ApiKeys { get; }
+    DbSet<RefreshToken> RefreshTokens { get; }
     DatabaseFacade Database { get; }
     EntityEntry<TEntity> Attach<TEntity>(TEntity entity) where TEntity : class;
 

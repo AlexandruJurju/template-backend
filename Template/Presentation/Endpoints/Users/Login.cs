@@ -16,13 +16,14 @@ internal sealed class Login : IEndpoint
     {
         app.MapPost("users/login", async (
                 [FromBody] Request request,
-                ISender sender, CancellationToken cancellationToken) =>
+                ISender sender, 
+                CancellationToken cancellationToken) =>
             {
                 var command = new LoginUserCommand(
                     request.Email,
                     request.Password);
 
-                Result<string> result = await sender.Send(command, cancellationToken);
+                Result<LoginResponse> result = await sender.Send(command, cancellationToken);
 
                 return result.Match(Results.Ok, CustomResults.Problem);
             })
@@ -33,7 +34,7 @@ internal sealed class Login : IEndpoint
                 Summary = "Authenticate user",
                 Description = "Authenticates user credentials and returns JWT token"
             })
-            .Produces<string>()
+            .Produces<LoginResponse>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound);
     }
