@@ -12,6 +12,8 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="EntityFrameworkCore.Testing.NSubstitute" Version="9.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="9.0.5" />
         <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="9.5.0"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0"/>
         <PackageReference Include="MockQueryable.NSubstitute" Version="7.0.3"/>
