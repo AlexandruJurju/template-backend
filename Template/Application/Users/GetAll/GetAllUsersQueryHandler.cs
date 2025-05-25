@@ -1,26 +1,25 @@
 ﻿using Application.Abstractions.Messaging;
-using Application.Abstractions.Persistence;
+using Domain.Abstractions.Persistence;
 using Domain.Abstractions.Result;
-using Microsoft.EntityFrameworkCore;
+using Domain.Users;
 
 namespace Application.Users.GetAll;
 
-public class GetAllUsersQueryHandler(IApplicationDbContext context)
+public class GetAllUsersQueryHandler(IUserRepository userRepository)
     : IQueryHandler<GetAllUsersQuery, IEnumerable<UserResponse>>
 {
     public async ValueTask<Result<IEnumerable<UserResponse>>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
     {
-        List<UserResponse> users = await context.Users
-            .AsNoTracking()
-            .Select(u => new UserResponse
-            {
-                Id = u.Id,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
-                Email = u.Email
-            })
-            .ToListAsync(cancellationToken);
+        IEnumerable<User> users = await userRepository.GetAllAsync(cancellationToken);
 
-        return users;
+        var userResponses = users.Select(u => new UserResponse
+        {
+            Id = u.Id,
+            FirstName = u.FirstName,
+            LastName = u.LastName,
+            Email = u.Email
+        }).ToList();
+
+        return userResponses;
     }
 }

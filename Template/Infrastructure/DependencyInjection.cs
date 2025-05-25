@@ -2,12 +2,13 @@
 using Application.Abstractions.Authentication;
 using Application.Abstractions.Email;
 using Application.Abstractions.Outbox;
-using Application.Abstractions.Persistence;
+using Domain.Abstractions.Persistence;
 using Hangfire;
 using Hangfire.PostgreSql;
 using Infrastructure.Authentication;
 using Infrastructure.Authorization;
 using Infrastructure.Database;
+using Infrastructure.Database.Repositories;
 using Infrastructure.Email;
 using Infrastructure.Outbox;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -95,8 +96,19 @@ public static class DependencyInjection
             .UseNpgsql(connectionString, npgsqlOptions =>
                 npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Default))
             .UseSnakeCaseNamingConvention());
+        
+        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
-        services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
+        AddRepositories(services);
+    }
+
+    private static void AddRepositories(IServiceCollection services)
+    {
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IApiKeyRepository, ApiKeyRepository>();
+        services.AddScoped<IEmailTemplateRepository, EmailTemplateRepository>();
+        services.AddScoped<IEmailVerificationTokenRepository, EmailVerificationTokenRepository>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
     }
 
     private static void AddAuthenticationInternal(IServiceCollection services, IConfiguration configuration)

@@ -1,11 +1,11 @@
-﻿using Application.Abstractions.Persistence;
+﻿using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Hybrid;
 
 namespace Infrastructure.Authorization;
 
 internal sealed class PermissionProvider(
-    IApplicationDbContext context,
+    ApplicationDbContext context,
     HybridCache hybridCache
 )
 {

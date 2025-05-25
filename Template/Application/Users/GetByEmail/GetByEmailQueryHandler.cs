@@ -1,27 +1,30 @@
 ﻿using Application.Abstractions.Messaging;
-using Application.Abstractions.Persistence;
+using Domain.Abstractions.Persistence;
 using Domain.Abstractions.Result;
 using Domain.Users;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.GetByEmail;
 
-internal sealed class GetUserByEmailQueryHandler(IApplicationDbContext context)
+internal sealed class GetUserByEmailQueryHandler(IUserRepository userRepository)
     : IQueryHandler<GetUserByEmailQuery, UserResponse>
 {
     public async ValueTask<Result<UserResponse>> Handle(GetUserByEmailQuery query, CancellationToken cancellationToken)
     {
-        UserResponse? user = await context.Users
-            .Where(u => u.Email == query.Email)
-            .Select(u => new UserResponse
-            {
-                Id = u.Id,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
-                Email = u.Email
-            })
-            .SingleOrDefaultAsync(cancellationToken);
+        User? user = await userRepository.GetByEmailAsync(query.Email, cancellationToken);
 
-        return user ?? Result.Failure<UserResponse>(UserErrors.NotFound(query.Email));
+        if (user is null)
+        {
+            return UserErrors.NotFound(query.Email);
+        }
+
+        var response = new UserResponse
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email
+        };
+
+        return response;
     }
 }

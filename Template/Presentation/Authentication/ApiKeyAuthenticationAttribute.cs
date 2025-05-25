@@ -1,7 +1,6 @@
-﻿using Application.Abstractions.Persistence;
+﻿using Domain.Abstractions.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.EntityFrameworkCore;
 
 namespace Presentation.Authentication;
 
@@ -32,10 +31,9 @@ internal sealed class ApiKeyAuthenticationAttribute : Attribute, IAsyncAuthoriza
             return false;
         }
 
-        IApplicationDbContext dbContext = httpContext.RequestServices.GetService<IApplicationDbContext>()!;
+        IApiKeyRepository apiKeyRepository = httpContext.RequestServices.GetService<IApiKeyRepository>()!;
 
-        bool isValid = await dbContext.ApiKeys
-            .AnyAsync(k => k.Id == apiKeyGuid && k.IsActive);
+        bool isValid = await apiKeyRepository.IsKeyValidAsync(apiKeyGuid);
 
         return isValid;
     }

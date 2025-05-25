@@ -1,7 +1,7 @@
 ﻿using Application.Abstractions.Outbox;
-using Application.Abstractions.Persistence;
 using Domain.Abstractions;
 using Domain.Infrastructure.Outbox;
+using Infrastructure.Database;
 using Mediator;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -11,7 +11,7 @@ namespace Infrastructure.Outbox;
 
 public class ProcessOutboxMessagesJob(
     IMediator mediator,
-    IApplicationDbContext applicationDbContext,
+    ApplicationDbContext applicationDbContext,
     TimeProvider timeProvider,
     ILogger<ProcessOutboxMessagesJob> logger
 ) : IProcessOutboxMessagesJob

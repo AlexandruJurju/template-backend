@@ -1,5 +1,5 @@
-﻿using Application.Abstractions.Persistence;
-using Domain.Abstractions;
+﻿using Domain.Abstractions;
+using Domain.Abstractions.Persistence;
 using Domain.ApiKeys;
 using Domain.EmailTemplates;
 using Domain.Infrastructure.Outbox;
@@ -11,7 +11,7 @@ namespace Infrastructure.Database;
 
 public sealed class ApplicationDbContext(
     DbContextOptions<ApplicationDbContext> options
-) : DbContext(options), IApplicationDbContext
+) : DbContext(options), IUnitOfWork
 {
     private static readonly JsonSerializerSettings JsonSerializerSettings = new()
     {

@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions.Messaging;
-using Application.Abstractions.Persistence;
+using Domain.Abstractions.Persistence;
 using Domain.Abstractions.Result;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
@@ -7,24 +7,24 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.Users.VerifyEmail;
 
 public class VerifyEmailCommandHandler(
-    IApplicationDbContext dbContext,
+    IEmailVerificationTokenRepository emailVerificationTokenRepository,
+    IUnitOfWork unitOfWork,
     TimeProvider timeProvider
 ) : ICommandHandler<VerifyEmailCommand>
 {
     public async ValueTask<Result> Handle(VerifyEmailCommand request, CancellationToken cancellationToken)
     {
-        EmailVerificationToken? token = await dbContext.EmailVerificationTokens
-            .Include(e => e.User)
-            .FirstOrDefaultAsync(e => e.Id == request.TokenId, cancellationToken);
+        EmailVerificationToken? token = await emailVerificationTokenRepository
+            .GetByIdAsync(request.TokenId, cancellationToken);
 
         if (token is null || token.ExpiresOnUtc < timeProvider.GetUtcNow().UtcDateTime)
         {
             return UserErrors.EmailVerificationTokenNotFound;
         }
 
-        dbContext.EmailVerificationTokens.Remove(token);
+        emailVerificationTokenRepository.Remove(token);
 
-        await dbContext.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }

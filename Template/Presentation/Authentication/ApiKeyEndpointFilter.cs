@@ -1,9 +1,10 @@
-﻿using Application.Abstractions.Persistence;
-using Microsoft.EntityFrameworkCore;
+﻿using Domain.Abstractions.Persistence;
 
 namespace Presentation.Authentication;
 
-public sealed class ApiKeyEndpointFilter : IEndpointFilter
+public sealed class ApiKeyEndpointFilter(
+    IApiKeyRepository apiKeyRepository
+) : IEndpointFilter
 {
     private const string ApiKeyHeaderName = "X-ApiKey";
 
@@ -21,10 +22,7 @@ public sealed class ApiKeyEndpointFilter : IEndpointFilter
         }
 
         // 3. Database Validation
-        IApplicationDbContext dbContext = context.HttpContext.RequestServices.GetRequiredService<IApplicationDbContext>();
-
-        bool isValid = await dbContext.ApiKeys
-            .AnyAsync(k => k.Id == apiKeyGuid && k.IsActive, context.HttpContext.RequestAborted);
+        bool isValid = await apiKeyRepository.IsKeyValidAsync(apiKeyGuid);
 
         if (!isValid)
         {

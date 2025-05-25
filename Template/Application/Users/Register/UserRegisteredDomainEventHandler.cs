@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions.Email;
-using Application.Abstractions.Persistence;
+using Domain.Abstractions.Persistence;
 using Domain.Abstractions.Result;
 using Domain.EmailTemplates;
 using Domain.Users;
@@ -11,7 +11,9 @@ namespace Application.Users.Register;
 
 internal sealed class UserRegisteredDomainEventHandler(
     IEmailService emailService,
-    IApplicationDbContext dbContext,
+    IUserRepository userRepository,
+    IEmailVerificationTokenRepository emailVerificationTokenRepository,
+    IEmailTemplateRepository emailTemplateRepository,
     IEmailVerificationLinkFactory emailVerificationLinkFactory,
     TimeProvider timeProvider,
     IConfiguration configuration
@@ -19,7 +21,7 @@ internal sealed class UserRegisteredDomainEventHandler(
 {
     public async ValueTask Handle(UserRegisteredDomainEvent notification, CancellationToken cancellationToken)
     {
-        User? user = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == notification.UserId, cancellationToken);
+        User? user = await userRepository.GetByIdAsync(notification.UserId, cancellationToken);
 
         if (user is null)
         {
@@ -33,12 +35,12 @@ internal sealed class UserRegisteredDomainEventHandler(
             CreatedOnUtc = timeProvider.GetUtcNow().UtcDateTime,
             ExpiresOnUtc = timeProvider.GetUtcNow().UtcDateTime.AddDays(configuration.GetValue<int>("Email:VerificationTokenExpireHours"))
         };
-        dbContext.EmailVerificationTokens.Add(token);
+        emailVerificationTokenRepository.Add(token);
 
         string verificationLink = emailVerificationLinkFactory.Create(token);
 
-        EmailTemplate? template = await dbContext.EmailTemplates.SingleOrDefaultAsync(e => e.Name == EmailTemplate.UserRegistered, cancellationToken) ??
-                                  throw new Exception(EmailTemplateErrors.NotFound(EmailTemplate.UserRegistered).Description);
+        EmailTemplate template = await emailTemplateRepository.GetByNameAsync(EmailTemplate.UserRegistered, cancellationToken) ??
+                                 throw new Exception(EmailTemplateErrors.NotFound(EmailTemplate.UserRegistered).Description);
 
         Result result = await emailService.SendEmail(user.Email, template, new RegisterUserMailModel(verificationLink));
 

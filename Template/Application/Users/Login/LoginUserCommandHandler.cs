@@ -1,15 +1,16 @@
 ﻿using Application.Abstractions.Authentication;
 using Application.Abstractions.Messaging;
-using Application.Abstractions.Persistence;
+using Domain.Abstractions.Persistence;
 using Domain.Abstractions.Result;
 using Domain.Users;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Application.Users.Login;
 
 internal sealed class LoginUserCommandHandler(
-    IApplicationDbContext dbContext,
+    IUserRepository userRepository,
+    IRefreshTokenRepository refreshTokenRepository,
+    IUnitOfWork unitOfWork,
     IPasswordHasher passwordHasher,
     ITokenProvider tokenProvider,
     IConfiguration configuration,
@@ -18,11 +19,7 @@ internal sealed class LoginUserCommandHandler(
 {
     public async ValueTask<Result<LoginResponse>> Handle(LoginUserCommand command, CancellationToken cancellationToken)
     {
-        User? user = await dbContext.Users
-            .Include(user => user.Role)
-            .ThenInclude(role => role.Permissions)
-            .AsNoTracking()
-            .SingleOrDefaultAsync(u => u.Email == command.Email, cancellationToken);
+        User? user = await userRepository.GetByEmailAsync(command.Email, cancellationToken);
 
         if (user is null)
         {
@@ -39,13 +36,13 @@ internal sealed class LoginUserCommandHandler(
         var refreshToken = new Domain.Users.RefreshToken
         {
             Id = Guid.NewGuid(),
-            ExpiresOnUtc = timeProvider.GetUtcNow().DateTime.AddMinutes(configuration.GetValue<int>("Jwt:RefreshTokenExpireInMinutes")),
+            ExpiresOnUtc = timeProvider.GetUtcNow().UtcDateTime.AddMinutes(configuration.GetValue<int>("Jwt:RefreshTokenExpireInMinutes")),
             Token = tokenProvider.GenerateRefreshToken(),
             UserId = user.Id
         };
 
-        dbContext.RefreshTokens.Add(refreshToken);
-        await dbContext.SaveChangesAsync(cancellationToken);
+        refreshTokenRepository.Add(refreshToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return new LoginResponse(
             tokenProvider.GenerateToken(user),
