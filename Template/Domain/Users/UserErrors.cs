@@ -19,10 +19,13 @@ public static class UserErrors
         "Users.RefreshTokenExpired",
         "The refresh token has expired");
 
-    public static Error EmailNotSent() => Error.Problem(
-        "Users.EmailNotSent",
-        "Email could not be sent"
-    );
+    public static Error EmailNotSent()
+    {
+        return Error.Problem(
+            "Users.EmailNotSent",
+            "Email could not be sent"
+        );
+    }
 
     public static Error NotFound(Guid userId)
     {

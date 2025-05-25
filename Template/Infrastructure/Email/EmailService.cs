@@ -4,7 +4,6 @@ using Domain.EmailTemplates;
 using Domain.Users;
 using FluentEmail.Core;
 using FluentEmail.Core.Models;
-using RazorLight;
 
 namespace Infrastructure.Email;
 
@@ -15,7 +14,7 @@ public class EmailService(IFluentEmail fluentEmail) : IEmailService
         SendResponse? result = await fluentEmail
             .To(toMail)
             .Subject(emailTemplate.Subject)
-            .UsingTemplate(emailTemplate.Content, model, isHtml: true)
+            .UsingTemplate(emailTemplate.Content, model, true)
             .SendAsync();
 
         return !result.Successful

@@ -9,6 +9,7 @@ namespace Application.Users.RefreshToken;
 
 public class RefreshTokenCommandHandler(
     IApplicationDbContext dbContext,
+    TimeProvider timeProvider,
     ITokenProvider tokenProvider
 ) : ICommandHandler<RefreshTokenCommand, RefreshTokenResponse>
 {
@@ -20,7 +21,7 @@ public class RefreshTokenCommandHandler(
             .ThenInclude(e => e.Permissions)
             .SingleOrDefaultAsync(e => e.Token == request.RefreshToken, cancellationToken);
 
-        if (refreshToken is null || refreshToken.ExpiresOnUtc < TimeProvider.System.GetUtcNow().UtcDateTime)
+        if (refreshToken is null || refreshToken.ExpiresOnUtc < timeProvider.GetUtcNow().UtcDateTime)
         {
             return UserErrors.RefreshTokenExpired;
         }
@@ -28,7 +29,7 @@ public class RefreshTokenCommandHandler(
         string accessToken = tokenProvider.GenerateToken(refreshToken.User);
 
         refreshToken.Token = tokenProvider.GenerateRefreshToken();
-        refreshToken.ExpiresOnUtc = TimeProvider.System.GetUtcNow().UtcDateTime.AddDays(7);
+        refreshToken.ExpiresOnUtc = timeProvider.GetUtcNow().UtcDateTime.AddDays(7);
 
         return new RefreshTokenResponse(accessToken, refreshToken.Token);
     }

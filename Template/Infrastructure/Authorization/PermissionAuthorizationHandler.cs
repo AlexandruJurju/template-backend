@@ -2,8 +2,7 @@
 
 namespace Infrastructure.Authorization;
 
-internal sealed class PermissionAuthorizationHandler()
-    : AuthorizationHandler<PermissionRequirement>
+internal sealed class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
 {
     protected override Task HandleRequirementAsync(
         AuthorizationHandlerContext context,

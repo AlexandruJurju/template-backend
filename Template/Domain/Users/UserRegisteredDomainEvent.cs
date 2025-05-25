@@ -1,5 +1,4 @@
 ﻿using Domain.Abstractions;
-using Mediator;
 
 namespace Domain.Users;
 

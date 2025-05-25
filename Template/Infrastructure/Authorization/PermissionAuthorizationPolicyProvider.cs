@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Authorization;
 
-internal sealed class PermissionAuthorizationPolicyProvider(IOptions<AuthorizationOptions> options) 
+internal sealed class PermissionAuthorizationPolicyProvider(IOptions<AuthorizationOptions> options)
     : DefaultAuthorizationPolicyProvider(options)
 {
     private readonly AuthorizationOptions _authorizationOptions = options.Value;

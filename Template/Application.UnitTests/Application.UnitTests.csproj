@@ -9,20 +9,20 @@
 
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.4">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="9.5.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-        <PackageReference Include="MockQueryable.NSubstitute" Version="7.0.3" />
-        <PackageReference Include="NSubstitute" Version="5.3.0" />
-        <PackageReference Include="Shouldly" Version="4.3.0" />
-        <PackageReference Include="xunit" Version="2.9.3" />
+        <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="9.5.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0"/>
+        <PackageReference Include="MockQueryable.NSubstitute" Version="7.0.3"/>
+        <PackageReference Include="NSubstitute" Version="5.3.0"/>
+        <PackageReference Include="Shouldly" Version="4.3.0"/>
+        <PackageReference Include="xunit" Version="2.9.3"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="3.1.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Remove="SonarAnalyzer.CSharp" />
+        <PackageReference Remove="SonarAnalyzer.CSharp"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -30,7 +30,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Application\Application.csproj" />
+        <ProjectReference Include="..\Application\Application.csproj"/>
     </ItemGroup>
 
 </Project>

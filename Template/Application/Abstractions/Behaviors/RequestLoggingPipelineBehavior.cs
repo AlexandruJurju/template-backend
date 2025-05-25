@@ -11,7 +11,6 @@ internal sealed class RequestLoggingPipelineBehavior<TRequest, TResponse>(
     where TRequest : IMessage
     where TResponse : Result
 {
-
     public async ValueTask<TResponse> Handle(TRequest message, MessageHandlerDelegate<TRequest, TResponse> next, CancellationToken cancellationToken)
     {
         string requestName = typeof(TRequest).Name;
@@ -32,5 +31,6 @@ internal sealed class RequestLoggingPipelineBehavior<TRequest, TResponse>(
             }
         }
 
-        return result;    }
+        return result;
+    }
 }

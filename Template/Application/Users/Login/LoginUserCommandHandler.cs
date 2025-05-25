@@ -4,13 +4,16 @@ using Application.Abstractions.Persistence;
 using Domain.Abstractions.Result;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Application.Users.Login;
 
 internal sealed class LoginUserCommandHandler(
     IApplicationDbContext dbContext,
     IPasswordHasher passwordHasher,
-    ITokenProvider tokenProvider
+    ITokenProvider tokenProvider,
+    IConfiguration configuration,
+    TimeProvider timeProvider
 ) : ICommandHandler<LoginUserCommand, LoginResponse>
 {
     public async ValueTask<Result<LoginResponse>> Handle(LoginUserCommand command, CancellationToken cancellationToken)
@@ -33,11 +36,10 @@ internal sealed class LoginUserCommandHandler(
             return UserErrors.NotFound(command.Email);
         }
 
-        // todo: use config
         var refreshToken = new Domain.Users.RefreshToken
         {
             Id = Guid.NewGuid(),
-            ExpiresOnUtc = TimeProvider.System.GetUtcNow().UtcDateTime.AddDays(7),
+            ExpiresOnUtc = timeProvider.GetUtcNow().DateTime.AddMinutes(configuration.GetValue<int>("Jwt:RefreshTokenExpireInMinutes")),
             Token = tokenProvider.GenerateRefreshToken(),
             UserId = user.Id
         };

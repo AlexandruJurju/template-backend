@@ -12,8 +12,9 @@ namespace Infrastructure.Outbox;
 public class ProcessOutboxMessagesJob(
     IMediator mediator,
     IApplicationDbContext applicationDbContext,
-    ILogger<ProcessOutboxMessagesJob> logger)
-    : IProcessOutboxMessagesJob
+    TimeProvider timeProvider,
+    ILogger<ProcessOutboxMessagesJob> logger
+) : IProcessOutboxMessagesJob
 {
     private const int BATCH_SIZE = 1000;
 
@@ -62,7 +63,7 @@ public class ProcessOutboxMessagesJob(
             }
 
             // Update message status (whether success or failed)
-            outboxMessage.ProcessedOnUtc = TimeProvider.System.GetUtcNow().UtcDateTime;
+            outboxMessage.ProcessedOnUtc = timeProvider.GetUtcNow().UtcDateTime;
             outboxMessage.Error = exception?.ToString();
         }
 

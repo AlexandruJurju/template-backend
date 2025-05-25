@@ -13,6 +13,7 @@ internal sealed class UserRegisteredDomainEventHandler(
     IEmailService emailService,
     IApplicationDbContext dbContext,
     IEmailVerificationLinkFactory emailVerificationLinkFactory,
+    TimeProvider timeProvider,
     IConfiguration configuration
 ) : INotificationHandler<UserRegisteredDomainEvent>
 {
@@ -29,8 +30,8 @@ internal sealed class UserRegisteredDomainEventHandler(
         {
             Id = Guid.NewGuid(),
             UserId = user.Id,
-            CreatedOnUtc = TimeProvider.System.GetUtcNow().UtcDateTime,
-            ExpiresOnUtc = TimeProvider.System.GetUtcNow().UtcDateTime.AddDays(configuration.GetValue<int>("Email:VerificationTokenExpireHours"))
+            CreatedOnUtc = timeProvider.GetUtcNow().UtcDateTime,
+            ExpiresOnUtc = timeProvider.GetUtcNow().UtcDateTime.AddDays(configuration.GetValue<int>("Email:VerificationTokenExpireHours"))
         };
         dbContext.EmailVerificationTokens.Add(token);
 

@@ -13,8 +13,6 @@ namespace Presentation.Endpoints.Users;
 /// </summary>
 internal sealed class RefreshToken : IEndpoint
 {
-    private sealed record RefreshTokenRequest(string RefreshToken);
-
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost("users/refresh-token", async (
@@ -37,4 +35,6 @@ internal sealed class RefreshToken : IEndpoint
             .Produces<LoginResponse>()
             .ProducesProblem(StatusCodes.Status400BadRequest);
     }
+
+    private sealed record RefreshTokenRequest(string RefreshToken);
 }

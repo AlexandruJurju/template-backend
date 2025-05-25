@@ -1,6 +1,5 @@
 ﻿using Application.Abstractions.Persistence;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Primitives;
 
 namespace Presentation.Authentication;
 

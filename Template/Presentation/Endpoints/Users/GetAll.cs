@@ -1,8 +1,8 @@
-﻿using Presentation.Extensions;
-using Application.Users.GetAll;
+﻿using Application.Users.GetAll;
 using Domain.Abstractions.Result;
 using Mediator;
 using Presentation.ExceptionHandler;
+using Presentation.Extensions;
 
 namespace Presentation.Endpoints.Users;
 

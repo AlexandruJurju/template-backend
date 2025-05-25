@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using Application.Abstractions.Authentication;
+﻿using Application.Abstractions.Authentication;
 using Application.Abstractions.Persistence;
 using Application.Users.Register;
 using Domain.Abstractions.Result;
@@ -13,8 +12,8 @@ namespace Application.UnitTests.Users;
 
 public class RegisterUserTests
 {
-    private readonly RegisterUserCommandHandler _handler;
     private readonly IApplicationDbContext _dbContextMock;
+    private readonly RegisterUserCommandHandler _handler;
     private readonly IPasswordHasher _passwordHasherMock;
 
     private readonly RegisterUserCommand _validCommand = new(

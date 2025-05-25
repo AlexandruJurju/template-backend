@@ -16,7 +16,7 @@ internal sealed class Login : IEndpoint
     {
         app.MapPost("users/login", async (
                 [FromBody] Request request,
-                ISender sender, 
+                ISender sender,
                 CancellationToken cancellationToken) =>
             {
                 var command = new LoginUserCommand(

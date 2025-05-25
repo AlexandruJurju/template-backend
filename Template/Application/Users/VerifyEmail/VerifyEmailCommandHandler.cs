@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.Users.VerifyEmail;
 
 public class VerifyEmailCommandHandler(
-    IApplicationDbContext dbContext
+    IApplicationDbContext dbContext,
+    TimeProvider timeProvider
 ) : ICommandHandler<VerifyEmailCommand>
 {
     public async ValueTask<Result> Handle(VerifyEmailCommand request, CancellationToken cancellationToken)
@@ -16,7 +17,7 @@ public class VerifyEmailCommandHandler(
             .Include(e => e.User)
             .FirstOrDefaultAsync(e => e.Id == request.TokenId, cancellationToken);
 
-        if (token is null || token.ExpiresOnUtc < TimeProvider.System.GetUtcNow().UtcDateTime)
+        if (token is null || token.ExpiresOnUtc < timeProvider.GetUtcNow().UtcDateTime)
         {
             return UserErrors.EmailVerificationTokenNotFound;
         }

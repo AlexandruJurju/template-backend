@@ -12,7 +12,7 @@ public interface IApplicationDbContext
 {
     DbSet<User> Users { get; }
     DbSet<OutboxMessage> OutboxMessages { get; }
-    
+
     DbSet<EmailVerificationToken> EmailVerificationTokens { get; }
     DbSet<EmailTemplate> EmailTemplates { get; }
     DbSet<ApiKey> ApiKeys { get; }

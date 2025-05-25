@@ -1,8 +1,6 @@
 ﻿using Application.Abstractions.Persistence;
-using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Hybrid;
-using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Authorization;
 
@@ -14,7 +12,7 @@ internal sealed class PermissionProvider(
     public async Task<HashSet<string>> GetForUserIdAsync(Guid userId)
     {
         HashSet<string> cachedPermissions = await hybridCache.GetOrCreateAsync(
-            key: $"auth:roles:{userId}",
+            $"auth:roles:{userId}",
             async cancellationToken =>
             {
                 // Database fetch if not in cache
