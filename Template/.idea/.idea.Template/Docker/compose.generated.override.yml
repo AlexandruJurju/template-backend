@@ -2,7 +2,7 @@
 services:
   template.api:
     build:
-      context: "X:\\Repos\\Template\\Template"
+      context: "/run/media/alex/mass_storage/Repos/Template.Api"
       dockerfile: "Presentation/Dockerfile"
       target: "base"
       args:
@@ -15,7 +15,7 @@ services:
     - "--mode=server"
     - "--frontend-port=57000"
     - "--backend-port=57200"
-    - "--roslyn-worker-port=57402"
+    - "--roslyn-worker-port=57403"
     - "--timeout=60"
     environment:
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
@@ -23,16 +23,14 @@ services:
       RESHARPER_LOG_CONF: "/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
     image: "template:dev"
     ports:
-    - "127.0.0.1:57002:57000"
-    - "127.0.0.1:57202:57200"
-    - "127.0.0.1:57402:57402"
+    - "127.0.0.1:57003:57000"
+    - "127.0.0.1:57203:57200"
+    - "127.0.0.1:57403:57403"
     volumes:
-    - "X:\\Repos\\Template\\Template\\Presentation:/app:rw"
-    - "X:\\Repos\\Template\\Template:/src:rw"
-    - "C:\\Users\\realb\\.nuget\\packages:/home/app/.nuget/packages"
-    - "C:\\Users\\realb\\AppData\\Local\\JetBrains\\RiderRemoteDebugger\\2025.1.2\\\
-      Linux64:/opt/JetBrains/RiderDebuggerTools"
-    - "C:\\Users\\realb\\AppData\\Local\\Programs\\Rider\\bin\\backend-log.xml:/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
-    - "C:\\Users\\realb\\AppData\\Local\\JetBrains\\Rider2025.1\\log\\DebuggerWorker\\\
-      JetBrains.Debugger.Worker.2025_5_25_12_30_22:/var/opt/JetBrains/RiderDebuggerTools:rw"
+    - "/run/media/alex/mass_storage/Repos/Template.Api/Presentation:/app:rw"
+    - "/run/media/alex/mass_storage/Repos/Template.Api:/src:rw"
+    - "/home/alex/.nuget/packages:/home/app/.nuget/packages"
+    - "/home/alex/.local/share/JetBrains/RiderRemoteDebugger/2025.1.2/Linux64:/opt/JetBrains/RiderDebuggerTools"
+    - "/home/alex/.local/share/JetBrains/Toolbox/apps/rider/bin/backend-log.xml:/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
+    - "/home/alex/.cache/JetBrains/Rider2025.1/log/DebuggerWorker/JetBrains.Debugger.Worker.2025_6_04_19_51_05:/var/opt/JetBrains/RiderDebuggerTools:rw"
     working_dir: "/app"

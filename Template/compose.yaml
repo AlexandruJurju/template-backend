@@ -14,12 +14,12 @@
     ports:
       - "5000:8080"
     #      - "5001:8081"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    #    volumes:
+    #      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    #      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     depends_on:
       - template.db
-  
+      
   template.db:
     image: postgres:latest
     container_name: template.db
