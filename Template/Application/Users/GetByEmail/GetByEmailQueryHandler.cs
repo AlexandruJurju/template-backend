@@ -5,8 +5,9 @@ using Domain.Users;
 
 namespace Application.Users.GetByEmail;
 
-internal sealed class GetUserByEmailQueryHandler(IUserRepository userRepository)
-    : IQueryHandler<GetUserByEmailQuery, UserResponse>
+internal sealed class GetUserByEmailQueryHandler(
+    IUserRepository userRepository
+    ) : IQueryHandler<GetUserByEmailQuery, UserResponse>
 {
     public async ValueTask<Result<UserResponse>> Handle(GetUserByEmailQuery query, CancellationToken cancellationToken)
     {
