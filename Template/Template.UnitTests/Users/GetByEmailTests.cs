@@ -24,19 +24,19 @@ public class GetByEmailTests
     {
         // Arrange
         var query = new GetUserByEmailQuery("test@example.com");
-        
+
         _userRepositoryMock
             .GetByEmailAsync(query.Email, Arg.Any<CancellationToken>())
             .Returns((User?)null);
-        
+
         // Act
         Result<UserResponse> result = await _handler.Handle(query, CancellationToken.None);
-        
+
         // Assert
         result.IsFailure.ShouldBeTrue();
         result.Error.ShouldBe(UserErrors.NotFound(query.Email));
     }
-    
+
     [Test]
     public async Task Handle_Should_ReturnSuccess_When_UserExists()
     {
@@ -47,14 +47,14 @@ public class GetByEmailTests
             "John",
             "Doe",
             "password123");
-        
+
         _userRepositoryMock
             .GetByEmailAsync(query.Email, Arg.Any<CancellationToken>())
             .Returns(user);
-        
+
         // Act
         Result<UserResponse> result = await _handler.Handle(query, CancellationToken.None);
-        
+
         // Assert
         result.IsSuccess.ShouldBeTrue();
         result.Value.ShouldNotBeNull();
@@ -62,11 +62,11 @@ public class GetByEmailTests
         result.Value.FirstName.ShouldBe(user.FirstName);
         result.Value.LastName.ShouldBe(user.LastName);
         result.Value.Email.ShouldBe(user.Email);
-        
+
         await _userRepositoryMock.Received(1)
             .GetByEmailAsync(query.Email, Arg.Any<CancellationToken>());
     }
-    
+
     [Test]
     public async Task Handle_Should_CallRepositoryWithCorrectParameters()
     {
@@ -75,15 +75,15 @@ public class GetByEmailTests
         _userRepositoryMock
             .GetByEmailAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
             .Returns((User?)null);
-        
+
         // Act
         await _handler.Handle(query, CancellationToken.None);
-        
+
         // Assert
         await _userRepositoryMock.Received(1)
             .GetByEmailAsync(query.Email, Arg.Any<CancellationToken>());
     }
-    
+
     [Test]
     public async Task Handle_Should_ReturnCorrectResponseStructure_When_UserExists()
     {
@@ -94,14 +94,14 @@ public class GetByEmailTests
             "John",
             "Doe",
             "password123");
-        
+
         _userRepositoryMock
             .GetByEmailAsync(query.Email, Arg.Any<CancellationToken>())
             .Returns(user);
-        
+
         // Act
         Result<UserResponse> result = await _handler.Handle(query, CancellationToken.None);
-        
+
         // Assert
         result.IsSuccess.ShouldBeTrue();
         result.Value.ShouldBeOfType<UserResponse>();

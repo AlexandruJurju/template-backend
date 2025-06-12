@@ -2,19 +2,37 @@
 services:
   template.api:
     build:
-      context: "/mnt/mass_storage/Repos/CleanArchitecture-Template/Template"
+      context: "X:\\Repos\\CleanArchitecture-Template\\Template"
       dockerfile: "Presentation/Dockerfile"
       target: "base"
+      args:
+        BUILD_CONFIGURATION: "Debug"
     command: []
     entrypoint:
-    - "dotnet"
-    - "/app/bin/Debug/net9.0/Presentation.dll"
+    - "/opt/JetBrains/RiderDebuggerTools/linux-x64/JetBrains.Debugger.Worker"
+    - "--runtimeconfig"
+    - "/opt/JetBrains/RiderDebuggerTools/JetBrains.Debugger.Worker.runtimeconfig.json"
+    - "--mode=server"
+    - "--frontend-port=57000"
+    - "--backend-port=57200"
+    - "--roslyn-worker-port=57401"
+    - "--timeout=60"
     environment:
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
+      RIDER_DEBUGGER_LOG_DIR: "/var/opt/JetBrains/RiderDebuggerTools"
+      RESHARPER_LOG_CONF: "/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
     image: "template:dev"
-    ports: []
+    ports:
+    - "127.0.0.1:57001:57000"
+    - "127.0.0.1:57201:57200"
+    - "127.0.0.1:57401:57401"
     volumes:
-    - "/mnt/mass_storage/Repos/CleanArchitecture-Template/Template/Presentation:/app:rw"
-    - "/mnt/mass_storage/Repos/CleanArchitecture-Template/Template:/src:rw"
-    - "/home/alex/.nuget/packages:/home/app/.nuget/packages"
+    - "X:\\Repos\\CleanArchitecture-Template\\Template\\Presentation:/app:rw"
+    - "X:\\Repos\\CleanArchitecture-Template\\Template:/src:rw"
+    - "C:\\Users\\realb\\.nuget\\packages:/home/app/.nuget/packages"
+    - "C:\\Users\\realb\\AppData\\Local\\JetBrains\\RiderRemoteDebugger\\2025.1.2\\\
+      Linux64:/opt/JetBrains/RiderDebuggerTools"
+    - "C:\\Program Files\\JetBrains\\JetBrains Rider 2025.1.2\\bin\\backend-log.xml:/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
+    - "C:\\Users\\realb\\AppData\\Local\\JetBrains\\Rider2025.1\\log\\DebuggerWorker\\\
+      JetBrains.Debugger.Worker.2025_6_12_09_38_47:/var/opt/JetBrains/RiderDebuggerTools:rw"
     working_dir: "/app"

@@ -14,7 +14,7 @@ public class EmailService(IFluentEmail fluentEmail) : IEmailService
         SendResponse? result = await fluentEmail
             .To(toMail)
             .Subject(emailTemplate.Subject)
-            .UsingTemplate(emailTemplate.Content, model, true)
+            .UsingTemplate(emailTemplate.Content, model)
             .SendAsync();
 
         return !result.Successful

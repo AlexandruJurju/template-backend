@@ -4,7 +4,6 @@ using Domain.Abstractions.Result;
 using Domain.EmailTemplates;
 using Domain.Users;
 using Mediator;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Application.Users.Register;

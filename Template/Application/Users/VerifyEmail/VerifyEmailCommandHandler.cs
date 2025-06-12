@@ -2,7 +2,6 @@
 using Domain.Abstractions.Persistence;
 using Domain.Abstractions.Result;
 using Domain.Users;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.VerifyEmail;
 

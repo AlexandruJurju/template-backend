@@ -19,6 +19,7 @@ using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using MongoDB.Driver;
 
 namespace Infrastructure;
 
@@ -27,6 +28,8 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddDatabase(services, configuration);
+
+        AddMongoDb(services, configuration);
 
         AddHealthChecks(services, configuration);
 
@@ -96,7 +99,7 @@ public static class DependencyInjection
             .UseNpgsql(connectionString, npgsqlOptions =>
                 npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Default))
             .UseSnakeCaseNamingConvention());
-        
+
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
         AddRepositories(services);
@@ -141,5 +144,12 @@ public static class DependencyInjection
         services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
         services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
+    }
+
+    private static void AddMongoDb(IServiceCollection services, IConfiguration configuration)
+    {
+        string connectionString = configuration.GetConnectionString("MongoDB")!;
+
+        services.AddSingleton<IMongoClient>(_ => new MongoClient(connectionString));
     }
 }

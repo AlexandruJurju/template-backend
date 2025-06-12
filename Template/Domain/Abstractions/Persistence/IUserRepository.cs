@@ -9,7 +9,7 @@ public interface IUserRepository
     Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
 
     Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken = default);
-    
+
     Task<bool> UserWithEmailExists(string email, CancellationToken cancellationToken = default);
 
     void Add(User user);

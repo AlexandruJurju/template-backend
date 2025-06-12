@@ -19,7 +19,7 @@
     #      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     depends_on:
       - template.db
-      
+  
   template.db:
     image: postgres:latest
     container_name: template.db
@@ -54,3 +54,14 @@
     ports:
       - "8080:80"
       - "25:25"
+  
+  template.mongo:
+    image: mongo:latest
+    container_name: template.mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+    volumes:
+      - ./.containers/mongodb:/data/db
+    ports:
+      - "27017:27017"

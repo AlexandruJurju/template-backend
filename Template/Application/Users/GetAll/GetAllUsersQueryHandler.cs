@@ -5,7 +5,9 @@ using Domain.Users;
 
 namespace Application.Users.GetAll;
 
-public class GetAllUsersQueryHandler(IUserRepository userRepository)
+public class GetAllUsersQueryHandler(
+    IUserRepository userRepository
+)
     : IQueryHandler<GetAllUsersQuery, IEnumerable<UserResponse>>
 {
     public async ValueTask<Result<IEnumerable<UserResponse>>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
