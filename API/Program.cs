@@ -19,6 +19,8 @@ builder.Services
     .AddApplication(builder.Configuration)
     .AddInfrastructure(builder.Configuration);
 
+builder.Services.AddKafkaServices(builder.Configuration);
+
 builder.Services.AddControllers();
 
 WebApplication app = builder.Build();
