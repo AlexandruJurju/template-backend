@@ -7,17 +7,18 @@ IResourceBuilder<PostgresServerResource> postgres = builder.AddPostgres("templat
 
 IResourceBuilder<RedisResource> cache = builder.AddRedis("template-redis");
 
-// var mongo = builder.AddMongoDB("template-mongo")
-//     .WithBindMount("../.containers/database", "/var/lib/mongodb/data");
-
-
 IResourceBuilder<PapercutSmtpContainerResource> papercut = builder.AddPapercutSmtp("template-papercut");
 
-builder.AddProject<Template_API>("template-api")
+IResourceBuilder<ProjectResource> api = builder.AddProject<Template_API>("template-api")
     .WithReference(postgres)
     .WithReference(cache)
     .WithReference(papercut)
     .WaitFor(postgres)
     .WaitFor(cache);
+
+builder.AddNpmApp("template-ui", "../../template-ui")
+    .WithReference(api)
+    .WithExternalHttpEndpoints()
+    .PublishAsDockerFile();
 
 await builder.Build().RunAsync();

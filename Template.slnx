@@ -1,11 +1,11 @@
 ﻿<Solution>
-    <Folder Name="/template-aspire/">
-        <Project Path="AppHost\AppHost.csproj" Type="Classic C#"/>
-        <Project Path="ServiceDefaults\ServiceDefaults.csproj" Type="Classic C#"/>
-    </Folder>
-    <Project Path="Template.API\Template.API.csproj" Type="Classic C#"/>
-    <Project Path="Template.Application\Template.Application.csproj" Type="Classic C#"/>
-    <Project Path="Template.Domain\Template.Domain.csproj" Type="Classic C#"/>
-    <Project Path="Template.Infrastructure\Template.Infrastructure.csproj" Type="Classic C#"/>
-    <Project Path="Template.UnitTests\Template.UnitTests.csproj" Type="Classic C#"/>
+  <Folder Name="/template-aspire/">
+    <Project Path="AppHost\AppHost.csproj" Type="Classic C#" />
+    <Project Path="ServiceDefaults\ServiceDefaults.csproj" Type="Classic C#" />
+  </Folder>
+  <Project Path="Template.API\Template.API.csproj" Type="Classic C#" />
+  <Project Path="Template.Application\Template.Application.csproj" Type="Classic C#" />
+  <Project Path="Template.Domain\Template.Domain.csproj" Type="Classic C#" />
+  <Project Path="Template.Infrastructure\Template.Infrastructure.csproj" Type="Classic C#" />
+  <Project Path="Template.UnitTests\Template.UnitTests.csproj" Type="Classic C#" />
 </Solution>

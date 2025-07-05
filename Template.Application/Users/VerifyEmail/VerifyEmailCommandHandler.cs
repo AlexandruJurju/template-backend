@@ -8,7 +8,6 @@ namespace Template.Application.Users.VerifyEmail;
 
 public class VerifyEmailCommandHandler(
     IApplicationDbContext dbContext,
-    IUnitOfWork unitOfWork,
     TimeProvider timeProvider
 ) : ICommandHandler<VerifyEmailCommand>
 {
@@ -24,7 +23,7 @@ public class VerifyEmailCommandHandler(
 
         dbContext.EmailVerificationTokens.Remove(token);
 
-        await unitOfWork.SaveChangesAsync(cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }
