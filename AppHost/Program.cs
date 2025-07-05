@@ -1,3 +1,5 @@
+using Projects;
+
 IDistributedApplicationBuilder builder = DistributedApplication.CreateBuilder(args);
 
 IResourceBuilder<PostgresServerResource> postgres = builder.AddPostgres("template-postgres")
@@ -11,7 +13,7 @@ IResourceBuilder<RedisResource> cache = builder.AddRedis("template-redis");
 
 IResourceBuilder<PapercutSmtpContainerResource> papercut = builder.AddPapercutSmtp("template-papercut");
 
-builder.AddProject<Projects.API>("template-api")
+builder.AddProject<Template_API>("template-api")
     .WithReference(postgres)
     .WithReference(cache)
     .WithReference(papercut)

@@ -1,24 +1,18 @@
-﻿using Application.Abstractions.Authentication;
-using Application.Users.Login;
-using Domain.Abstractions.Persistence;
-using Domain.Abstractions.Result;
-using Domain.Users;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Time.Testing;
 using Moq;
 using Moq.EntityFrameworkCore;
+using Template.Application.Abstractions.Authentication;
+using Template.Application.Users.Login;
+using Template.Domain.Abstractions.Persistence;
+using Template.Domain.Abstractions.Result;
+using Template.Domain.Users;
 
 namespace Template.UnitTests;
 
 [TestFixture]
 public class LoginCommandHandlerTests
 {
-    private readonly Mock<IPasswordHasher> _passwordHasherMock = new();
-    private readonly Mock<ITokenProvider> _tokenProviderMock = new();
-    private readonly Mock<IConfiguration> _configurationMock = new();
-    private FakeTimeProvider _timeProvider;
-    private Mock<IApplicationDbContext> _dbContextMock;
-
     [SetUp]
     public void SetUp()
     {
@@ -32,6 +26,12 @@ public class LoginCommandHandlerTests
 
         _dbContextMock.Setup(x => x.Users).ReturnsDbSet(users);
     }
+
+    private readonly Mock<IPasswordHasher> _passwordHasherMock = new();
+    private readonly Mock<ITokenProvider> _tokenProviderMock = new();
+    private readonly Mock<IConfiguration> _configurationMock = new();
+    private FakeTimeProvider _timeProvider;
+    private Mock<IApplicationDbContext> _dbContextMock;
 
     [Test]
     public async Task HandleAsync_UserNotFound_Returns404NotFound()
