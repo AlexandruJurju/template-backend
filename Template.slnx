@@ -7,5 +7,6 @@
   <Project Path="Template.Application\Template.Application.csproj" Type="Classic C#" />
   <Project Path="Template.Domain\Template.Domain.csproj" Type="Classic C#" />
   <Project Path="Template.Infrastructure\Template.Infrastructure.csproj" Type="Classic C#" />
+  <Project Path="Template.Spec\Template.Spec.csproj" Type="Classic C#" />
   <Project Path="Template.UnitTests\Template.UnitTests.csproj" Type="Classic C#" />
 </Solution>

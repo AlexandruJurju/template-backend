@@ -1,0 +1,39 @@
+﻿openapi: 3.1.0
+info:
+  title: TemplateApi
+  version: 1.0.0
+servers:
+  - url: "/"
+    description: Local Development
+paths:
+  /api/test:
+    get:
+      operationId: readPermissions
+      tags:
+        - user
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/PermissionDTO"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PermissionDTO"
+components:
+  schemas:
+    PermissionDTO:
+      type: object
+      properties:
+        Roles:
+          type: array
+          items:
+            type: string
+        Claims:
+          type: array
+          items:
+            type: string
+      required:
+        - Roles
+        - Values
