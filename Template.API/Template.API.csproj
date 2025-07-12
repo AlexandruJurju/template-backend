@@ -25,12 +25,12 @@
         </PackageReference>
     </ItemGroup>
     
-    <Target Name="NSwag" BeforeTargets="BeforeBuild" Outputs="@(GeneratedFiles)">
-        <Exec ConsoleToMsBuild="true" ContinueOnError="true" Command="$(NSwagExe_Net90) run ../Template.Spec/Config\nswag.json /variables:project=$(MSBuildThisFileName),generationDirectory=$(MSBuildProjectDirectory)">
-            <Output TaskParameter="ExitCode" PropertyName="NSwagExitCode"/>
-            <Output TaskParameter="ConsoleOutput" PropertyName="NSwagOutput"/>
-        </Exec>
-    </Target>
+<!--    <Target Name="NSwag" BeforeTargets="BeforeBuild" Outputs="@(GeneratedFiles)">-->
+<!--        <Exec ConsoleToMsBuild="true" ContinueOnError="true" Command="$(NSwagExe_Net90) run ../Template.Spec/Config\nswag.json /variables:project=$(MSBuildThisFileName),generationDirectory=$(MSBuildProjectDirectory)">-->
+<!--            <Output TaskParameter="ExitCode" PropertyName="NSwagExitCode"/>-->
+<!--            <Output TaskParameter="ConsoleOutput" PropertyName="NSwagOutput"/>-->
+<!--        </Exec>-->
+<!--    </Target>-->
     
     <ItemGroup>
         <ProjectReference Include="..\Template.Application\Template.Application.csproj"/>

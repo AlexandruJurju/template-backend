@@ -48,7 +48,7 @@ public static class DependencyInjection
         services.AddScoped<IEmailVerificationLinkFactory, EmailVerificationLinkFactory>();
 
         // Get the Papercut connection string
-        string papercutConnectionString = configuration.GetConnectionString("template-papercut")!;
+        string papercutConnectionString = configuration.GetConnectionString("papercut")!;
         var smtpUri = new Uri(papercutConnectionString.Replace("Endpoint=", ""));
 
         services
@@ -59,7 +59,7 @@ public static class DependencyInjection
 
     private static void AddCaching(IServiceCollection services, IConfiguration configuration)
     {
-        string connectionString = configuration.GetConnectionString("template-redis")!;
+        string connectionString = configuration.GetConnectionString("cache")!;
 
         services.AddStackExchangeRedisCache(options => options.Configuration = connectionString);
 
@@ -76,7 +76,7 @@ public static class DependencyInjection
     private static void AddHangfire(IServiceCollection services, IConfiguration configuration)
     {
         services.AddHangfire(config =>
-            config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(configuration.GetConnectionString("template-postgres"))));
+            config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(configuration.GetConnectionString("database"))));
 
         services.AddHangfireServer(options => options.SchedulePollingInterval = TimeSpan.FromMinutes(1));
 
@@ -85,10 +85,8 @@ public static class DependencyInjection
 
     private static void AddDatabase(IServiceCollection services, IConfiguration configuration)
     {
-        string? connectionString = configuration.GetConnectionString("template-postgres");
-
         services.AddDbContext<ApplicationDbContext>(options => options
-            .UseNpgsql(connectionString, npgsqlOptions =>
+            .UseNpgsql(configuration.GetConnectionString("database"), npgsqlOptions =>
                 npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Default))
             .UseSnakeCaseNamingConvention());
 
