@@ -10,7 +10,7 @@ internal sealed class GetUserByIdQueryHandler(
     IApplicationDbContext dbContext
 ) : IQueryHandler<GetUserByIdQuery, UserResponse>
 {
-    public async ValueTask<Result<UserResponse>> Handle(GetUserByIdQuery query, CancellationToken cancellationToken)
+    public async Task<Result<UserResponse>> Handle(GetUserByIdQuery query, CancellationToken cancellationToken)
     {
         User? user = await dbContext.Users
             .SingleOrDefaultAsync(user => user.Id == query.UserId, cancellationToken);

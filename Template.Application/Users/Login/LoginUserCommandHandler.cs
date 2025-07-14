@@ -16,7 +16,7 @@ internal sealed class LoginUserCommandHandler(
     IApplicationDbContext dbContext
 ) : ICommandHandler<LoginUserCommand, LoginResponse>
 {
-    public async ValueTask<Result<LoginResponse>> Handle(LoginUserCommand command, CancellationToken cancellationToken)
+    public async Task<Result<LoginResponse>> Handle(LoginUserCommand command, CancellationToken cancellationToken)
     {
         User? user = await dbContext.Users
             .SingleOrDefaultAsync(user => user.Email == command.Email, cancellationToken);

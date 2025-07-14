@@ -1,4 +1,4 @@
-﻿using Mediator;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Template.Application.Abstractions.Email;
@@ -17,7 +17,7 @@ internal sealed class UserRegisteredDomainEventHandler(
     IConfiguration configuration
 ) : INotificationHandler<UserRegisteredDomainEvent>
 {
-    public async ValueTask Handle(UserRegisteredDomainEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(UserRegisteredDomainEvent notification, CancellationToken cancellationToken)
     {
         User? user = await dbContext.Users
             .SingleOrDefaultAsync(x => x.Id == notification.UserId, cancellationToken);

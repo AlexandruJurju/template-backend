@@ -13,7 +13,7 @@ public sealed class RegisterUserCommandHandler(
 )
     : ICommandHandler<RegisterUserCommand, Guid>
 {
-    public async ValueTask<Result<Guid>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         if (await dbContext.Users.AnyAsync(user => user.Email == request.Email, cancellationToken))
         {

@@ -10,7 +10,7 @@ public class GetAllUsersQueryHandler(
     IApplicationDbContext dbContext
 ) : IQueryHandler<GetAllUsersQuery, IEnumerable<UserResponse>>
 {
-    public async ValueTask<Result<IEnumerable<UserResponse>>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
+    public async Task<Result<IEnumerable<UserResponse>>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
     {
         IEnumerable<User> users = await dbContext.Users.ToListAsync(cancellationToken);
 

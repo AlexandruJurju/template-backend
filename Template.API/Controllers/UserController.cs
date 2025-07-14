@@ -1,5 +1,4 @@
-﻿
-using Mediator;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Template.API.Authentication;

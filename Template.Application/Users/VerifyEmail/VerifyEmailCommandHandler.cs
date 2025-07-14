@@ -11,7 +11,7 @@ public class VerifyEmailCommandHandler(
     TimeProvider timeProvider
 ) : ICommandHandler<VerifyEmailCommand>
 {
-    public async ValueTask<Result> Handle(VerifyEmailCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(VerifyEmailCommand request, CancellationToken cancellationToken)
     {
         EmailVerificationToken? token = await dbContext.EmailVerificationTokens
             .SingleOrDefaultAsync(x => x.Id == request.TokenId, cancellationToken);

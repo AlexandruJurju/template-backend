@@ -13,7 +13,7 @@ public class RefreshTokenCommandHandler(
     ITokenProvider tokenProvider
 ) : ICommandHandler<RefreshTokenCommand, RefreshTokenResponse>
 {
-    public async ValueTask<Result<RefreshTokenResponse>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+    public async Task<Result<RefreshTokenResponse>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
         Domain.Users.RefreshToken? refreshToken = await dbContext.RefreshTokens
             .SingleOrDefaultAsync(x => x.Token == request.RefreshToken, cancellationToken);

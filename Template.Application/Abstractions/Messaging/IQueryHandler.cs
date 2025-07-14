@@ -1,4 +1,4 @@
-﻿using Mediator;
+﻿using MediatR;
 using Template.Domain.Abstractions.Result;
 
 namespace Template.Application.Abstractions.Messaging;

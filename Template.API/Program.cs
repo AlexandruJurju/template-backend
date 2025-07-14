@@ -15,7 +15,7 @@ builder.AddServiceDefaults();
 
 builder.Services
     .AddPresentation(builder.Configuration)
-    .AddApplication(builder.Configuration)
+    .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
 builder.Services.AddControllers();

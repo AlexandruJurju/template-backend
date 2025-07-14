@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using FluentValidation;
 using FluentValidation.Results;
-using Mediator;
+using MediatR;
 using Template.Domain.Abstractions.Result;
 
 namespace Template.Application.Abstractions.Behaviors;
@@ -9,15 +9,18 @@ namespace Template.Application.Abstractions.Behaviors;
 internal sealed class ValidationPipelineBehavior<TRequest, TResponse>(
     IEnumerable<IValidator<TRequest>> validators)
     : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : IMessage
+    where TRequest : class
 {
-    public async ValueTask<TResponse> Handle(TRequest message, MessageHandlerDelegate<TRequest, TResponse> next, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(
+        TRequest request,
+        RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
-        ValidationFailure[] validationFailures = await ValidateAsync(message, cancellationToken);
+        ValidationFailure[] validationFailures = await ValidateAsync(request);
 
         if (validationFailures.Length == 0)
         {
-            return await next(message, cancellationToken);
+            return await next(cancellationToken);
         }
 
         if (typeof(TResponse).IsGenericType &&
@@ -33,7 +36,7 @@ internal sealed class ValidationPipelineBehavior<TRequest, TResponse>(
             {
                 return (TResponse)failureMethod.Invoke(
                     null,
-                    [CreateValidationError(validationFailures)])!;
+                    [CreateValidationError(validationFailures)]);
             }
         }
         else if (typeof(TResponse) == typeof(Result))
@@ -44,7 +47,7 @@ internal sealed class ValidationPipelineBehavior<TRequest, TResponse>(
         throw new ValidationException(validationFailures);
     }
 
-    private async Task<ValidationFailure[]> ValidateAsync(TRequest request, CancellationToken cancellationToken)
+    private async Task<ValidationFailure[]> ValidateAsync(TRequest request)
     {
         if (!validators.Any())
         {
@@ -54,7 +57,7 @@ internal sealed class ValidationPipelineBehavior<TRequest, TResponse>(
         var context = new ValidationContext<TRequest>(request);
 
         ValidationResult[] validationResults = await Task.WhenAll(
-            validators.Select(validator => validator.ValidateAsync(context, cancellationToken)));
+            validators.Select(validator => validator.ValidateAsync(context)));
 
         ValidationFailure[] validationFailures = validationResults
             .Where(validationResult => !validationResult.IsValid)

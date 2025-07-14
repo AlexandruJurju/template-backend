@@ -1,4 +1,4 @@
-﻿using Mediator;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -6,7 +6,6 @@ using Template.Application.Abstractions.Outbox;
 using Template.Domain.Abstractions;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Infrastructure.Outbox;
-using Template.Infrastructure.Database;
 
 namespace Template.Infrastructure.Outbox;
 

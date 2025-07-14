@@ -1,4 +1,4 @@
-﻿using Mediator;
+﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using Serilog.Context;
 using Template.Domain.Abstractions.Result;
@@ -8,16 +8,19 @@ namespace Template.Application.Abstractions.Behaviors;
 internal sealed class RequestLoggingPipelineBehavior<TRequest, TResponse>(
     ILogger<RequestLoggingPipelineBehavior<TRequest, TResponse>> logger)
     : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : IMessage
+    where TRequest : class
     where TResponse : Result
 {
-    public async ValueTask<TResponse> Handle(TRequest message, MessageHandlerDelegate<TRequest, TResponse> next, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(
+        TRequest request,
+        RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
         string requestName = typeof(TRequest).Name;
 
         logger.LogInformation("Processing request {RequestName}", requestName);
 
-        TResponse result = await next(message, cancellationToken);
+        TResponse result = await next(cancellationToken);
 
         if (result.IsSuccess)
         {
