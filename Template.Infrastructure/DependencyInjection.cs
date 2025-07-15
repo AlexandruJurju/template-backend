@@ -1,6 +1,4 @@
 ﻿using System.Text;
-using Hangfire;
-using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +15,9 @@ using Template.Infrastructure.Authentication;
 using Template.Infrastructure.Authorization;
 using Template.Infrastructure.Email;
 using Template.Infrastructure.Outbox;
+using TickerQ.Dashboard.DependencyInjection;
+using TickerQ.DependencyInjection;
+using TickerQ.EntityFrameworkCore.DependencyInjection;
 
 namespace Template.Infrastructure;
 
@@ -30,7 +31,7 @@ public static class DependencyInjection
 
         AddCaching(services, configuration);
 
-        AddHangfire(services, configuration);
+        AddTickerQ(services);
 
         AddAuthenticationInternal(services, configuration);
 
@@ -72,12 +73,19 @@ public static class DependencyInjection
             });
     }
 
-    private static void AddHangfire(IServiceCollection services, IConfiguration configuration)
+    private static void AddTickerQ(IServiceCollection services)
     {
-        services.AddHangfire(config =>
-            config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(configuration.GetConnectionString("database"))));
-
-        services.AddHangfireServer(options => options.SchedulePollingInterval = TimeSpan.FromMinutes(1));
+        services.AddTickerQ(options =>
+        {
+            options.SetMaxConcurrency(4);
+            options.AddOperationalStore<ApplicationDbContext>(efOpt =>
+            {
+                efOpt.UseModelCustomizerForMigrations();
+                efOpt.CancelMissedTickersOnApplicationRestart();
+            });
+            options.AddDashboard(basePath: "/tickerq-dashboard");
+            options.AddDashboardBasicAuth();
+        });
 
         services.AddScoped<IProcessOutboxMessagesJob, ProcessOutboxMessagesJob>();
     }

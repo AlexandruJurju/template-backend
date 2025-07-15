@@ -1,4 +1,3 @@
-using Hangfire;
 using Scalar.AspNetCore;
 using Serilog;
 using Template.API;
@@ -6,6 +5,7 @@ using Template.API.Cors;
 using Template.API.Extensions;
 using Template.Application;
 using Template.Infrastructure;
+using TickerQ.DependencyInjection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -24,21 +24,14 @@ WebApplication app = builder.Build();
 
 app.MapDefaultEndpoints();
 
-app.UseBackgroundJobs();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.MapScalarApiReference(options => options.WithOpenApiRoutePattern("/swagger/v1/swagger.json"));
-
     app.ApplyMigrations();
-
-    app.UseHangfireDashboard(options: new DashboardOptions
-    {
-        Authorization = [],
-        DarkModeEnabled = true
-    });
 }
+
+app.UseTickerQ();
 
 app.UseHttpsRedirection();
 

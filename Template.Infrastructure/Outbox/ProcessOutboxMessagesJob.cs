@@ -6,6 +6,7 @@ using Template.Application.Abstractions.Outbox;
 using Template.Domain.Abstractions;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Infrastructure.Outbox;
+using TickerQ.Utilities.Base;
 
 namespace Template.Infrastructure.Outbox;
 
@@ -16,20 +17,21 @@ public class ProcessOutboxMessagesJob(
     ILogger<ProcessOutboxMessagesJob> logger
 ) : IProcessOutboxMessagesJob
 {
-    private const int BATCH_SIZE = 1000;
+    private const int BatchSize = 1000;
 
     private static readonly JsonSerializerSettings JsonSerializerSettings = new()
     {
         TypeNameHandling = TypeNameHandling.All
     };
 
+    [TickerFunction(functionName: "Process", cronExpression: "* * * * *")]
     public async Task ProcessAsync()
     {
         logger.LogInformation("Starting to process outbox messages");
 
         List<OutboxMessage> outboxMessages = await applicationDbContext.OutboxMessages
             .Where(m => m.ProcessedOnUtc == null)
-            .Take(BATCH_SIZE)
+            .Take(BatchSize)
             .OrderBy(m => m.OccurredOnUtc)
             .ToListAsync();
 
@@ -38,7 +40,6 @@ public class ProcessOutboxMessagesJob(
             logger.LogInformation("No outbox messages to process");
             return;
         }
-
 
         foreach (OutboxMessage outboxMessage in outboxMessages)
         {
