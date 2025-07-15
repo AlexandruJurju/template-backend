@@ -19,7 +19,7 @@
         <PackageReference Include="Aspire.Hosting.Redis" Version="9.3.1"/>
         <PackageReference Include="Aspire.Hosting.Seq" Version="9.3.1"/>
         <PackageReference Include="Aspire.Hosting.Valkey" Version="9.3.1"/>
-        <PackageReference Include="CommunityToolkit.Aspire.Hosting.PapercutSmtp" Version="9.5.0"/>
+        <PackageReference Include="CommunityToolkit.Aspire.Hosting.PapercutSmtp" Version="9.6.0" />
     </ItemGroup>
 
     <ItemGroup>

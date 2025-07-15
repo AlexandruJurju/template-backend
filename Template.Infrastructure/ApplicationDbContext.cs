@@ -7,17 +7,12 @@ using Template.Domain.EmailTemplates;
 using Template.Domain.Infrastructure.Outbox;
 using Template.Domain.Users;
 
-namespace Template.Infrastructure.Database;
+namespace Template.Infrastructure;
 
 public sealed class ApplicationDbContext(
     DbContextOptions<ApplicationDbContext> options
 ) : DbContext(options), IApplicationDbContext
 {
-    private static readonly JsonSerializerSettings JsonSerializerSettings = new()
-    {
-        TypeNameHandling = TypeNameHandling.All
-    };
-
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<OutboxMessage> OutboxMessages { get; set; }
@@ -25,7 +20,6 @@ public sealed class ApplicationDbContext(
     public DbSet<EmailVerificationToken> EmailVerificationTokens { get; set; }
     public DbSet<EmailTemplate> EmailTemplates { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
-
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
@@ -42,6 +36,11 @@ public sealed class ApplicationDbContext(
 
         modelBuilder.HasDefaultSchema(Schemas.Default);
     }
+
+    private static readonly JsonSerializerSettings JsonSerializerSettings = new()
+    {
+        TypeNameHandling = TypeNameHandling.All
+    };
 
     private void AddDomainEventsAsOutboxMessages()
     {

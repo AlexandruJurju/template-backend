@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Template.Infrastructure.Database;
+using Template.Infrastructure;
 
 namespace Template.API.Extensions;
 

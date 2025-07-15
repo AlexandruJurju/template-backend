@@ -2,8 +2,11 @@ using Projects;
 
 IDistributedApplicationBuilder builder = DistributedApplication.CreateBuilder(args);
 
-IResourceBuilder<PostgresServerResource> database = builder.AddPostgres("template-postgres")
-    .WithBindMount("../.containers/database", "/var/lib/postgresql/data");
+IResourceBuilder<PostgresDatabaseResource> database = builder
+    .AddPostgres("database")
+    .WithImage("postgres:17")
+    .WithBindMount("../../.containers/db", "/var/lib/postgresql/data")
+    .AddDatabase("template");
 
 IResourceBuilder<RedisResource> cache = builder.AddRedis("template-redis");
 

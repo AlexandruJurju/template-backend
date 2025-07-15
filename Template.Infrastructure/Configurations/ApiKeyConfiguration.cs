@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Template.Domain.ApiKeys;
 
-namespace Template.Infrastructure.Database.Configurations;
+namespace Template.Infrastructure.Configurations;
 
 public class ApiKeyConfiguration : IEntityTypeConfiguration<ApiKey>
 {

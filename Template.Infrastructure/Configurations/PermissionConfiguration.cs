@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Template.Domain.Users;
 
-namespace Template.Infrastructure.Database.Configurations;
+namespace Template.Infrastructure.Configurations;
 
 internal sealed class PermissionConfiguration : IEntityTypeConfiguration<Permission>
 {

@@ -15,7 +15,6 @@ using Template.Application.Abstractions.Outbox;
 using Template.Domain.Abstractions.Persistence;
 using Template.Infrastructure.Authentication;
 using Template.Infrastructure.Authorization;
-using Template.Infrastructure.Database;
 using Template.Infrastructure.Email;
 using Template.Infrastructure.Outbox;
 
@@ -85,10 +84,13 @@ public static class DependencyInjection
 
     private static void AddDatabase(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<ApplicationDbContext>(options => options
-            .UseNpgsql(configuration.GetConnectionString("database"), npgsqlOptions =>
-                npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Default))
-            .UseSnakeCaseNamingConvention());
+        string? connectionString = configuration.GetConnectionString("database");
+
+        services.AddDbContext<ApplicationDbContext>(
+            options => options
+                .UseNpgsql(connectionString, npgsqlOptions =>
+                    npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Default))
+                .UseSnakeCaseNamingConvention());
 
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
     }

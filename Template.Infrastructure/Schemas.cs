@@ -1,4 +1,4 @@
-﻿namespace Template.Infrastructure.Database;
+﻿namespace Template.Infrastructure;
 
 internal static class Schemas
 {
