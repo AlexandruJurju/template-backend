@@ -1,5 +1,6 @@
 using Scalar.AspNetCore;
 using Serilog;
+using ServiceDefaults;
 using Template.API;
 using Template.API.Cors;
 using Template.API.Extensions;

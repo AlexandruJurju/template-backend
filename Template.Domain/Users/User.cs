@@ -27,11 +27,11 @@ public sealed class User : Entity
 
     public static User Create(string email, string firstName, string lastName, string passwordHash)
     {
-        var user = new User(Guid.NewGuid(), email, firstName, lastName, passwordHash);
-
-        user.Raise(new UserRegisteredDomainEvent(user.Id));
-
-        user.Role = Role.Member;
+        var user = new User(Guid.NewGuid(), email, firstName, lastName, passwordHash)
+        {
+            // user.Raise(new UserRegisteredDomainEvent(user.Id));
+            Role = Role.Member
+        };
 
         return user;
     }

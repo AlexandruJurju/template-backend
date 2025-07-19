@@ -4,15 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 using Template.API.Authentication;
 using Template.API.Extensions;
 using Template.Application.Abstractions.Authentication;
-using Template.Application.Users.GetAll;
-using Template.Application.Users.GetByEmail;
-using Template.Application.Users.GetById;
-using Template.Application.Users.Login;
-using Template.Application.Users.RefreshToken;
-using Template.Application.Users.Register;
-using Template.Application.Users.VerifyEmail;
+using Template.Application.Users.Commands.Login;
+using Template.Application.Users.Commands.RefreshToken;
+using Template.Application.Users.Commands.Register;
+using Template.Application.Users.Commands.VerifyEmail;
+using Template.Application.Users.Queries.GetAll;
+using Template.Application.Users.Queries.GetByEmail;
+using Template.Application.Users.Queries.GetById;
 using Template.Domain.Abstractions.Result;
-using UserResponse = Template.Application.Users.GetAll.UserResponse;
+using UserResponse = Template.Application.Users.Queries.GetAll.UserResponse;
 
 namespace Template.API.Controllers;
 
@@ -45,7 +45,7 @@ public class UserController(ISender sender, IUserContext userContext) : Controll
     {
         var query = new GetUserByEmailQuery(email);
 
-        Result<Application.Users.GetByEmail.UserResponse> result = await sender.Send(query, cancellationToken);
+        Result<Application.Users.Queries.GetByEmail.UserResponse> result = await sender.Send(query, cancellationToken);
 
         return result.Match(
             onSuccess: value => Ok(value),
@@ -60,7 +60,7 @@ public class UserController(ISender sender, IUserContext userContext) : Controll
     {
         var query = new GetUserByIdQuery(userId);
 
-        Result<Application.Users.GetById.UserResponse> result = await sender.Send(query, cancellationToken);
+        Result<Application.Users.Queries.GetById.UserResponse> result = await sender.Send(query, cancellationToken);
 
         return result.Match(
             onSuccess: value => Ok(value),
@@ -91,7 +91,7 @@ public class UserController(ISender sender, IUserContext userContext) : Controll
     {
         Guid userId = userContext.GetUserId();
 
-        Result<Application.Users.GetById.UserResponse> result = await sender.Send(new GetUserByIdQuery(userId), cancellationToken);
+        Result<Application.Users.Queries.GetById.UserResponse> result = await sender.Send(new GetUserByIdQuery(userId), cancellationToken);
 
         return result.Match(
             onSuccess: value => Ok(value),

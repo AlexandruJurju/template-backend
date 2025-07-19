@@ -8,11 +8,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Template.Application.Abstractions.Authentication;
+using Template.Application.Abstractions.Data;
 using Template.Application.Abstractions.Email;
 using Template.Application.Abstractions.Outbox;
 using Template.Domain.Abstractions.Persistence;
 using Template.Infrastructure.Authentication;
 using Template.Infrastructure.Authorization;
+using Template.Infrastructure.Data;
 using Template.Infrastructure.Email;
 using Template.Infrastructure.Outbox;
 using TickerQ.Dashboard.DependencyInjection;
@@ -100,6 +102,7 @@ public static class DependencyInjection
             .UseSnakeCaseNamingConvention());
 
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
+        services.AddSingleton<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString!));
     }
 
     private static void AddAuthenticationInternal(IServiceCollection services, IConfiguration configuration)

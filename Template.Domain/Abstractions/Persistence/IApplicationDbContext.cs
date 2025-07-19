@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Template.Domain.ApiKeys;
 using Template.Domain.EmailTemplates;
 using Template.Domain.Infrastructure.Outbox;
@@ -16,4 +17,5 @@ public interface IApplicationDbContext
     DbSet<EmailTemplate> EmailTemplates { get; set; }
     DbSet<RefreshToken> RefreshTokens { get; set; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+    EntityEntry<TEntity> Attach<TEntity>(TEntity entity) where TEntity : class;
 }

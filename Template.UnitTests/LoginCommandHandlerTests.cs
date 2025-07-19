@@ -3,7 +3,7 @@ using Microsoft.Extensions.Time.Testing;
 using Moq;
 using Moq.EntityFrameworkCore;
 using Template.Application.Abstractions.Authentication;
-using Template.Application.Users.Login;
+using Template.Application.Users.Commands.Login;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Abstractions.Result;
 using Template.Domain.Users;
