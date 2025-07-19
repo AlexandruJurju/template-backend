@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +12,14 @@ using Template.Application.Abstractions.Authentication;
 using Template.Application.Abstractions.Data;
 using Template.Application.Abstractions.Email;
 using Template.Application.Abstractions.Outbox;
+using Template.Application.Abstractions.Storage;
 using Template.Domain.Abstractions.Persistence;
 using Template.Infrastructure.Authentication;
 using Template.Infrastructure.Authorization;
 using Template.Infrastructure.Data;
 using Template.Infrastructure.Email;
 using Template.Infrastructure.Outbox;
+using Template.Infrastructure.Storage;
 using TickerQ.Dashboard.DependencyInjection;
 using TickerQ.DependencyInjection;
 using TickerQ.EntityFrameworkCore.DependencyInjection;
@@ -28,9 +31,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddDatabase(services, configuration);
-
-        // AddMongoDb(services, configuration);
-
+        
         AddCaching(services, configuration);
 
         AddTickerQ(services);
@@ -40,6 +41,8 @@ public static class DependencyInjection
         AddAuthorizationInternal(services);
 
         AddEmail(services, configuration);
+
+        AddStorage(services, configuration);
 
         return services;
     }
@@ -137,10 +140,9 @@ public static class DependencyInjection
         services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
     }
 
-    // private static void AddMongoDb(IServiceCollection services, IConfiguration configuration)
-    // {
-    //     string connectionString = configuration.GetConnectionString("MongoDB")!;
-    //
-    //     services.AddSingleton<IMongoClient>(_ => new MongoClient(connectionString));
-    // }
+    private static void AddStorage(IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddSingleton<IBlobStorage, BlobStorage>();
+        services.AddSingleton(_ => new BlobServiceClient(configuration.GetConnectionString("blob-storage")!));
+    }
 }
