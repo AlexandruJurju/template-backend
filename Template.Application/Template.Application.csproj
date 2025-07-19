@@ -27,9 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Abstractions\Cache\" />
       <Folder Include="Users\Commands\" />
-      <Folder Include="Users\Queries\" />
     </ItemGroup>
 
 </Project>
