@@ -31,7 +31,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddDatabase(services, configuration);
-        
+
         AddCaching(services, configuration);
 
         AddTickerQ(services);
@@ -50,7 +50,7 @@ public static class DependencyInjection
     private static void AddEmail(IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<EmailOptions>(configuration.GetSection("Authentication"));
-        
+
         services.AddScoped<IEmailService, EmailService>();
 
         // Get the Papercut connection string
@@ -111,15 +111,22 @@ public static class DependencyInjection
 
     private static void AddAuthenticationInternal(IServiceCollection services, IConfiguration configuration)
     {
+        services.Configure<JwtOptions>(configuration.GetSection("Jwt")!);
+
+        JwtOptions jwtOptions = configuration
+            .GetSection("Jwt")
+            .Get<JwtOptions>()!;
+
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(o =>
             {
                 o.RequireHttpsMetadata = false;
                 o.TokenValidationParameters = new TokenValidationParameters
                 {
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Secret"]!)),
-                    ValidIssuer = configuration["Jwt:Issuer"],
-                    ValidAudience = configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(jwtOptions.Secret)),
+                    ValidIssuer = jwtOptions.Issuer,
+                    ValidAudience = jwtOptions.Audience,
                     ClockSkew = TimeSpan.Zero
                 };
             });

@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using Template.Application.Abstractions.Authentication;
@@ -10,9 +11,11 @@ using Template.Domain.Users;
 namespace Template.Infrastructure.Authentication;
 
 internal sealed class TokenProvider(
-    IConfiguration configuration
+    IOptions<JwtOptions> jwtOptions
 ) : ITokenProvider
 {
+    private readonly JwtOptions _jwtOptions = jwtOptions.Value;
+
     public string GenerateRefreshToken()
     {
         return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
@@ -20,7 +23,7 @@ internal sealed class TokenProvider(
 
     public string GenerateToken(User user)
     {
-        string secretKey = configuration["Jwt:Secret"]!;
+        string secretKey = _jwtOptions.Secret;
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -34,10 +37,10 @@ internal sealed class TokenProvider(
                 new Claim("role", user.Role.Name),
                 ..user.Role.Permissions.Select(p => new Claim("permission", p.Name))
             ]),
-            Expires = DateTime.UtcNow.AddMinutes(configuration.GetValue<int>("Jwt:ExpirationInMinutes")),
+            Expires = DateTime.UtcNow.AddMinutes(_jwtOptions.ExpireInMinutes),
             SigningCredentials = credentials,
-            Issuer = configuration["Jwt:Issuer"],
-            Audience = configuration["Jwt:Audience"]
+            Issuer = _jwtOptions.Issuer,
+            Audience = _jwtOptions.Audience
         };
 
         var handler = new JsonWebTokenHandler();
