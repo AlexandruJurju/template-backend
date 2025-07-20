@@ -49,8 +49,9 @@ public static class DependencyInjection
 
     private static void AddEmail(IServiceCollection services, IConfiguration configuration)
     {
+        services.Configure<EmailOptions>(configuration.GetSection("Authentication"));
+        
         services.AddScoped<IEmailService, EmailService>();
-        services.AddScoped<IEmailVerificationLinkFactory, EmailVerificationLinkFactory>();
 
         // Get the Papercut connection string
         string papercutConnectionString = configuration.GetConnectionString("papercut")!;

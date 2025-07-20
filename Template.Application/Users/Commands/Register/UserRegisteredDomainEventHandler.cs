@@ -11,10 +11,7 @@ namespace Template.Application.Users.Commands.Register;
 
 internal sealed class UserRegisteredDomainEventHandler(
     IApplicationDbContext dbContext,
-    IEmailService emailService,
-    IEmailVerificationLinkFactory emailVerificationLinkFactory,
-    TimeProvider timeProvider,
-    IConfiguration configuration
+    IEmailService emailService
 ) : INotificationHandler<UserRegisteredDomainEvent>
 {
     public async Task Handle(UserRegisteredDomainEvent notification, CancellationToken cancellationToken)
@@ -27,22 +24,11 @@ internal sealed class UserRegisteredDomainEventHandler(
             return;
         }
 
-        var token = new EmailVerificationToken
-        {
-            Id = Guid.NewGuid(),
-            UserId = user.Id,
-            CreatedOnUtc = timeProvider.GetUtcNow().UtcDateTime,
-            ExpiresOnUtc = timeProvider.GetUtcNow().UtcDateTime.AddDays(configuration.GetValue<int>("Email:VerificationTokenExpireHours"))
-        };
-        dbContext.EmailVerificationTokens.Add(token);
-
-        string verificationLink = emailVerificationLinkFactory.Create(token);
-
         EmailTemplate template =
             await dbContext.EmailTemplates.SingleOrDefaultAsync(x => x.Name == EmailTemplate.UserRegistered, cancellationToken) ??
             throw new Exception(EmailTemplateErrors.NotFound(EmailTemplate.UserRegistered).Description);
 
-        Result result = await emailService.SendEmail(user.Email, template, new RegisterUserMailModel(verificationLink));
+        Result result = await emailService.SendEmail(user.Email, template, new RegisterUserMailModel());
 
         if (result.IsFailure)
         {
