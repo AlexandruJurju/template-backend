@@ -24,7 +24,7 @@ public class ProcessOutboxMessagesJob(
         TypeNameHandling = TypeNameHandling.All
     };
 
-    [TickerFunction(functionName: "Process", cronExpression: "* * * * *")]
+    [TickerFunction(functionName: "Process", cronExpression: "%BackgroundJobs:Outbox:Schedule%")]
     public async Task ProcessAsync()
     {
         logger.LogInformation("Starting to process outbox messages");
