@@ -16,7 +16,7 @@ internal sealed class PermissionAuthorizationHandler : AuthorizationHandler<Perm
         // If token contains a json array then the permissions will be interpreted as separate claims
         // Use a HashSet to store unique permissions
         var permissions = context.User
-            .FindAll("permissions")
+            .FindAll("permission")
             .Select(c => c.Value)
             .ToHashSet();
 

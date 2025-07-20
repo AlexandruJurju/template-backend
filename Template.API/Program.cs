@@ -1,3 +1,4 @@
+using System.Reflection;
 using Scalar.AspNetCore;
 using Serilog;
 using ServiceDefaults;
@@ -19,11 +20,11 @@ builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
-builder.Services.AddControllers();
+builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 
 WebApplication app = builder.Build();
 
-app.MapDefaultEndpoints();
+app.MapEndpoints();
 
 if (app.Environment.IsDevelopment())
 {
@@ -47,7 +48,5 @@ app.UseCors(CorsOptions.PolicyName);
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-app.MapControllers();
 
 await app.RunAsync();

@@ -1,4 +1,4 @@
-﻿namespace Template.API.Controllers;
+﻿namespace Template.API.Endpoints;
 
 public static class Roles
 {
