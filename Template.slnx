@@ -1,12 +1,15 @@
 ﻿<Solution>
-  <Folder Name="/template-aspire/">
-    <Project Path="AppHost\AppHost.csproj" Type="Classic C#" />
-    <Project Path="ServiceDefaults\ServiceDefaults.csproj" Type="Classic C#" />
+  <Folder Name="/template-common/">
+    <Project Path="template-common\src\AppHost\AppHost.csproj" Type="Classic C#" />
+    <Project Path="template-common\src\ServiceDefaults\ServiceDefaults.csproj" Type="Classic C#" />
+    <Project Path="template-common\src\Template.SharedKernel\Template.SharedKernel.csproj" Type="Classic C#" />
   </Folder>
-  <Project Path="Template.API\Template.API.csproj" Type="Classic C#" />
-  <Project Path="Template.Application\Template.Application.csproj" Type="Classic C#" />
-  <Project Path="Template.Domain\Template.Domain.csproj" Type="Classic C#" />
-  <Project Path="Template.Infrastructure\Template.Infrastructure.csproj" Type="Classic C#" />
-  <Project Path="Template.Spec\Template.Spec.csproj" Type="Classic C#" />
-  <Project Path="Template.UnitTests\Template.UnitTests.csproj" Type="Classic C#" />
+  <Folder Name="/template-monolith/">
+    <Project Path="template-monolith\src\Template.API\Template.API.csproj" Type="Classic C#" />
+    <Project Path="template-monolith\src\Template.Application\Template.Application.csproj" Type="Classic C#" />
+    <Project Path="template-monolith\src\Template.Domain\Template.Domain.csproj" Type="Classic C#" />
+    <Project Path="template-monolith\src\Template.Infrastructure\Template.Infrastructure.csproj" Type="Classic C#" />
+    <Project Path="template-monolith\src\Template.Spec\Template.Spec.csproj" Type="Classic C#" />
+    <Project Path="template-monolith\src\Template.UnitTests\Template.UnitTests.csproj" Type="Classic C#" />
+  </Folder>
 </Solution>
