@@ -3,7 +3,7 @@ using FluentEmail.Core.Models;
 using Template.Application.Abstractions.Email;
 using Template.Domain.EmailTemplates;
 using Template.Domain.Users;
-using Template.SharedKernel.Result;
+using Template.SharedKernel.Application.CustomResult;
 
 namespace Template.Infrastructure.Email;
 

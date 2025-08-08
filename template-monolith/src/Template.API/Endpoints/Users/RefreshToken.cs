@@ -4,7 +4,7 @@ using Microsoft.OpenApi.Models;
 using Template.API.ExceptionHandler;
 using Template.Application.Users.Commands.Login;
 using Template.Application.Users.Commands.RefreshToken;
-using Template.SharedKernel.Result;
+using Template.SharedKernel.Application.CustomResult;
 
 namespace Template.API.Endpoints.Users;
 

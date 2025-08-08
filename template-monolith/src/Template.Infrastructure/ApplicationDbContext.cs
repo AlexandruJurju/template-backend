@@ -4,9 +4,10 @@ using Template.Domain.Abstractions;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.ApiKeys;
 using Template.Domain.EmailTemplates;
-using Template.Domain.Infrastructure.Outbox;
 using Template.Domain.Users;
 using Template.SharedKernel;
+using Template.SharedKernel.Domain;
+using Template.SharedKernel.Infrastructure.Outbox;
 
 namespace Template.Infrastructure;
 
@@ -46,11 +47,11 @@ public sealed class ApplicationDbContext(
     private void AddDomainEventsAsOutboxMessages()
     {
         var outboxMessages = ChangeTracker
-            .Entries<Entity>()
+            .Entries<EntityBase>()
             .Select(entry => entry.Entity)
             .SelectMany(entity =>
             {
-                List<IDomainEvent> domainEvents = entity.DomainEvents;
+                IReadOnlyCollection<IDomainEvent> domainEvents = entity.DomainEvents;
 
                 entity.ClearDomainEvents();
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Template.API.Authentication;
 using Template.API.ExceptionHandler;
 using Template.Application.Users.Queries.GetByEmail;
-using Template.SharedKernel.Result;
+using Template.SharedKernel.Application.CustomResult;
 
 namespace Template.API.Endpoints.Users;
 

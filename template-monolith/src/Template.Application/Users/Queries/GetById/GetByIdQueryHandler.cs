@@ -1,9 +1,9 @@
 ﻿using System.Data;
 using Dapper;
-using Template.Application.Abstractions.Data;
-using Template.Application.Abstractions.Messaging;
 using Template.Domain.Users;
-using Template.SharedKernel.Result;
+using Template.SharedKernel.Application.CustomResult;
+using Template.SharedKernel.Application.Messaging;
+using Template.SharedKernel.Infrastructure.Data;
 
 namespace Template.Application.Users.Queries.GetById;
 

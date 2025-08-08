@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Template.API.ExceptionHandler;
 using Template.Application.Users.Commands.VerifyEmail;
-using Template.SharedKernel.Result;
+using Template.SharedKernel.Application.CustomResult;
 
 namespace Template.API.Endpoints.Users;
 

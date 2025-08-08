@@ -1,4 +1,4 @@
-﻿using Template.Application.Abstractions.Messaging;
+﻿using Template.SharedKernel.Application.Messaging;
 
 namespace Template.Application.Users.Queries.GetById;
 

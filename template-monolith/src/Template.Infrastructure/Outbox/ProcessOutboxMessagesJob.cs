@@ -5,8 +5,9 @@ using Newtonsoft.Json;
 using Template.Application.Abstractions.Outbox;
 using Template.Domain.Abstractions;
 using Template.Domain.Abstractions.Persistence;
-using Template.Domain.Infrastructure.Outbox;
 using Template.SharedKernel;
+using Template.SharedKernel.Domain;
+using Template.SharedKernel.Infrastructure.Outbox;
 using TickerQ.Utilities.Base;
 
 namespace Template.Infrastructure.Outbox;

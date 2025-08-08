@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0"/>
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsAspireHost>true</IsAspireHost>
+        <UserSecretsId>e632aac0-af97-4993-9e3f-030c6cf4271d</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.1"/>
+        <PackageReference Include="Aspire.Hosting.Azure.Storage" Version="9.3.1"/>
+        <PackageReference Include="Aspire.Hosting.Garnet" Version="9.3.1"/>
+        <PackageReference Include="Aspire.Hosting.NodeJs" Version="9.3.1"/>
+        <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.3.1"/>
+        <PackageReference Include="Aspire.Hosting.Redis" Version="9.3.1"/>
+        <PackageReference Include="Aspire.Hosting.Seq" Version="9.3.1"/>
+        <PackageReference Include="Aspire.Hosting.Valkey" Version="9.3.1"/>
+        <PackageReference Include="CommunityToolkit.Aspire.Hosting.PapercutSmtp" Version="9.6.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\template-monolith\src\Template.API\Template.API.csproj"/>
+    </ItemGroup>
+
+    <Target Name="RunUnitTests" AfterTargets="Build" Condition=" '$(Configuration)' == 'Debug'">
+        <ItemGroup>
+            <TestProjects Include="../../../**/*UnitTests.csproj;../../**/*ArchitectureTests.csproj"/>
+        </ItemGroup>
+        <MSBuild Projects="@(TestProjects)" Targets="Build" Properties="Configuration=$(Configuration)"/>
+        <Message Importance="high" Text="▶ Running tests in %(TestProjects.Identity)"/>
+        <Exec Command='dotnet test "%(TestProjects.Identity)" --no-build --configuration $(Configuration)'/>
+    </Target>
+</Project>

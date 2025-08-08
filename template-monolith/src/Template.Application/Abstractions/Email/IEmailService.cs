@@ -1,5 +1,5 @@
 ﻿using Template.Domain.EmailTemplates;
-using Template.SharedKernel.Result;
+using Template.SharedKernel.Application.CustomResult;
 
 namespace Template.Application.Abstractions.Email;
 

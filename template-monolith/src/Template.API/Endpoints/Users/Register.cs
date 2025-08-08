@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Template.API.ExceptionHandler;
 using Template.Application.Users.Commands.Register;
 using Template.Domain.Users;
-using Template.SharedKernel.Result;
+using Template.SharedKernel.Application.CustomResult;
 
 namespace Template.API.Endpoints.Users;
 

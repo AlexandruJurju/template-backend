@@ -1,8 +1,12 @@
 ﻿<Solution>
   <Folder Name="/template-common/">
-    <Project Path="template-common\src\AppHost\AppHost.csproj" Type="Classic C#" />
-    <Project Path="template-common\src\ServiceDefaults\ServiceDefaults.csproj" Type="Classic C#" />
+    <Project Path="template-common\src\Template.AspireHost\Template.AspireHost.csproj" Type="Classic C#" />
+    <Project Path="template-common\src\Template.ServiceDefaults\Template.ServiceDefaults.csproj" Type="Classic C#" />
     <Project Path="template-common\src\Template.SharedKernel\Template.SharedKernel.csproj" Type="Classic C#" />
+    <Project Path="Template.Common.UnitTests\Template.Common.UnitTests.csproj" Type="Classic C#" />
+    <File Path="template-common\.editorconfig" />
+    <File Path="template-common\.gitignore" />
+    <File Path="template-common\Directory.Build.props" />
   </Folder>
   <Folder Name="/template-monolith/">
     <Project Path="template-monolith\src\Template.API\Template.API.csproj" Type="Classic C#" />
@@ -11,5 +15,8 @@
     <Project Path="template-monolith\src\Template.Infrastructure\Template.Infrastructure.csproj" Type="Classic C#" />
     <Project Path="template-monolith\src\Template.Spec\Template.Spec.csproj" Type="Classic C#" />
     <Project Path="template-monolith\src\Template.UnitTests\Template.UnitTests.csproj" Type="Classic C#" />
+    <File Path="template-monolith\.editorconfig" />
+    <File Path="template-monolith\.gitignore" />
+    <File Path="template-monolith\Directory.Build.props" />
   </Folder>
 </Solution>

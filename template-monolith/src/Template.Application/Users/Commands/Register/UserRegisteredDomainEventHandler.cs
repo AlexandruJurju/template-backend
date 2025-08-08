@@ -5,7 +5,7 @@ using Template.Application.Abstractions.Email;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.EmailTemplates;
 using Template.Domain.Users;
-using Template.SharedKernel.Result;
+using Template.SharedKernel.Application.CustomResult;
 
 namespace Template.Application.Users.Commands.Register;
 

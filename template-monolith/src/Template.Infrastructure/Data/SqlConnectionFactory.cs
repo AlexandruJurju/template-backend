@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using Npgsql;
-using Template.Application.Abstractions.Data;
+using Template.SharedKernel.Infrastructure.Data;
 
 namespace Template.Infrastructure.Data;
 

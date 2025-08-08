@@ -1,4 +1,4 @@
-﻿using Template.SharedKernel;
+﻿using Template.SharedKernel.Domain;
 
 namespace Template.Domain.Users;
 

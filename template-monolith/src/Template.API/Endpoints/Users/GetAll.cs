@@ -2,7 +2,7 @@
 using Template.API.ExceptionHandler;
 using Template.API.Extensions;
 using Template.Application.Users.Queries.GetAll;
-using Template.SharedKernel.Result;
+using Template.SharedKernel.Application.CustomResult;
 
 namespace Template.API.Endpoints.Users;
 

@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Template.Application.Abstractions.Behaviors;
 using Template.Domain.Users;
+using Template.SharedKernel.Application.Behaviors;
 
 namespace Template.Application;
 

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Template.Application.Abstractions.Messaging;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Users;
-using Template.SharedKernel.Result;
+using Template.SharedKernel.Application.CustomResult;
+using Template.SharedKernel.Application.Messaging;
 
 namespace Template.Application.Users.Commands.VerifyEmail;
 

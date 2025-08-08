@@ -1,9 +1,8 @@
-﻿using Template.Domain.Abstractions;
-using Template.SharedKernel;
+﻿using Template.SharedKernel.Domain;
 
 namespace Template.Domain.Users;
 
-public sealed class User : Entity
+public sealed class User : EntityBase
 {
     private User(Guid id, string email, string firstName, string lastName, string passwordHash)
     {
@@ -19,7 +18,6 @@ public sealed class User : Entity
     {
     }
 
-    public Guid Id { get; init; }
     public string Email { get; init; } = null!;
     public string FirstName { get; init; } = null!;
     public string LastName { get; init; } = null!;

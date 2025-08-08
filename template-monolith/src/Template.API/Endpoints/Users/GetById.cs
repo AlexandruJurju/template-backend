@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Template.API.ExceptionHandler;
 using Template.Application.Users.Queries.GetById;
-using Template.SharedKernel.Result;
+using Template.SharedKernel.Application.CustomResult;
 
 namespace Template.API.Endpoints.Users;
 

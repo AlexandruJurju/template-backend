@@ -1,4 +1,4 @@
-﻿using Template.SharedKernel.Result;
+﻿using Template.SharedKernel.Application.CustomResult;
 
 namespace Template.Domain.Users;
 

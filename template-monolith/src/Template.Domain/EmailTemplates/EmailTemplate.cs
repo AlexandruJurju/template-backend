@@ -1,9 +1,8 @@
-﻿using Template.Domain.Abstractions;
-using Template.SharedKernel;
+﻿using Template.SharedKernel.Domain;
 
 namespace Template.Domain.EmailTemplates;
 
-public class EmailTemplate : Entity
+public class EmailTemplate : EntityBase
 {
     public static readonly string UserRegistered = "UserRegistered";
 

@@ -6,7 +6,7 @@ using Template.Application.Abstractions.Authentication;
 using Template.Application.Users.Commands.Login;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Users;
-using Template.SharedKernel.Result;
+using Template.SharedKernel.Application.CustomResult;
 
 namespace Template.UnitTests;
 
