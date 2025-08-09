@@ -8,9 +8,6 @@ using Template.Application.Users.Commands.RefreshToken;
 
 namespace Template.API.Endpoints.Users;
 
-/// <summary>
-///     Refresh the JWT Token of a user
-/// </summary>
 internal sealed class RefreshToken : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
@@ -27,11 +24,7 @@ internal sealed class RefreshToken : IEndpoint
             })
             .WithName("RefreshToken")
             .WithTags(Tags.Users)
-            .WithOpenApi(operation => new OpenApiOperation(operation)
-            {
-                Summary = "Refresh Token",
-                Description = "Use the refresh token to get a new access token"
-            })
+            .WithOpenApi(operation => new OpenApiOperation(operation))
             .Produces<LoginResponse>()
             .ProducesProblem(StatusCodes.Status400BadRequest);
     }

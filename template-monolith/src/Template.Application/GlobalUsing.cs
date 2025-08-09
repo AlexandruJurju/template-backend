@@ -8,3 +8,5 @@ global using System.Data;
 global using Dapper;
 global using Template.SharedKernel.Infrastructure.Data;
 global using Microsoft.Extensions.DependencyInjection;
+global using System.ComponentModel;
+global using System.Linq.Expressions;

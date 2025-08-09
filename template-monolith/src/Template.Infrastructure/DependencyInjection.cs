@@ -13,9 +13,11 @@ using Template.Domain.Abstractions.Persistence;
 using Template.Infrastructure.Authentication;
 using Template.Infrastructure.Authorization;
 using Template.Infrastructure.Data;
+using Template.Infrastructure.Data.GenericRepository;
 using Template.Infrastructure.Email;
 using Template.Infrastructure.Outbox;
 using Template.Infrastructure.Storage;
+using Template.SharedKernel.Domain;
 using TickerQ.Dashboard.DependencyInjection;
 using TickerQ.DependencyInjection;
 using TickerQ.EntityFrameworkCore.DependencyInjection;
@@ -102,7 +104,16 @@ public static class DependencyInjection
             .UseSnakeCaseNamingConvention());
 
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
+
         services.AddSingleton<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString!));
+
+        AddGenericRepository(services);
+    }
+
+    private static void AddGenericRepository(IServiceCollection services)
+    {
+        services.AddScoped<IUnitOfWork, EfUnitOfWork>();
+        services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
     }
 
     private static void AddAuthenticationInternal(IServiceCollection services, IConfiguration configuration)

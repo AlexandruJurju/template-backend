@@ -7,8 +7,7 @@ namespace Template.Application.Users.Commands.Register;
 public sealed class RegisterUserCommandHandler(
     IApplicationDbContext dbContext,
     IPasswordHasher passwordHasher
-)
-    : ICommandHandler<RegisterUserCommand, Guid>
+) : ICommandHandler<RegisterUserCommand, Guid>
 {
     public async Task<Result<Guid>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
