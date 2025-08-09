@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Template.API.ExceptionHandler;
 using Template.Application.Users.Commands.Register;
 using Template.Domain.Users;
-using Template.SharedKernel.Application.CustomResult;
+using Ardalis.Result;
+using Ardalis.Result.AspNetCore;
 
 namespace Template.API.Endpoints.Users;
 
@@ -23,7 +24,7 @@ internal sealed class Register : IEndpoint
 
                 Result<Guid> result = await sender.Send(command, cancellationToken);
 
-                return result.Match(Results.Ok, CustomResults.Problem);
+                return result.ToMinimalApiResult();
             })
             .WithName("RegisterUser")
             .WithTags(Tags.Users)

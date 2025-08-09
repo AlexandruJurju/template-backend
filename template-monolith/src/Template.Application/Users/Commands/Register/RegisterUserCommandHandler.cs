@@ -2,7 +2,7 @@
 using Template.Application.Abstractions.Authentication;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Users;
-using Template.SharedKernel.Application.CustomResult;
+using Ardalis.Result;
 using Template.SharedKernel.Application.Messaging;
 
 namespace Template.Application.Users.Commands.Register;
@@ -17,7 +17,7 @@ public sealed class RegisterUserCommandHandler(
     {
         if (await dbContext.Users.AnyAsync(user => user.Email == request.Email, cancellationToken))
         {
-            return UserErrors.EmailNotUnique;
+            return UserErrors.EmailNotUnique(request.Email);
         }
 
         var user = User.Create(request.Email, request.FirstName, request.LastName, passwordHasher.Hash(request.Password));

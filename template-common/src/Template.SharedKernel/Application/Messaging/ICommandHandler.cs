@@ -1,5 +1,5 @@
-﻿using MediatR;
-using Template.SharedKernel.Application.CustomResult;
+﻿using Ardalis.Result;
+using MediatR;
 
 namespace Template.SharedKernel.Application.Messaging;
 

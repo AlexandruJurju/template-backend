@@ -2,7 +2,7 @@
 using Template.Application.Abstractions.Authentication;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Users;
-using Template.SharedKernel.Application.CustomResult;
+using Ardalis.Result;
 using Template.SharedKernel.Application.Messaging;
 
 namespace Template.Application.Users.Commands.RefreshToken;

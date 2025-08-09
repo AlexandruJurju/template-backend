@@ -4,7 +4,8 @@ using Microsoft.OpenApi.Models;
 using Template.API.ExceptionHandler;
 using Template.Application.Users.Commands.Login;
 using Template.Application.Users.Commands.RefreshToken;
-using Template.SharedKernel.Application.CustomResult;
+using Ardalis.Result;
+using Ardalis.Result.AspNetCore;
 
 namespace Template.API.Endpoints.Users;
 
@@ -23,7 +24,7 @@ internal sealed class RefreshToken : IEndpoint
 
                 Result<RefreshTokenResponse> result = await sender.Send(command, cancellationToken);
 
-                return result.Match(Results.Ok, CustomResults.Problem);
+                return result.ToMinimalApiResult();
             })
             .WithName("RefreshToken")
             .WithTags(Tags.Users)

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Users;
-using Template.SharedKernel.Application.CustomResult;
+using Ardalis.Result;
 using Template.SharedKernel.Application.Messaging;
 
 namespace Template.Application.Users.Commands.VerifyEmail;
@@ -18,7 +18,7 @@ public class VerifyEmailCommandHandler(
 
         if (token is null || token.ExpiresOnUtc < timeProvider.GetUtcNow().UtcDateTime)
         {
-            return UserErrors.EmailVerificationTokenNotFound;
+            return UserErrors.EmailVerificationTokenNotFound();
         }
 
         dbContext.EmailVerificationTokens.Remove(token);

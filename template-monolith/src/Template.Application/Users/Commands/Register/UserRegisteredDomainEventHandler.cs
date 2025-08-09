@@ -5,7 +5,7 @@ using Template.Application.Abstractions.Email;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.EmailTemplates;
 using Template.Domain.Users;
-using Template.SharedKernel.Application.CustomResult;
+using Ardalis.Result;
 
 namespace Template.Application.Users.Commands.Register;
 
@@ -26,13 +26,13 @@ internal sealed class UserRegisteredDomainEventHandler(
 
         EmailTemplate template =
             await dbContext.EmailTemplates.SingleOrDefaultAsync(x => x.Name == EmailTemplate.UserRegistered, cancellationToken) ??
-            throw new Exception(EmailTemplateErrors.NotFound(EmailTemplate.UserRegistered).Description);
+            throw new Exception();
 
         Result result = await emailService.SendEmail(user.Email, template, new RegisterUserMailModel());
 
-        if (result.IsFailure)
+        if (!result.IsSuccess)
         {
-            throw new Exception(result.Error.Description);
+            throw new Exception();
         }
     }
 }

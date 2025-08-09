@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Template.API.Authentication;
 using Template.API.ExceptionHandler;
 using Template.Application.Users.Queries.GetByEmail;
-using Template.SharedKernel.Application.CustomResult;
+using Ardalis.Result;
+using Ardalis.Result.AspNetCore;
 
 namespace Template.API.Endpoints.Users;
 
@@ -19,10 +20,7 @@ internal sealed class GetByEmail : IEndpoint
 
                 Result<UserResponse> result = await sender.Send(query, cancellationToken);
 
-                return result.Match(
-                    Results.Ok,
-                    CustomResults.Problem
-                );
+                return result.ToMinimalApiResult();
             })
             .WithName("GetByEmail")
             .WithTags(Tags.Users)

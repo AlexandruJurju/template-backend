@@ -1,7 +1,8 @@
 ﻿using MediatR;
 using Template.API.ExceptionHandler;
 using Template.Application.Users.Commands.VerifyEmail;
-using Template.SharedKernel.Application.CustomResult;
+using Ardalis.Result;
+using Ardalis.Result.AspNetCore;
 
 namespace Template.API.Endpoints.Users;
 
@@ -16,9 +17,7 @@ public class VerifyLink : IEndpoint
             {
                 Result result = await sender.Send(new VerifyEmailCommand(token), cancellationToken);
 
-                return result.IsSuccess
-                    ? Results.Ok()
-                    : CustomResults.Problem(result);
+                return result.ToMinimalApiResult();
             })
             .WithName("VerifyEmail")
             .WithTags(Tags.Users)

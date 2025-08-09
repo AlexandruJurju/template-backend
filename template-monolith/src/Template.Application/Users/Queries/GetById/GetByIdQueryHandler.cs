@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using Dapper;
 using Template.Domain.Users;
-using Template.SharedKernel.Application.CustomResult;
+using Ardalis.Result;
 using Template.SharedKernel.Application.Messaging;
 using Template.SharedKernel.Infrastructure.Data;
 

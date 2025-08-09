@@ -1,7 +1,7 @@
-﻿using MediatR;
+﻿using Ardalis.Result;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using Serilog.Context;
-using Template.SharedKernel.Application.CustomResult;
 
 namespace Template.SharedKernel.Application.Behaviors;
 
@@ -28,7 +28,7 @@ public sealed class RequestLoggingPipelineBehavior<TRequest, TResponse>(
         }
         else
         {
-            using (LogContext.PushProperty("Error", result.Error, true))
+            using (LogContext.PushProperty("Error", string.Join("\n", result.Errors), true))
             {
                 logger.LogError("Completed request {RequestName} with error", requestName);
             }

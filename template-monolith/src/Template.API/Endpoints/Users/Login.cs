@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Template.API.ExceptionHandler;
 using Template.Application.Users.Commands.Login;
-using Template.SharedKernel.Application.CustomResult;
+using Ardalis.Result;
+using Ardalis.Result.AspNetCore;
 
 namespace Template.API.Endpoints.Users;
 
@@ -22,7 +23,7 @@ internal sealed class Login : IEndpoint
 
                 Result<LoginResponse> result = await sender.Send(command, cancellationToken);
 
-                return result.Match(Results.Ok, CustomResults.Problem);
+                return result.ToMinimalApiResult();
             })
             .WithName("LoginUser")
             .WithTags(Tags.Users)
@@ -31,6 +32,6 @@ internal sealed class Login : IEndpoint
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound);
     }
-    
+
     private sealed record Request(string Email, string Password);
 }

@@ -1,7 +1,7 @@
-﻿using MediatR;
+﻿using Ardalis.Result;
+using MediatR;
 using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.Extensions.Logging;
-using Template.SharedKernel.Application.CustomResult;
 using Template.SharedKernel.Application.Messaging;
 
 namespace Template.SharedKernel.Application.Behaviors;

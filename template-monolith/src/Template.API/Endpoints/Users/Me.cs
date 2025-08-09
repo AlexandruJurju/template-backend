@@ -2,7 +2,8 @@
 using Template.API.ExceptionHandler;
 using Template.Application.Abstractions.Authentication;
 using Template.Application.Users.Queries.GetById;
-using Template.SharedKernel.Application.CustomResult;
+using Ardalis.Result;
+using Ardalis.Result.AspNetCore;
 
 namespace Template.API.Endpoints.Users;
 
@@ -17,10 +18,7 @@ public class Me : IEndpoint
 
                 Result<UserResponse> result = await sender.Send(new GetUserByIdQuery(userId), cancellationToken);
 
-                return result.Match(
-                    Results.Ok,
-                    CustomResults.Problem
-                );
+                return result.ToMinimalApiResult();
             })
             .WithName("Me")
             .WithTags(Tags.Users)

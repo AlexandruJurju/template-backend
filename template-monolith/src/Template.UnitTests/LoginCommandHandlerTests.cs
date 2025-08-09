@@ -6,7 +6,8 @@ using Template.Application.Abstractions.Authentication;
 using Template.Application.Users.Commands.Login;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Users;
-using Template.SharedKernel.Application.CustomResult;
+using Ardalis.Result;
+using Template.SharedKernel.Application;
 
 namespace Template.UnitTests;
 
@@ -46,6 +47,6 @@ public class LoginCommandHandlerTests
         Result<LoginResponse> result = await handler.Handle(command, CancellationToken.None);
 
         // Assert
-        Assert.That(result.IsFailure, Is.True);
+        Assert.That(result.IsFailure(), Is.True);
     }
 }

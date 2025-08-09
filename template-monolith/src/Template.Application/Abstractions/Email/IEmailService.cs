@@ -1,5 +1,5 @@
 ﻿using Template.Domain.EmailTemplates;
-using Template.SharedKernel.Application.CustomResult;
+using Ardalis.Result;
 
 namespace Template.Application.Abstractions.Email;
 
