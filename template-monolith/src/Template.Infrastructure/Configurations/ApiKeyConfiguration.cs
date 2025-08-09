@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Template.Domain.ApiKeys;
+﻿using Template.Domain.ApiKeys;
 
 namespace Template.Infrastructure.Configurations;
 

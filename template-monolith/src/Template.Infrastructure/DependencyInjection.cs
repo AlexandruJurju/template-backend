@@ -2,11 +2,8 @@
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Caching.Hybrid;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Template.Application.Abstractions.Authentication;
 using Template.Application.Abstractions.Email;
@@ -19,7 +16,6 @@ using Template.Infrastructure.Data;
 using Template.Infrastructure.Email;
 using Template.Infrastructure.Outbox;
 using Template.Infrastructure.Storage;
-using Template.SharedKernel.Infrastructure.Data;
 using TickerQ.Dashboard.DependencyInjection;
 using TickerQ.DependencyInjection;
 using TickerQ.EntityFrameworkCore.DependencyInjection;
@@ -89,7 +85,7 @@ public static class DependencyInjection
                 efOpt.UseModelCustomizerForMigrations();
                 efOpt.CancelMissedTickersOnApplicationRestart();
             });
-            options.AddDashboard(basePath: "/tickerq-dashboard");
+            options.AddDashboard();
             options.AddDashboardBasicAuth();
         });
 

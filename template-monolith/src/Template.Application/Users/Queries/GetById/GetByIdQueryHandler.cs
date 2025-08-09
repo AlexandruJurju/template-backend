@@ -1,9 +1,4 @@
-﻿using System.Data;
-using Dapper;
-using Template.Domain.Users;
-using Ardalis.Result;
-using Template.SharedKernel.Application.Messaging;
-using Template.SharedKernel.Infrastructure.Data;
+﻿using Template.Domain.Users;
 
 namespace Template.Application.Users.Queries.GetById;
 

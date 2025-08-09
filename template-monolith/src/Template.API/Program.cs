@@ -1,12 +1,12 @@
 using System.Reflection;
 using Scalar.AspNetCore;
 using Serilog;
-using Template.ServiceDefaults;
 using Template.API;
 using Template.API.Cors;
 using Template.API.Extensions;
 using Template.Application;
 using Template.Infrastructure;
+using Template.ServiceDefaults;
 using TickerQ.DependencyInjection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);

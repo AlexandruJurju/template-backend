@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Template.Application.Abstractions.Authentication;
+﻿using Template.Application.Abstractions.Authentication;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Users;
-using Ardalis.Result;
-using Template.SharedKernel.Application.Messaging;
 
 namespace Template.Application.Users.Commands.Register;
 
@@ -23,7 +20,7 @@ public sealed class RegisterUserCommandHandler(
         var user = User.Create(request.Email, request.FirstName, request.LastName, passwordHasher.Hash(request.Password));
 
         dbContext.Attach(user.Role);
-        
+
         dbContext.Users.Add(user);
 
         await dbContext.SaveChangesAsync(cancellationToken);

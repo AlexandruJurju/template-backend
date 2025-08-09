@@ -1,6 +1,4 @@
-﻿using Template.SharedKernel.Domain;
-
-namespace Template.Domain.Users;
+﻿namespace Template.Domain.Users;
 
 public sealed class User : EntityBase
 {

@@ -1,11 +1,7 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Template.Application.Abstractions.Email;
+﻿using Template.Application.Abstractions.Email;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.EmailTemplates;
 using Template.Domain.Users;
-using Ardalis.Result;
 
 namespace Template.Application.Users.Commands.Register;
 

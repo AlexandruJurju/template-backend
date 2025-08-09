@@ -1,6 +1,4 @@
-﻿using Template.SharedKernel.Domain;
-
-namespace Template.Domain.EmailTemplates;
+﻿namespace Template.Domain.EmailTemplates;
 
 public class EmailTemplate : EntityBase
 {

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Template.SharedKernel.Infrastructure.Outbox;
+﻿using Template.SharedKernel.Infrastructure.Outbox;
 
 namespace Template.Infrastructure.Configurations;
 

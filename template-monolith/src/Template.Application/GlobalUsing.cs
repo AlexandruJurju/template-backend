@@ -1,0 +1,10 @@
+﻿global using Template.SharedKernel.Application.Messaging;
+global using Ardalis.Result;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Configuration;
+global using FluentValidation;
+global using MediatR;
+global using System.Data;
+global using Dapper;
+global using Template.SharedKernel.Infrastructure.Data;
+global using Microsoft.Extensions.DependencyInjection;

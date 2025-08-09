@@ -1,7 +1,6 @@
 ﻿using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using Microsoft.Extensions.Configuration;
 using Template.Application.Abstractions.Storage;
 
 namespace Template.Infrastructure.Storage;
@@ -28,9 +27,9 @@ public class BlobStorage(
     public async Task DeleteAsync(Guid fileId, CancellationToken cancellationToken = default)
     {
         BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_container);
-        
+
         BlobClient blobClient = containerClient.GetBlobClient(fileId.ToString());
-        
+
         await blobClient.DeleteIfExistsAsync(cancellationToken: cancellationToken);
     }
 
@@ -40,7 +39,7 @@ public class BlobStorage(
 
         BlobClient blobClient = containerClient.GetBlobClient(fileId.ToString());
 
-        Response<BlobDownloadResult> response = await blobClient.DownloadContentAsync(cancellationToken: cancellationToken);
+        Response<BlobDownloadResult> response = await blobClient.DownloadContentAsync(cancellationToken);
 
         return new FileResponse(response.Value.Content.ToStream(), response.Value.Details.ContentType);
     }

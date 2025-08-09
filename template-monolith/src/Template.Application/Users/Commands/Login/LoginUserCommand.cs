@@ -1,5 +1,3 @@
-﻿using Template.SharedKernel.Application.Messaging;
-
-namespace Template.Application.Users.Commands.Login;
+﻿namespace Template.Application.Users.Commands.Login;
 
 public sealed record LoginUserCommand(string Email, string Password) : ICommand<LoginResponse>;

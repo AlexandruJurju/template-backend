@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Template.Application.Users.Commands.Register;
+﻿namespace Template.Application.Users.Commands.Register;
 
 internal sealed class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
 {

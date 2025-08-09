@@ -1,5 +1,3 @@
-﻿using Template.SharedKernel.Application.Messaging;
-
-namespace Template.Application.Users.Queries.GetAll;
+﻿namespace Template.Application.Users.Queries.GetAll;
 
 public record GetAllUsersQuery : IQuery<IEnumerable<UserResponse>>;

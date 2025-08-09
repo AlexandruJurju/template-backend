@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Hybrid;
+﻿using Microsoft.Extensions.Caching.Hybrid;
 using Template.Domain.Abstractions.Persistence;
 
 namespace Template.Infrastructure.Authorization;

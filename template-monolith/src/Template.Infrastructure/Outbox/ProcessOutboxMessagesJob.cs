@@ -1,11 +1,7 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Template.Application.Abstractions.Outbox;
-using Template.Domain.Abstractions;
 using Template.Domain.Abstractions.Persistence;
-using Template.SharedKernel;
 using Template.SharedKernel.Domain;
 using Template.SharedKernel.Infrastructure.Outbox;
 using TickerQ.Utilities.Base;
@@ -26,7 +22,7 @@ public class ProcessOutboxMessagesJob(
         TypeNameHandling = TypeNameHandling.All
     };
 
-    [TickerFunction(functionName: "Process", cronExpression: "%BackgroundJobs:Outbox:Schedule%")]
+    [TickerFunction("Process", "%BackgroundJobs:Outbox:Schedule%")]
     public async Task ProcessAsync()
     {
         logger.LogInformation("Starting to process outbox messages");

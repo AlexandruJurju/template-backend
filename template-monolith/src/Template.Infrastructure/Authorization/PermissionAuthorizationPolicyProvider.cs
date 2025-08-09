@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Options;
 
 namespace Template.Infrastructure.Authorization;
 

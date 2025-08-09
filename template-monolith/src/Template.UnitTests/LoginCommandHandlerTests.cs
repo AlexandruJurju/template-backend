@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Ardalis.Result;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Time.Testing;
 using Moq;
 using Moq.EntityFrameworkCore;
@@ -6,7 +7,6 @@ using Template.Application.Abstractions.Authentication;
 using Template.Application.Users.Commands.Login;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Users;
-using Ardalis.Result;
 using Template.SharedKernel.Application;
 
 namespace Template.UnitTests;

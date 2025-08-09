@@ -1,8 +1,7 @@
-﻿using MediatR;
-using Template.API.ExceptionHandler;
-using Template.Application.Users.Commands.VerifyEmail;
-using Ardalis.Result;
+﻿using Ardalis.Result;
 using Ardalis.Result.AspNetCore;
+using MediatR;
+using Template.Application.Users.Commands.VerifyEmail;
 
 namespace Template.API.Endpoints.Users;
 

@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Template.Domain.Abstractions.Persistence;
+﻿using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Users;
-using Ardalis.Result;
-using Template.SharedKernel.Application.Messaging;
 
 namespace Template.Application.Users.Queries.GetByEmail;
 

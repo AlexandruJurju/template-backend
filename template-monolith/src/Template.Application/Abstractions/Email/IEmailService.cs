@@ -1,5 +1,4 @@
 ﻿using Template.Domain.EmailTemplates;
-using Ardalis.Result;
 
 namespace Template.Application.Abstractions.Email;
 

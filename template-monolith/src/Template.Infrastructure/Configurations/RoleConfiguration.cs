@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Template.Domain.Users;
+﻿using Template.Domain.Users;
 
 namespace Template.Infrastructure.Configurations;
 

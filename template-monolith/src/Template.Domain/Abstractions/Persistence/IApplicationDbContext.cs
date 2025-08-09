@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Template.Domain.ApiKeys;
+﻿using Template.Domain.ApiKeys;
 using Template.Domain.EmailTemplates;
 using Template.Domain.Users;
-using Template.SharedKernel.Domain;
 using Template.SharedKernel.Infrastructure.Outbox;
 
 namespace Template.Domain.Abstractions.Persistence;

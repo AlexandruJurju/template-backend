@@ -1,11 +1,10 @@
-﻿using MediatR;
+﻿using Ardalis.Result;
+using Ardalis.Result.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
-using Template.API.ExceptionHandler;
 using Template.Application.Users.Commands.Login;
 using Template.Application.Users.Commands.RefreshToken;
-using Ardalis.Result;
-using Ardalis.Result.AspNetCore;
 
 namespace Template.API.Endpoints.Users;
 

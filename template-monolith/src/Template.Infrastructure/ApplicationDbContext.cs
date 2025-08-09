@@ -1,11 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using Template.Domain.Abstractions;
+﻿using Newtonsoft.Json;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.ApiKeys;
 using Template.Domain.EmailTemplates;
 using Template.Domain.Users;
-using Template.SharedKernel;
 using Template.SharedKernel.Domain;
 using Template.SharedKernel.Infrastructure.Outbox;
 
@@ -15,6 +12,11 @@ public sealed class ApplicationDbContext(
     DbContextOptions<ApplicationDbContext> options
 ) : DbContext(options), IApplicationDbContext
 {
+    private static readonly JsonSerializerSettings JsonSerializerSettings = new()
+    {
+        TypeNameHandling = TypeNameHandling.All
+    };
+
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<OutboxMessage> OutboxMessages { get; set; }
@@ -38,11 +40,6 @@ public sealed class ApplicationDbContext(
 
         modelBuilder.HasDefaultSchema(Schemas.Default);
     }
-
-    private static readonly JsonSerializerSettings JsonSerializerSettings = new()
-    {
-        TypeNameHandling = TypeNameHandling.All
-    };
 
     private void AddDomainEventsAsOutboxMessages()
     {

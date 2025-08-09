@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Template.Domain.EmailTemplates;
+﻿using Template.Domain.EmailTemplates;
 
 namespace Template.Infrastructure.Configurations;
 

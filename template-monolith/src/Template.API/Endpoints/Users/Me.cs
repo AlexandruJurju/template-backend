@@ -1,9 +1,8 @@
-﻿using MediatR;
-using Template.API.ExceptionHandler;
+﻿using Ardalis.Result;
+using Ardalis.Result.AspNetCore;
+using MediatR;
 using Template.Application.Abstractions.Authentication;
 using Template.Application.Users.Queries.GetById;
-using Ardalis.Result;
-using Ardalis.Result.AspNetCore;
 
 namespace Template.API.Endpoints.Users;
 

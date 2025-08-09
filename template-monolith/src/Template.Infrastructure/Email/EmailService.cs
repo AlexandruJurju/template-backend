@@ -3,7 +3,6 @@ using FluentEmail.Core.Models;
 using Template.Application.Abstractions.Email;
 using Template.Domain.EmailTemplates;
 using Template.Domain.Users;
-using Ardalis.Result;
 
 namespace Template.Infrastructure.Email;
 

@@ -1,10 +1,9 @@
-﻿using MediatR;
+﻿using Ardalis.Result;
+using Ardalis.Result.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Template.API.ExceptionHandler;
 using Template.Application.Users.Commands.Register;
 using Template.Domain.Users;
-using Ardalis.Result;
-using Ardalis.Result.AspNetCore;
 
 namespace Template.API.Endpoints.Users;
 
