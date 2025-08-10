@@ -1,5 +1,4 @@
 ﻿using Template.Domain.ApiKeys;
-using Template.Domain.EmailTemplates;
 using Template.Domain.Users;
 using Template.SharedKernel.Infrastructure.Outbox;
 
@@ -12,7 +11,6 @@ public interface IApplicationDbContext : IUnitOfWork
     DbSet<OutboxMessage> OutboxMessages { get; set; }
     DbSet<ApiKey> ApiKeys { get; set; }
     DbSet<EmailVerificationToken> EmailVerificationTokens { get; set; }
-    DbSet<EmailTemplate> EmailTemplates { get; set; }
     DbSet<RefreshToken> RefreshTokens { get; set; }
     EntityEntry<TEntity> Attach<TEntity>(TEntity entity) where TEntity : class;
 }

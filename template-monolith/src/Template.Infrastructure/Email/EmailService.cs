@@ -1,19 +1,18 @@
 ﻿using FluentEmail.Core;
 using FluentEmail.Core.Models;
 using Template.Application.Abstractions.Email;
-using Template.Domain.EmailTemplates;
 using Template.Domain.Users;
 
 namespace Template.Infrastructure.Email;
 
 public class EmailService(IFluentEmail fluentEmail) : IEmailService
 {
-    public async Task<Result> SendEmail<TModel>(string toMail, EmailTemplate emailTemplate, TModel model)
+    public async Task<Result> SendEmail<TModel>(string toMail, string subject, string emailTemplateName, TModel model)
     {
         SendResponse? result = await fluentEmail
             .To(toMail)
-            .Subject(emailTemplate.Subject)
-            .UsingTemplate(emailTemplate.Content, model)
+            .Subject(subject)
+            .UsingTemplateFromFile(emailTemplateName, model, isHtml: true)
             .SendAsync();
 
         return !result.Successful

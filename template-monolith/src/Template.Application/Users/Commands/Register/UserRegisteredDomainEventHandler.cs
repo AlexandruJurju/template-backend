@@ -1,6 +1,5 @@
 ﻿using Template.Application.Abstractions.Email;
 using Template.Domain.Abstractions.Persistence;
-using Template.Domain.EmailTemplates;
 using Template.Domain.Users;
 
 namespace Template.Application.Users.Commands.Register;
@@ -20,11 +19,7 @@ internal sealed class UserRegisteredDomainEventHandler(
             return;
         }
 
-        EmailTemplate template =
-            await dbContext.EmailTemplates.SingleOrDefaultAsync(x => x.Name == EmailTemplate.UserRegistered, cancellationToken) ??
-            throw new Exception();
-
-        Result result = await emailService.SendEmail(user.Email, template, new RegisterUserMailModel());
+        Result result = await emailService.SendEmail(user.Email, "User Registered", EmailTemplates.UserRegistered, new RegisterUserMailModel());
 
         if (!result.IsSuccess)
         {
