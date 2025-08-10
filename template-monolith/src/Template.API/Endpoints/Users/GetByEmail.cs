@@ -1,7 +1,4 @@
-﻿using Ardalis.Result;
-using Ardalis.Result.AspNetCore;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Template.API.Authentication;
 using Template.Application.Users.Queries.GetByEmail;
 

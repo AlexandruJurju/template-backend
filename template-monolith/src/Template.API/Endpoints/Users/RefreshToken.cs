@@ -1,9 +1,4 @@
-﻿using Ardalis.Result;
-using Ardalis.Result.AspNetCore;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Models;
-using Template.Application.Users.Commands.Login;
+﻿using Template.Application.Users.Commands.Login;
 using Template.Application.Users.Commands.RefreshToken;
 
 namespace Template.API.Endpoints.Users;
@@ -24,7 +19,7 @@ internal sealed class RefreshToken : IEndpoint
             })
             .WithName("RefreshToken")
             .WithTags(Tags.Users)
-            .WithOpenApi(operation => new OpenApiOperation(operation))
+            .WithOpenApi()
             .Produces<LoginResponse>()
             .ProducesProblem(StatusCodes.Status400BadRequest);
     }

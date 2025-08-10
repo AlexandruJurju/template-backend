@@ -18,7 +18,7 @@ namespace Template.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("public")
-                .HasAnnotation("ProductVersion", "9.0.7")
+                .HasAnnotation("ProductVersion", "9.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -57,32 +57,6 @@ namespace Template.Infrastructure.Migrations
                         .HasName("pk_api_keys");
 
                     b.ToTable("api_keys", "public");
-                });
-
-            modelBuilder.Entity("Template.Domain.EmailTemplates.EmailTemplate", b =>
-                {
-                    b.Property<string>("Name")
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("content");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Subject")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("subject");
-
-                    b.HasKey("Name")
-                        .HasName("pk_email_templates");
-
-                    b.ToTable("email_templates", "public");
                 });
 
             modelBuilder.Entity("Template.Domain.Users.EmailVerificationToken", b =>
@@ -574,7 +548,7 @@ namespace Template.Infrastructure.Migrations
                     b.HasOne("TickerQ.EntityFrameworkCore.Entities.TimeTickerEntity", "ParentJob")
                         .WithMany("ChildJobs")
                         .HasForeignKey("BatchParent")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_time_tickers_time_tickers_batch_parent");
 
                     b.Navigation("ParentJob");

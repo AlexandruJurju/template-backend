@@ -60,9 +60,9 @@ public sealed class ValidationPipelineBehavior<TRequest, TResponse>(
                 .GetMethod(
                     nameof(Result.Invalid),
                     BindingFlags.Public | BindingFlags.Static,
-                    binder: null,
-                    types: [typeof(IEnumerable<ValidationError>)],
-                    modifiers: null);
+                    null,
+                    [typeof(IEnumerable<ValidationError>)],
+                    null);
 
             if (invalidMethod is not null)
             {

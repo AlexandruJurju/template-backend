@@ -7,7 +7,7 @@ using Template.API.Extensions;
 using Template.Application;
 using Template.Infrastructure;
 using Template.ServiceDefaults;
-using TickerQ.DependencyInjection;
+using TickerQ.DependencyInjection.Hosting;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

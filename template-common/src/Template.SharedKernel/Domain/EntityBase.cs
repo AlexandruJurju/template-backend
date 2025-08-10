@@ -12,8 +12,8 @@ public abstract class EntityBase<TId> : HasDomainEventsBase
 }
 
 /// <summary>
-/// For use with Vogen or similar tools for generating code for
-/// strongly typed Ids.
+///     For use with Vogen or similar tools for generating code for
+///     strongly typed Ids.
 /// </summary>
 public abstract class EntityBase<T, TId> : HasDomainEventsBase
     where T : EntityBase<T, TId>

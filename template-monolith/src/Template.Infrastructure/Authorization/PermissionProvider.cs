@@ -5,8 +5,7 @@ namespace Template.Infrastructure.Authorization;
 
 internal sealed class PermissionProvider(
     IApplicationDbContext context,
-    HybridCache hybridCache
-)
+    HybridCache hybridCache)
 {
     public async Task<HashSet<string>> GetForUserIdAsync(Guid userId)
     {

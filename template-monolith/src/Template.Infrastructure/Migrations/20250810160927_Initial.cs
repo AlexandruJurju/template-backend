@@ -57,21 +57,6 @@ namespace Template.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "email_templates",
-                schema: "public",
-                columns: table => new
-                {
-                    name = table.Column<string>(type: "text", nullable: false),
-                    subject = table.Column<string>(type: "text", nullable: false),
-                    content = table.Column<string>(type: "text", nullable: false),
-                    id = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_email_templates", x => x.name);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "outbox_messages",
                 schema: "public",
                 columns: table => new
@@ -150,7 +135,7 @@ namespace Template.Infrastructure.Migrations
                         principalSchema: "ticker",
                         principalTable: "TimeTickers",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -395,10 +380,6 @@ namespace Template.Infrastructure.Migrations
             migrationBuilder.DropTable(
                 name: "CronTickerOccurrences",
                 schema: "ticker");
-
-            migrationBuilder.DropTable(
-                name: "email_templates",
-                schema: "public");
 
             migrationBuilder.DropTable(
                 name: "email_verification_tokens",
