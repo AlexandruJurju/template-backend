@@ -1,0 +1,746 @@
+openapi: 3.1.0
+info:
+  title: Template.API
+  version: "1.0"
+paths:
+  /api/options:
+    get:
+      tags:
+        - TickerQ
+      responses:
+        "200":
+          description: OK
+  /api/cron-tickers:
+    get:
+      tags:
+        - TickerQ
+      responses:
+        "200":
+          description: OK
+  /api/time-tickers:
+    get:
+      tags:
+        - TickerQ
+      responses:
+        "200":
+          description: OK
+  /api/time-tickers/:graph-data-range:
+    get:
+      tags:
+        - TickerQ
+      parameters:
+        - name: pastDays
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 3
+        - name: futureDays
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 3
+      responses:
+        "200":
+          description: OK
+  /api/time-tickers/:graph-data:
+    get:
+      tags:
+        - TickerQ
+      responses:
+        "200":
+          description: OK
+  /api/time-tickers/set-batch-parent:
+    post:
+      tags:
+        - TickerQ
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TickerQ.Dashboard.Requests.SetBatchParentRequest"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/TickerQ.Dashboard.Requests.SetBatchParentRequest"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/TickerQ.Dashboard.Requests.SetBatchParentRequest"
+      responses:
+        "200":
+          description: OK
+  /api/cron-tickers/:graph-data-range:
+    get:
+      tags:
+        - TickerQ
+      parameters:
+        - name: pastDays
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 3
+        - name: futureDays
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 3
+      responses:
+        "200":
+          description: OK
+  /api/cron-tickers/:graph-data-range-id:
+    get:
+      tags:
+        - TickerQ
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: pastDays
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 3
+        - name: futureDays
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 3
+      responses:
+        "200":
+          description: OK
+  /api/cron-tickers/:graph-data:
+    get:
+      tags:
+        - TickerQ
+      responses:
+        "200":
+          description: OK
+  /api/cron-ticker-occurrences/:cronTickerId:
+    get:
+      tags:
+        - TickerQ
+      parameters:
+        - name: cronTickerId
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: OK
+  /api/cron-ticker-occurrences/:cronTickerId/:graph-data:
+    get:
+      tags:
+        - TickerQ
+      parameters:
+        - name: cronTickerId
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: OK
+  /api/ticker/:cancel:
+    post:
+      tags:
+        - TickerQ
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: OK
+  /api/time-ticker/:delete:
+    delete:
+      tags:
+        - TickerQ
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: OK
+  /api/cron-ticker/:delete:
+    delete:
+      tags:
+        - TickerQ
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: OK
+  /api/cron-ticker-occurrence/:delete:
+    delete:
+      tags:
+        - TickerQ
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: OK
+  /api/ticker-request/:id:
+    get:
+      tags:
+        - TickerQ
+      parameters:
+        - name: tickerId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: tickerType
+          in: query
+          schema:
+            $ref: "#/components/schemas/TickerQ.Utilities.Enums.TickerType"
+      responses:
+        "200":
+          description: OK
+  /api/ticker-functions:
+    get:
+      tags:
+        - TickerQ
+      responses:
+        "200":
+          description: OK
+  /api/time-ticker/:update:
+    put:
+      tags:
+        - TickerQ
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          text/json:
+            schema: {}
+          application/*+json:
+            schema: {}
+      responses:
+        "200":
+          description: OK
+  /api/time-ticker/:add:
+    post:
+      tags:
+        - TickerQ
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          text/json:
+            schema: {}
+          application/*+json:
+            schema: {}
+      responses:
+        "200":
+          description: OK
+  /api/cron-ticker/:add:
+    post:
+      tags:
+        - TickerQ
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          text/json:
+            schema: {}
+          application/*+json:
+            schema: {}
+      responses:
+        "200":
+          description: OK
+  /api/cron-ticker/:update:
+    put:
+      tags:
+        - TickerQ
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          text/json:
+            schema: {}
+          application/*+json:
+            schema: {}
+      responses:
+        "200":
+          description: OK
+  /api/cron-ticker/:run:
+    post:
+      tags:
+        - TickerQ
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: OK
+  /api/ticker-host/:next-ticker:
+    get:
+      tags:
+        - TickerQ
+      responses:
+        "200":
+          description: OK
+  /api/ticker-host/:stop:
+    post:
+      tags:
+        - TickerQ
+      responses:
+        "200":
+          description: OK
+  /api/ticker-host/:start:
+    post:
+      tags:
+        - TickerQ
+      responses:
+        "200":
+          description: OK
+  /api/ticker-host/:restart:
+    post:
+      tags:
+        - TickerQ
+      responses:
+        "200":
+          description: OK
+  /api/ticker-host/:status:
+    get:
+      tags:
+        - TickerQ
+      responses:
+        "200":
+          description: OK
+  /api/ticker/statuses/:get-last-week:
+    get:
+      tags:
+        - TickerQ
+      responses:
+        "200":
+          description: OK
+  /api/ticker/statuses/:get:
+    get:
+      tags:
+        - TickerQ
+      responses:
+        "200":
+          description: OK
+  /api/ticker/machine/:jobs:
+    get:
+      tags:
+        - TickerQ
+      responses:
+        "200":
+          description: OK
+  /users:
+    get:
+      tags:
+        - Users
+      operationId: GetAll
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Template.Application.Users.Queries.GetAll.UserResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+  /users/{email}:
+    get:
+      tags:
+        - Users
+      operationId: GetByEmail
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Template.Application.Users.Queries.GetByEmail.UserResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+        "404":
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+  /users/{userId}:
+    get:
+      tags:
+        - Users
+      operationId: GetById
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Template.Application.Users.Queries.GetById.UserResponse"
+        "404":
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+  /users/login:
+    post:
+      tags:
+        - Users
+      operationId: LoginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Template.API.Endpoints.Users.Login-Request"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Template.Application.Users.Commands.Login.LoginResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+        "404":
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+  /users/me:
+    get:
+      tags:
+        - Users
+      operationId: Me
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Template.Application.Users.Queries.GetById.UserResponse"
+  /users/refresh-token:
+    post:
+      tags:
+        - Users
+      operationId: RefreshToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Template.API.Endpoints.Users.RefreshToken-RefreshTokenRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Template.Application.Users.Commands.Login.LoginResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+  /users/register:
+    post:
+      tags:
+        - Users
+      operationId: RegisterUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Template.API.Endpoints.Users.Register-Request"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json: {}
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Template.Domain.Users.User"
+        "400":
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+  /users/verify-email:
+    get:
+      tags:
+        - Users
+      operationId: VerifyEmail
+      parameters:
+        - name: token
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/System.Void"
+components:
+  schemas:
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: {}
+    System.Void:
+      type: object
+      additionalProperties: false
+    Template.API.Endpoints.Users.Login-Request:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      additionalProperties: false
+    Template.API.Endpoints.Users.RefreshToken-RefreshTokenRequest:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+      additionalProperties: false
+    Template.API.Endpoints.Users.Register-Request:
+      type: object
+      properties:
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        password:
+          type: string
+      additionalProperties: false
+    Template.Application.Users.Commands.Login.LoginResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+      additionalProperties: false
+    Template.Application.Users.Queries.GetAll.UserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+      additionalProperties: false
+    Template.Application.Users.Queries.GetByEmail.UserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+      additionalProperties: false
+    Template.Application.Users.Queries.GetById.UserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+      additionalProperties: false
+    Template.Domain.Users.Permission:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+      additionalProperties: false
+    Template.Domain.Users.Role:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        users:
+          type: array
+          items:
+            $ref: "#/components/schemas/Template.Domain.Users.User"
+        permissions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Template.Domain.Users.Permission"
+      additionalProperties: false
+    Template.Domain.Users.User:
+      type: object
+      properties:
+        domainEvents:
+          type: array
+          items:
+            $ref: "#/components/schemas/Template.SharedKernel.Domain.IDomainEvent"
+          readOnly: true
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        passwordHash:
+          type: string
+        role:
+          $ref: "#/components/schemas/Template.Domain.Users.Role"
+      additionalProperties: false
+    Template.SharedKernel.Domain.IDomainEvent:
+      type: object
+      properties:
+        occurredOn:
+          type: string
+          format: date-time
+          readOnly: true
+      additionalProperties: false
+    TickerQ.Dashboard.Requests.SetBatchParentRequest:
+      type: object
+      properties:
+        targetId:
+          type: string
+          format: uuid
+        parentId:
+          type: string
+          format: uuid
+        batchRunCondition:
+          $ref: "#/components/schemas/TickerQ.Utilities.Enums.BatchRunCondition"
+      additionalProperties: false
+    TickerQ.Utilities.Enums.BatchRunCondition:
+      enum:
+        - 0
+        - 1
+      type: integer
+      format: int32
+    TickerQ.Utilities.Enums.TickerType:
+      enum:
+        - 0
+        - 1
+      type: integer
+      format: int32
+  securitySchemes:
+    Bearer:
+      type: http
+      description: Enter your JWT token in this field
+      scheme: Bearer
+      bearerFormat: JWT
+    ApiKey:
+      type: apiKey
+      description: API Key authentication
+      name: X-ApiKey
+      in: header
+security:
+  - Bearer: []
+    ApiKey: []
