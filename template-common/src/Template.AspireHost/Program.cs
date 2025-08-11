@@ -21,7 +21,7 @@ IResourceBuilder<AzureBlobStorageResource> azureStorage = builder
         azurite.WithDataBindMount("../../../.containers/blob_storage/data"))
     .AddBlobs("blob-storage");
 
-builder.AddProject<Template_API>("template-api")
+IResourceBuilder<ProjectResource> templateApi = builder.AddProject<Template_API>("template-api")
     .WithEnvironment("ConnectionStrings__Database", database)
     .WithEnvironment("ConnectionStrings__Cache", cache)
     .WithEnvironment("ConnectionStrings__Papercut", papercut)
@@ -35,9 +35,10 @@ builder.AddProject<Template_API>("template-api")
     .WaitFor(papercut)
     .WaitFor(azureStorage);
 
-// builder.AddNpmApp("template-ui", "../../template-ui")
-//     .WithReference(api)
-//     .WithExternalHttpEndpoints()
-//     .PublishAsDockerFile();
+builder.AddNpmApp("template-ui", "../../../../template-ui")
+    .WithReference(templateApi)
+    .WithHttpEndpoint(env: "PORT", port: 3000, isProxied: false)
+    .WithExternalHttpEndpoints()
+    .PublishAsDockerFile();
 
 await builder.Build().RunAsync();
