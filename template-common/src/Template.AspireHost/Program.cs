@@ -11,9 +11,9 @@ IResourceBuilder<PostgresDatabaseResource> database = builder
 
 // IResourceBuilder<RedisResource> cache = builder.AddRedis("template-redis");
 
-IResourceBuilder<GarnetResource> cache = builder.AddGarnet("template-garnet");
+IResourceBuilder<GarnetResource> cache = builder.AddGarnet("garnet");
 
-IResourceBuilder<PapercutSmtpContainerResource> papercut = builder.AddPapercutSmtp("template-papercut");
+IResourceBuilder<PapercutSmtpContainerResource> papercut = builder.AddPapercutSmtp("papercut");
 
 IResourceBuilder<AzureBlobStorageResource> azureStorage = builder
     .AddAzureStorage("azure-storage")
