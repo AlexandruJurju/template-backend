@@ -49,4 +49,31 @@ internal sealed class HomePageTests : BaseTest
             await TestContext.Out.WriteLineAsync($"First button text: {firstButtonText}");
         }
     }
+
+    [Test]
+    [Category("Navigation")]
+    [Description("Verify clicking 'Go to TEST' button navigates to test page")]
+    public async Task GoToTest_Button_Should_Navigate_To_Test_Page()
+    {
+        // Arrange
+        await _homePage.NavigateToAsync<HomePage>();
+
+        // Act
+        await _homePage.TakeScreenshotAsync("Before_Navigation");
+        TestPage testPage = await _homePage.ClickGoToTestButtonAsync();
+
+        // Assert
+        bool isOnTestPage = testPage.IsOnTestPageAsync();
+        bool hasExpectedText = await testPage.HasExpectedTextAsync();
+        string? pageText = await testPage.GetPageTextAsync();
+
+        isOnTestPage.Should().BeTrue("should be on /test page");
+        hasExpectedText.Should().BeTrue("test page should display 'test-page works!'");
+        pageText.Should().Be("test-page works!", "page should display the expected text");
+
+        // Take screenshot of test page
+        await testPage.TakeScreenshotAsync("Test_Page_After_Navigation");
+        await TestContext.Out.WriteLineAsync($"Navigated to: {Page.Url}");
+        await TestContext.Out.WriteLineAsync($"Page text: {pageText}");
+    }
 }

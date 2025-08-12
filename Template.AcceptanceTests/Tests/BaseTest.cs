@@ -151,7 +151,7 @@ internal abstract class BaseTest : PageTest
             Locale = "en-US",
             TimezoneId = "America/New_York",
             Permissions = options,
-            ColorScheme = ColorScheme.Light
+            ColorScheme = ColorScheme.Dark,
         });
 
         Page.SetDefaultTimeout(Settings.DefaultTimeout);

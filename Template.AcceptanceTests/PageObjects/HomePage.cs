@@ -5,12 +5,13 @@ namespace Template.AcceptanceTests.PageObjects;
 
 public class HomePage : BasePage
 {
-    // Selectors - Update these based on your Angular app's actual selectors
+    // Selectors
     private const string AppRoot = "app-root";
     private const string NavigationMenu = "nav, .navbar, header nav";
-    private const string MainContent = "main, .main-content, router-outlet";
-    private const string Title = "h1, .page-title, .hero-title";
+    private const string MainContent = "main, .main-content, .main, router-outlet";
     private const string LoadingSpinner = ".spinner, .loading, .loader";
+    private const string GoToTestButton = "button:has-text('Go to TEST'), button:text('Go to TEST')";
+    private const string AllButtons = "button";
 
 #pragma warning disable CA1054
     public HomePage(IPage page, string baseUrl) : base(page, baseUrl)
@@ -32,9 +33,9 @@ public class HomePage : BasePage
         return await IsElementVisibleAsync(NavigationMenu);
     }
 
-    public async Task<string?> GetPageTitleAsync()
+    public async Task<string> GetPageTitleAsync()
     {
-        return await GetTextContentAsync(Title);
+        return await Page.TitleAsync();
     }
 
     public async Task<bool> WaitForContentToLoadAsync(int timeoutMs = 10000)
@@ -54,21 +55,55 @@ public class HomePage : BasePage
         return await IsElementVisibleAsync(MainContent, timeoutMs);
     }
 
-    public async Task<List<string>> GetNavigationLinksAsync()
+    public async Task<bool> IsGoToTestButtonVisibleAsync()
     {
-        IReadOnlyList<IElementHandle> links = await Page.QuerySelectorAllAsync($"{NavigationMenu} a");
-        var linkTexts = new List<string>();
+        return await IsElementVisibleAsync(GoToTestButton);
+    }
 
-        foreach (IElementHandle link in links)
+    public async Task<TestPage> ClickGoToTestButtonAsync()
+    {
+        await Page.ClickAsync(GoToTestButton);
+        await Page.WaitForURLAsync("**/test");
+        await WaitHelpers.WaitForAngularAsync(Page);
+        return new TestPage(Page, BaseUrl);
+    }
+
+    public async Task<IReadOnlyList<IElementHandle>> GetAllButtonsAsync()
+    {
+        return await Page.QuerySelectorAllAsync(AllButtons);
+    }
+
+    public async Task<List<string>> GetButtonTextsAsync()
+    {
+        IReadOnlyList<IElementHandle> buttons = await GetAllButtonsAsync();
+        var buttonTexts = new List<string>();
+
+        foreach (IElementHandle button in buttons)
         {
-            string? text = await link.TextContentAsync();
+            string? text = await button.TextContentAsync();
             if (!string.IsNullOrWhiteSpace(text))
             {
-                linkTexts.Add(text.Trim());
+                buttonTexts.Add(text.Trim());
             }
         }
 
-        return linkTexts;
+        return buttonTexts;
+    }
+
+    public async Task<bool> HasConsoleErrorsAsync()
+    {
+        var errors = new List<string>();
+        Page.Console += (_, msg) =>
+        {
+            if (msg.Type == "error")
+            {
+                errors.Add(msg.Text);
+            }
+        };
+
+        // Wait a bit to catch any async errors
+        await Page.WaitForTimeoutAsync(500);
+        return errors.Any();
     }
 
     public async Task<Dictionary<string, object>> GetPerformanceMetricsAsync()
