@@ -36,6 +36,7 @@ IResourceBuilder<ProjectResource> templateApi = builder.AddProject<Template_API>
 
 builder.AddNpmApp("template-ui", "../../../../template-ui")
     .WithReference(templateApi)
+    .WaitFor(templateApi)
     .WithHttpEndpoint(env: "PORT", port: 3000, isProxied: false)
     .WithExternalHttpEndpoints()
     .PublishAsDockerFile();
