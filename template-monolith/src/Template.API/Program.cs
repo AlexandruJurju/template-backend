@@ -1,4 +1,5 @@
 using System.Reflection;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Scalar.AspNetCore;
 using Serilog;
 using Template.API;
@@ -25,6 +26,8 @@ builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 WebApplication app = builder.Build();
 
 app.MapEndpoints();
+
+app.MapGet("/api/weatherforecast", () => Results.Ok("Hello World!"));
 
 if (app.Environment.IsDevelopment())
 {

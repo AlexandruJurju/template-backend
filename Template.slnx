@@ -8,7 +8,10 @@
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
   </Folder>
-  <Folder Name="/template-common/">
+  <Folder Name="/template-acceptance-tests/">
+    <Project Path="Template.AcceptanceTests\Template.AcceptanceTests.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/template-aspire/">
     <Project Path="template-common\src\Template.AspireHost\Template.AspireHost.csproj" Type="Classic C#" />
     <Project Path="template-common\src\Template.ServiceDefaults\Template.ServiceDefaults.csproj" Type="Classic C#" />
     <Project Path="template-common\src\Template.SharedKernel\Template.SharedKernel.csproj" Type="Classic C#" />
