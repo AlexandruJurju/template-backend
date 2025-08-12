@@ -6,7 +6,7 @@ IDistributedApplicationBuilder builder = DistributedApplication.CreateBuilder(ar
 IResourceBuilder<PostgresDatabaseResource> database = builder
     .AddPostgres("database")
     .WithImage("postgres:17")
-    .WithBindMount("../../../.containers/db", "/var/lib/postgresql/data")
+    // .WithBindMount("../../../.containers/db", "/var/lib/postgresql/data")
     .AddDatabase("template");
 
 // IResourceBuilder<RedisResource> cache = builder.AddRedis("template-redis");
@@ -17,8 +17,7 @@ IResourceBuilder<PapercutSmtpContainerResource> papercut = builder.AddPapercutSm
 
 IResourceBuilder<AzureBlobStorageResource> azureStorage = builder
     .AddAzureStorage("azure-storage")
-    .RunAsEmulator(azurite =>
-        azurite.WithDataBindMount("../../../.containers/blob_storage/data"))
+    .RunAsEmulator()
     .AddBlobs("blob-storage");
 
 IResourceBuilder<ProjectResource> templateApi = builder.AddProject<Template_API>("template-api")
