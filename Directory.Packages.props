@@ -26,8 +26,6 @@
         <!-- Community Toolkit add-ons -->
         <PackageVersion Include="CommunityToolkit.Aspire.Hosting.PapercutSmtp" Version="$(ToolKitVersion)"/>
         <PackageVersion Include="FluentAssertions" Version="8.5.0"/>
-        <PackageVersion Include="Microsoft.Playwright.Xunit" Version="1.54.0"/>
-        <PackageVersion Include="SpecFlow.NUnit" Version="3.9.74"/>
     </ItemGroup>
     <!-- WEB API -->
     <ItemGroup Label="Web API">
@@ -99,7 +97,9 @@
     <ItemGroup Label="Testing">
         <PackageVersion Include="coverlet.collector" Version="6.0.4"/>
         <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1"/>
-        <PackageVersion Include="xunit" Version="2.9.3"/>
-        <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.3"/>
+        <PackageVersion Include="NUnit" Version="4.4.0"/>
+        <PackageVersion Include="NUnit.Analyzers" Version="4.10.0"/>
+        <PackageVersion Include="NUnit3TestAdapter" Version="5.1.0"/>
+        <PackageVersion Include="Microsoft.Playwright.NUnit" Version="1.54.0"/>
     </ItemGroup>
 </Project>

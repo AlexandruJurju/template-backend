@@ -3,7 +3,6 @@
     <Project Path="template-monolith\src\Template.Spec\Template.Spec.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/Solution Items/">
-    <File Path=".editorconfig" />
     <File Path=".gitignore" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
