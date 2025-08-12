@@ -47,7 +47,7 @@ public static class DependencyInjection
 
     private static void AddEmail(IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<EmailOptions>(configuration.GetSection("Authentication"));
+        services.Configure<EmailOptions>(configuration.GetSection("Email"));
 
         services.AddScoped<IEmailService, EmailService>();
 
