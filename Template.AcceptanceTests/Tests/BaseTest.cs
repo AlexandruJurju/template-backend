@@ -11,14 +11,13 @@ namespace Template.AcceptanceTests.Tests;
 [TestFixture]
 internal abstract class BaseTest : PageTest
 {
-    protected WebApplicationFixture AppFixture { get; private set; } = null!;
-    protected TestSettings Settings { get; private set; } = null!;
+    private WebApplicationFixture AppFixture { get; set; } = null!;
+    private TestSettings Settings { get; set; } = null!;
+    private IBrowserContext BrowserContext { get; set; } = null!;
     protected string BaseUrl { get; private set; } = string.Empty;
     protected string ApiUrl { get; private set; } = string.Empty;
-    protected IBrowserContext BrowserContext { get; private set; } = null!;
-    protected ITracing? Tracing { get; private set; }
 
-    private static readonly string[] options = new[] { "geolocation", "notifications" };
+    private static readonly string[] Options = ["geolocation", "notifications"];
 
     [OneTimeSetUp]
     public async Task OneTimeSetUp()
@@ -59,7 +58,6 @@ internal abstract class BaseTest : PageTest
         string testName = TestContext.CurrentContext.Test.Name;
         TestStatus testStatus = TestContext.CurrentContext.Result.Outcome.Status;
 
-        // Take screenshot on failure
         // if (testStatus == TestStatus.Failed && Settings.Screenshot)
 
         if (Settings.Screenshot)
@@ -79,10 +77,9 @@ internal abstract class BaseTest : PageTest
             TestContext.AddTestAttachment(screenshotPath, "Failure Screenshot");
         }
 
-        // Save trace on failure
         if (Settings.TracingEnabled)
         {
-            if (testStatus == NUnit.Framework.Interfaces.TestStatus.Failed)
+            if (testStatus == TestStatus.Failed)
             {
                 string tracePath = Path.Combine(
                     Settings.TracingDir,
@@ -99,7 +96,6 @@ internal abstract class BaseTest : PageTest
             }
         }
 
-        // Save video if enabled
         if (Settings.RecordVideo && Page.Video != null)
         {
             string videoPath = await Page.Video.PathAsync();
@@ -113,7 +109,7 @@ internal abstract class BaseTest : PageTest
                 Directory.CreateDirectory(Settings.VideoDir);
                 File.Move(videoPath, finalVideoPath, true);
 
-                if (testStatus == NUnit.Framework.Interfaces.TestStatus.Failed)
+                if (testStatus == TestStatus.Failed)
                 {
                     TestContext.AddTestAttachment(finalVideoPath, "Test Video");
                 }
@@ -150,13 +146,12 @@ internal abstract class BaseTest : PageTest
             RecordVideoSize = Settings.RecordVideo ? new RecordVideoSize { Width = 1920, Height = 1080 } : null,
             Locale = "en-US",
             TimezoneId = "America/New_York",
-            Permissions = options,
+            Permissions = Options,
             ColorScheme = ColorScheme.Dark,
         });
 
         Page.SetDefaultTimeout(Settings.DefaultTimeout);
 
-        // Log console messages for debugging
         Page.Console += (_, msg) =>
         {
             if (msg.Type == "error")
@@ -165,33 +160,11 @@ internal abstract class BaseTest : PageTest
             }
         };
 
-        // Log network failures
         Page.RequestFailed += (_, request) => TestContext.Out.WriteLine($"Request Failed: {request.Url} - {request.Failure}");
     }
 
     protected async Task WaitForAngularAsync()
     {
         await WaitHelpers.WaitForAngularAsync(Page);
-    }
-
-    protected async Task<IAPIResponse> CallApiAsync(string endpoint, HttpMethod method, object? data = null)
-    {
-        string url = $"{ApiUrl}/{endpoint.TrimStart('/')}";
-
-        return method.Method switch
-        {
-            "GET" => await Page.APIRequest.GetAsync(url),
-            "POST" => await Page.APIRequest.PostAsync(url, new APIRequestContextOptions { DataObject = data }),
-            "PUT" => await Page.APIRequest.PutAsync(url, new APIRequestContextOptions { DataObject = data }),
-            "DELETE" => await Page.APIRequest.DeleteAsync(url),
-            _ => throw new NotSupportedException($"HTTP method {method} is not supported")
-        };
-    }
-
-    protected async Task<T> CallApiAsync<T>(string endpoint, HttpMethod method, object? data = null)
-    {
-        IAPIResponse response = await CallApiAsync(endpoint, method, data);
-        JsonElement? json = await response.JsonAsync();
-        return json!.Value.Deserialize<T>()!;
     }
 }

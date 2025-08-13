@@ -2,17 +2,10 @@
 
 namespace Template.AcceptanceTests.PageObjects;
 
-public class TestPage : BasePage
+public class TestPage(IPage page, string baseUrl) : BasePage(page, baseUrl)
 {
-    // Selectors
     private const string TestPageText = "p:has-text('test-page works!')";
     private const string PageContent = "p";
-
-#pragma warning disable CA1054
-    public TestPage(IPage page, string baseUrl) : base(page, baseUrl)
-#pragma warning restore CA1054
-    {
-    }
 
     public bool IsOnTestPageAsync()
     {
@@ -31,7 +24,7 @@ public class TestPage : BasePage
         return element != null ? await element.TextContentAsync() : null;
     }
 
-    public override async Task WaitForPageLoadAsync()
+    protected override async Task WaitForPageLoadAsync()
     {
         await base.WaitForPageLoadAsync();
         await Page.WaitForSelectorAsync(TestPageText, new PageWaitForSelectorOptions
