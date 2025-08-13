@@ -3,6 +3,7 @@
 namespace Template.AcceptanceTests.Tests;
 
 [TestFixture]
+[Parallelizable(ParallelScope.Self)]
 internal sealed class TestPageTests : BaseTest
 {
     private TestPage _testPage = null!;

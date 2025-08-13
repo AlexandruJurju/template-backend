@@ -6,6 +6,12 @@ public static class WaitHelpers
 {
     public static async Task WaitForAngularAsync(IPage page)
     {
+        // Angular-specific function that Angular adds to the global window object when page is running
+        // it’s a testing API provided by Angular that returns an array of Testability objects
+        // Each Testability object has methods like:
+        // .isStable() → tells whether Angular has finished all pending asynchronous operations (like change detection, HTTP requests, timers, etc.).
+        // .whenStable(callback) → lets you run code when Angular is stable.
+
         await page.WaitForFunctionAsync(@"
             () => {
                 if (window.getAllAngularTestabilities) {

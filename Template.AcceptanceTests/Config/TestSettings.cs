@@ -7,7 +7,7 @@ public class TestSettings
     private static readonly Lazy<TestSettings> _instance = new(() => new TestSettings());
     public static TestSettings Instance => _instance.Value;
 
-    public IConfiguration Configuration { get; }
+    private IConfiguration Configuration { get; }
 
     public string BaseUrl { get; }
     public string ApiBaseUrl { get; }

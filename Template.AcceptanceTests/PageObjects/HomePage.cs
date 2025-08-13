@@ -15,11 +15,6 @@ public class HomePage(IPage page, string baseUrl) : BasePage(page, baseUrl)
         return await IsElementVisibleAsync(AppRoot);
     }
 
-    public async Task<string> GetPageTitleAsync()
-    {
-        return await Page.TitleAsync();
-    }
-
     public async Task<bool> IsGoToTestButtonVisibleAsync()
     {
         return await IsElementVisibleAsync(GoToTestButton);

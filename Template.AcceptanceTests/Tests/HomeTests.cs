@@ -5,6 +5,7 @@ using Template.AcceptanceTests.PageObjects;
 namespace Template.AcceptanceTests.Tests;
 
 [TestFixture]
+[Parallelizable(ParallelScope.Self)]
 internal sealed class HomePageTests : BaseTest
 {
     private HomePage _homePage = null!;

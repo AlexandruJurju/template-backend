@@ -58,9 +58,7 @@ internal abstract class BaseTest : PageTest
         string testName = TestContext.CurrentContext.Test.Name;
         TestStatus testStatus = TestContext.CurrentContext.Result.Outcome.Status;
 
-        // if (testStatus == TestStatus.Failed && Settings.Screenshot)
-
-        if (Settings.Screenshot)
+        if (testStatus == TestStatus.Failed && Settings.Screenshot)
         {
             string screenshotPath = Path.Combine(
                 Settings.ScreenshotDir,
@@ -145,7 +143,7 @@ internal abstract class BaseTest : PageTest
             RecordVideoDir = Settings.RecordVideo ? Settings.VideoDir : null,
             RecordVideoSize = Settings.RecordVideo ? new RecordVideoSize { Width = 1920, Height = 1080 } : null,
             Locale = "en-US",
-            TimezoneId = "America/New_York",
+            TimezoneId = "Europe/London",
             Permissions = Options,
             ColorScheme = ColorScheme.Dark,
         });
