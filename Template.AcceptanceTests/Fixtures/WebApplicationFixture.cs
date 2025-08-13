@@ -22,8 +22,11 @@ public class WebApplicationFixture
             return;
         }
 
+        // Disable random ports for api
         IDistributedApplicationTestingBuilder appHost = await DistributedApplicationTestingBuilder
-            .CreateAsync<Projects.Template_AspireHost>();
+            .CreateAsync<Projects.Template_AspireHost>(
+                ["DcpPublisher:RandomizePorts=false"]
+            );
 
         appHost.Services.ConfigureHttpClientDefaults(clientBuilder =>
             clientBuilder.ConfigureHttpClient(client => client.Timeout = TimeSpan.FromMinutes(5)));
@@ -44,8 +47,13 @@ public class WebApplicationFixture
         ApiUrl = TestSettings.Instance.ApiBaseUrl;
 
         // Wait until http call to ui project returns a response that isn't 5XX
-        await WaitForServiceToBeReady(BaseUrl, TimeSpan.FromMinutes(2));
-        // await WaitForServiceToBeReady(ApiUrl, TimeSpan.FromMinutes(2));
+        IEnumerable<Task> waits =
+        [
+            WaitForServiceToBeReady(BaseUrl, TimeSpan.FromMinutes(2)),
+            WaitForServiceToBeReady(ApiUrl, TimeSpan.FromMinutes(2))
+        ];
+
+        await Task.WhenAll(waits);
     }
 
     private async Task WaitForServiceToBeReady(string url, TimeSpan timeout)

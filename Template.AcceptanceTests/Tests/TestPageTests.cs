@@ -12,13 +12,13 @@ internal sealed class TestPageTests : BaseTest
     public new async Task SetUp()
     {
         await base.SetUp();
-        _testPage = new TestPage(Page, BaseUrl);
+        _testPage = new TestPage(Page, $"{BaseUrl}/test");
     }
 
     [Test]
     public async Task TestPageTests_TEXT()
     {
-        await Page.GotoAsync(BaseUrl + "/test");
+        await _testPage.NavigateToAsync();
 
         bool result = await _testPage.HasExpectedTextAsync();
 

@@ -1,5 +1,5 @@
 ﻿using Template.Application.Abstractions.Authentication;
-using Template.Application.Users.Queries.GetById;
+using Template.Application.Features.Users.Queries.GetById;
 
 namespace Template.API.Endpoints.Users;
 

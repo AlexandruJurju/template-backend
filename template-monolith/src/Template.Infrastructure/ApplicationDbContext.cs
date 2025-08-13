@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Template.Domain.Abstractions.Persistence;
-using Template.Domain.ApiKeys;
-using Template.Domain.Users;
+using Template.Domain.Entities.ApiKeys;
+using Template.Domain.Entities.Users;
 using Template.SharedKernel.Domain;
 using Template.SharedKernel.Infrastructure.Outbox;
 

@@ -4,20 +4,20 @@ using Template.AcceptanceTests.Utilities;
 
 namespace Template.AcceptanceTests.PageObjects;
 
-public abstract class BasePage(IPage page, string baseUrl)
+public abstract class BasePage(IPage page, string pageUrl)
 {
     protected readonly IPage Page = page;
-    protected readonly string BaseUrl = baseUrl;
+    protected readonly string PageUrl = pageUrl;
     private readonly TestSettings _settings = TestSettings.Instance;
 
     public async Task NavigateToAsync(string path = "")
     {
-        string url = string.IsNullOrEmpty(path) ? BaseUrl : $"{BaseUrl}/{path.TrimStart('/')}";
+        string url = string.IsNullOrEmpty(path) ? PageUrl : $"{PageUrl}/{path.TrimStart('/')}";
         await Page.GotoAsync(url);
         await WaitForPageLoadAsync();
     }
 
-    protected virtual async Task WaitForPageLoadAsync()
+    public virtual async Task WaitForPageLoadAsync()
     {
         await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
         await WaitHelpers.WaitForAngularAsync(Page);

@@ -2,7 +2,7 @@
 
 namespace Template.AcceptanceTests.PageObjects;
 
-public class TestPage(IPage page, string baseUrl) : BasePage(page, baseUrl)
+public class TestPage(IPage page, string pageUrl) : BasePage(page, pageUrl)
 {
     private const string TestPageText = "p:has-text('test-page works!')";
     private const string PageContent = "p";
@@ -24,7 +24,7 @@ public class TestPage(IPage page, string baseUrl) : BasePage(page, baseUrl)
         return element != null ? await element.TextContentAsync() : null;
     }
 
-    protected override async Task WaitForPageLoadAsync()
+    public override async Task WaitForPageLoadAsync()
     {
         await base.WaitForPageLoadAsync();
         await Page.WaitForSelectorAsync(TestPageText, new PageWaitForSelectorOptions

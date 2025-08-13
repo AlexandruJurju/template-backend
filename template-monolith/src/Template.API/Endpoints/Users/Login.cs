@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Template.Application.Users.Commands.Login;
+using Template.Application.Features.Users.Commands.Login;
 
 namespace Template.API.Endpoints.Users;
 

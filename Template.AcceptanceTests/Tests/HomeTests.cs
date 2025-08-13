@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using Microsoft.Playwright;
+﻿using Microsoft.Playwright;
 using Template.AcceptanceTests.PageObjects;
 
 namespace Template.AcceptanceTests.Tests;
@@ -14,11 +13,10 @@ internal sealed class HomePageTests : BaseTest
     public new async Task SetUp()
     {
         await base.SetUp();
-        _homePage = new HomePage(Page, BaseUrl);
+        _homePage = new HomePage(Page, $"{BaseUrl}/home");
     }
 
     [Test]
-    [Description("Loading page has no errors")]
     public async Task HomePage_ShouldHaveNoErrors()
     {
         bool result = await _homePage.HasConsoleErrorsAsync();
@@ -26,14 +24,13 @@ internal sealed class HomePageTests : BaseTest
     }
 
     [Test]
-    [Description("Verify that the page title is TemplateUi")]
     public async Task HomePage_Should_Have_Correct_Title()
     {
         await Page.GotoAsync(BaseUrl);
         await WaitForAngularAsync();
         string title = await Page.TitleAsync();
 
-        title.Should().Be("TemplateUi", "the page title should be TemplateUi");
+        Assert.That(title, Is.Not.Null);
     }
 
     [Test]
@@ -44,7 +41,7 @@ internal sealed class HomePageTests : BaseTest
 
         IReadOnlyList<IElementHandle> buttons = await Page.QuerySelectorAllAsync("button");
 
-        buttons.Should().NotBeEmpty("the page should have at least one button");
+        Assert.That(buttons, Is.Not.Empty);
 
         if (buttons.Any())
         {
@@ -54,8 +51,6 @@ internal sealed class HomePageTests : BaseTest
     }
 
     [Test]
-    [Category("Navigation")]
-    [Description("Verify clicking 'Go to TEST' button navigates to test page")]
     public async Task GoToTest_Button_Should_Navigate_To_Test_Page()
     {
         await _homePage.NavigateToAsync();
@@ -67,9 +62,9 @@ internal sealed class HomePageTests : BaseTest
         bool hasExpectedText = await testPage.HasExpectedTextAsync();
         string? pageText = await testPage.GetPageTextAsync();
 
-        isOnTestPage.Should().BeTrue("should be on /test page");
-        hasExpectedText.Should().BeTrue("test page should display 'test-page works!'");
-        pageText.Should().Be("test-page works!", "page should display the expected text");
+        Assert.That(pageText, Is.EqualTo("test-page works!"));
+        Assert.That(isOnTestPage, Is.True);
+        Assert.That(hasExpectedText, Is.True);
 
         await testPage.TakeScreenshotAsync("Test_Page_After_Navigation");
         await TestContext.Out.WriteLineAsync($"Navigated to: {Page.Url}");

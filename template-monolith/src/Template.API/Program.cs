@@ -6,6 +6,7 @@ using Template.API;
 using Template.API.Cors;
 using Template.API.Extensions;
 using Template.Application;
+using Template.Application.Hubs;
 using Template.Infrastructure;
 using Template.ServiceDefaults;
 using TickerQ.DependencyInjection.Hosting;
@@ -27,11 +28,12 @@ WebApplication app = builder.Build();
 
 app.MapEndpoints();
 
-app.MapGet("/api/weatherforecast", () => Results.Ok("Hello World!"));
+app.MapHub<RandomNumberHub>("random-number-hub");
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
+    app.UseSwaggerUI();
     app.MapScalarApiReference(options => options.WithOpenApiRoutePattern("/swagger/v1/swagger.json"));
     app.ApplyMigrations();
 }

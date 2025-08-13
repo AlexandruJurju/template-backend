@@ -6,7 +6,6 @@ IDistributedApplicationBuilder builder = DistributedApplication.CreateBuilder(ar
 IResourceBuilder<PostgresDatabaseResource> database = builder
     .AddPostgres("database")
     .WithImage("postgres:17")
-    // .WithBindMount("../../../.containers/db", "/var/lib/postgresql/data")
     .AddDatabase("template");
 
 // IResourceBuilder<RedisResource> cache = builder.AddRedis("template-redis");

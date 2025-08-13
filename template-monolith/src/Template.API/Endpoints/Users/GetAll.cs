@@ -2,7 +2,7 @@
 using Ardalis.Result.AspNetCore;
 using MediatR;
 using Template.API.Extensions;
-using Template.Application.Users.Queries.GetAll;
+using Template.Application.Features.Users.Queries.GetAll;
 
 namespace Template.API.Endpoints.Users;
 

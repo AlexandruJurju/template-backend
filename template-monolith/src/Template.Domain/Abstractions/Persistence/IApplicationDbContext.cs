@@ -1,5 +1,5 @@
-﻿using Template.Domain.ApiKeys;
-using Template.Domain.Users;
+﻿using Template.Domain.Entities.ApiKeys;
+using Template.Domain.Entities.Users;
 using Template.SharedKernel.Infrastructure.Outbox;
 
 namespace Template.Domain.Abstractions.Persistence;
