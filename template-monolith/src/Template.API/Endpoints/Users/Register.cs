@@ -1,6 +1,5 @@
-﻿
-using Template.Application.Users.Commands.Register;
-using Template.Domain.Users;
+﻿using Template.Application.Features.Users.Commands.Register;
+using Template.Domain.Entities.Users;
 
 namespace Template.API.Endpoints.Users;
 

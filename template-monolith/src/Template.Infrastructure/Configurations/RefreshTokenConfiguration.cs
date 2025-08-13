@@ -1,4 +1,4 @@
-﻿using Template.Domain.Users;
+﻿using Template.Domain.Entities.Users;
 
 namespace Template.Infrastructure.Configurations;
 

@@ -24,13 +24,13 @@ public static class DependencyInjection
     {
         CorsOptions corsOptions = configuration.GetSection(CorsOptions.SectionName).Get<CorsOptions>()!;
 
-        services.AddCors(options =>
-            options.AddPolicy(CorsOptions.PolicyName, policy =>
-                policy
-                    .WithOrigins(corsOptions.AllowedOrigins)
-                    .AllowAnyMethod()
-                    .AllowAnyHeader())
-        );
+        services.AddCors(options => options.AddPolicy(CorsOptions.PolicyName, policy =>
+            policy
+                .WithOrigins(corsOptions.AllowedOrigins)
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .SetIsOriginAllowed(_ => true)));
     }
 
     private static void AddSwaggerGenWithAuth(IServiceCollection services)
@@ -40,6 +40,9 @@ public static class DependencyInjection
 
         services.AddSwaggerGen(options =>
         {
+            // SignalR support
+            options.AddSignalRSwaggerGen();
+
             // Fix problem with swagger and scalar ui -> treats strings as nullable even if they are not marked as nullable
             options.SupportNonNullableReferenceTypes();
 

@@ -1,4 +1,4 @@
-﻿using Template.Domain.ApiKeys;
+﻿using Template.Domain.Entities.ApiKeys;
 
 namespace Template.Infrastructure.Configurations;
 
