@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Ardalis.GuardClauses;
+using Microsoft.Extensions.Configuration;
 
 namespace Template.AcceptanceTests.Config;
 
@@ -25,9 +26,14 @@ public class TestSettings
 
     private TestSettings()
     {
+        string? envName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")
+                          ?? Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+        Guard.Against.NullOrEmpty(envName, nameof(envName));
+
         Configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("Config/appsettings.test.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"Config/appsettings.{envName}.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables()
             .Build();
 
