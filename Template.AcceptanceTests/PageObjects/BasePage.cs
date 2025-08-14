@@ -17,7 +17,7 @@ public abstract class BasePage(IPage page, string pageUrl)
         await WaitForPageLoadAsync();
     }
 
-    protected virtual async Task WaitForPageLoadAsync()
+    public virtual async Task WaitForPageLoadAsync()
     {
         await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
         await WaitHelpers.WaitForAngularAsync(Page);

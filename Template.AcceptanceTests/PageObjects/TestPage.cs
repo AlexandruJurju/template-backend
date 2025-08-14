@@ -24,7 +24,7 @@ public class TestPage(IPage page, string pageUrl) : BasePage(page, pageUrl)
         return element != null ? await element.TextContentAsync() : null;
     }
 
-    protected override async Task WaitForPageLoadAsync()
+    public override async Task WaitForPageLoadAsync()
     {
         await base.WaitForPageLoadAsync();
         await Page.WaitForSelectorAsync(TestPageText, new PageWaitForSelectorOptions
