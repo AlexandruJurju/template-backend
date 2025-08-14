@@ -3,7 +3,7 @@ using Template.AcceptanceTests.Utilities;
 
 namespace Template.AcceptanceTests.PageObjects;
 
-public class HomePage(IPage page, string baseUrl) : BasePage(page, baseUrl)
+public class HomePage(IPage page, string pageUrl) : BasePage(page, pageUrl)
 {
     private const string AppRoot = "app-root";
     private const string GoToTestButton = "button:has-text('Go to TEST'), button:text('Go to TEST')";
@@ -25,7 +25,7 @@ public class HomePage(IPage page, string baseUrl) : BasePage(page, baseUrl)
         await Page.ClickAsync(GoToTestButton);
         await Page.WaitForURLAsync("**/test");
         await WaitHelpers.WaitForAngularAsync(Page);
-        return new TestPage(Page, BaseUrl);
+        return new TestPage(Page, PageUrl);
     }
 
     public async Task<IReadOnlyList<IElementHandle>> GetAllButtonsAsync()

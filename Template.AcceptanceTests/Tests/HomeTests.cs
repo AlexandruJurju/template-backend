@@ -14,7 +14,7 @@ internal sealed class HomePageTests : BaseTest
     public new async Task SetUp()
     {
         await base.SetUp();
-        _homePage = new HomePage(Page, BaseUrl);
+        _homePage = new HomePage(Page, $"{BaseUrl}/home");
     }
 
     [Test]
