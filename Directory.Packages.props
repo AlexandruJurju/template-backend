@@ -29,7 +29,6 @@
     <PackageVersion Include="Facet.Extensions" Version="2.0.1" />
     <PackageVersion Include="Facet.Extensions.EFCore" Version="2.0.1" />
     <PackageVersion Include="Facet.Mapping" Version="2.0.1" />
-    <PackageVersion Include="FluentAssertions" Version="8.5.0" />
     <PackageVersion Include="SignalRSwaggerGen" Version="4.8.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.3" />
   </ItemGroup>

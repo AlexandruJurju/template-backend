@@ -12,10 +12,8 @@ public class SignalRTestPage(IPage page, string pageUrl) : BasePage(page, pageUr
     private const string RequestNumbersButton = "button:has-text('Request Numbers')";
     private const string JoinGroupButton = "button:has-text('Join Test Group')";
     private const string LeaveGroupButton = "button:has-text('Leave Test Group')";
-    private const string ClearLogsButton = "button:has-text('Clear Logs')";
     private const string LatestNumbersSection = ".latest-numbers";
     private const string NumberElements = ".number";
-    private const string LogEntries = ".log-container > div";
     private const string ConnectedStatus = "span.connected";
     private const string DisconnectedStatus = "span.disconnected";
 
@@ -92,11 +90,6 @@ public class SignalRTestPage(IPage page, string pageUrl) : BasePage(page, pageUr
         await Page.ClickAsync(LeaveGroupButton);
     }
 
-    public async Task ClearLogsAsync()
-    {
-        await Page.ClickAsync(ClearLogsButton);
-    }
-
     // Data Retrieval
     public async Task<List<string>> GetRandomNumbersAsync()
     {
@@ -120,46 +113,6 @@ public class SignalRTestPage(IPage page, string pageUrl) : BasePage(page, pageUr
         return await IsElementVisibleAsync(LatestNumbersSection);
     }
 
-    public async Task<List<LogEntry>> GetLogsAsync()
-    {
-        var logs = new List<LogEntry>();
-        IReadOnlyList<IElementHandle> logElements = await Page.QuerySelectorAllAsync(LogEntries);
-
-        foreach (IElementHandle element in logElements)
-        {
-            IElementHandle? timestampElement = await element.QuerySelectorAsync(".timestamp");
-            IElementHandle? messageElement = await element.QuerySelectorAsync(".message");
-            string? classes = await element.GetAttributeAsync("class");
-
-            if (timestampElement != null && messageElement != null)
-            {
-                string? timestamp = await timestampElement.TextContentAsync();
-                string? message = await messageElement.TextContentAsync();
-                string type = ExtractLogType(classes);
-
-                logs.Add(new LogEntry
-                {
-                    Timestamp = timestamp ?? "",
-                    Message = message ?? "",
-                    Type = type
-                });
-            }
-        }
-
-        return logs;
-    }
-
-    public async Task<int> GetLogCountAsync()
-    {
-        IReadOnlyList<IElementHandle> logs = await Page.QuerySelectorAllAsync(LogEntries);
-        return logs.Count;
-    }
-
-    public async Task<bool> HasLogOfTypeAsync(string logType, string containsText)
-    {
-        string selector = $".log-{logType}:has-text('{containsText}')";
-        return await IsElementVisibleAsync(selector);
-    }
 
     // Button State Checks
     public async Task<bool> IsConnectButtonEnabledAsync()

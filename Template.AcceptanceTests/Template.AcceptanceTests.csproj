@@ -12,7 +12,6 @@
         <PackageReference Include="Ardalis.GuardClauses" />
         <PackageReference Include="Aspire.Hosting.Testing" />
         <PackageReference Include="coverlet.collector"/>
-        <PackageReference Include="FluentAssertions" />
         <PackageReference Include="Microsoft.NET.Test.Sdk"/>
         <PackageReference Include="Microsoft.Playwright.NUnit" />
         <PackageReference Include="NUnit"/>
