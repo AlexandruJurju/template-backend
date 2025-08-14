@@ -2,7 +2,7 @@
   <PropertyGroup>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <AspireVersion>9.4.0</AspireVersion>
+    <AspireVersion>9.4.1</AspireVersion>
     <AspireUnstableVersion>9.4.0-preview.1.25378.8</AspireUnstableVersion>
     <MsExtVersion>9.0.8</MsExtVersion>
     <ToolKitVersion>9.7.0</ToolKitVersion>
@@ -12,23 +12,19 @@
   <!-- ASPIRE -->
   <ItemGroup Label="Aspire">
     <!-- Core Aspire Hosting -->
-    <PackageVersion Include="Ardalis.GuardClauses" Version="5.0.0" />
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.Azure.Storage" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.Keycloak" Version="$(AspireUnstableVersion)" />
-    <PackageVersion Include="Aspire.Hosting.NodeJs" Version="9.4.0" />
+    <PackageVersion Include="Aspire.Hosting.NodeJs" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.RabbitMQ" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.Redis" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.Seq" Version="$(AspireVersion)" />
-    <PackageVersion Include="Aspire.Hosting.Testing" Version="9.4.0" />
+    <PackageVersion Include="Aspire.Hosting.Testing" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.Valkey" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.Garnet" Version="$(AspireVersion)" />
     <!-- Community Toolkit add-ons -->
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.PapercutSmtp" Version="$(ToolKitVersion)" />
-    <PackageVersion Include="Facet.Extensions" Version="2.0.1" />
-    <PackageVersion Include="Facet.Extensions.EFCore" Version="2.0.1" />
-    <PackageVersion Include="Facet.Mapping" Version="2.0.1" />
     <PackageVersion Include="SignalRSwaggerGen" Version="4.8.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.3" />
   </ItemGroup>
@@ -58,6 +54,7 @@
     <!-- Serialization / Views -->
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="RazorLight" Version="2.3.1" />
+    <PackageVersion Include="Ardalis.GuardClauses" Version="5.0.0" />
   </ItemGroup>
   <!-- INFRASTRUCTURE -->
   <ItemGroup Label="Infrastructure">
@@ -98,7 +95,7 @@
     <PackageVersion Include="TickerQ.Dashboard" Version="$(TickerQVersion)" />
     <PackageVersion Include="TickerQ.EntityFrameworkCore" Version="$(TickerQVersion)" />
   </ItemGroup>
-  <!-- UNIT TESTS -->
+  <!-- TESTING -->
   <ItemGroup Label="Testing">
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />

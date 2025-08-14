@@ -1,4 +1,4 @@
-﻿namespace Template.Application.Features.Users.Queries.GetByEmail;
+﻿namespace Template.Application.Features.Users;
 
 public sealed record UserResponse
 {

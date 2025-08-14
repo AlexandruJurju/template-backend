@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Template.API.Cors;
 using Template.API.ExceptionHandler;
+using Template.Application.Hubs;
 
 namespace Template.API;
 
@@ -41,7 +42,9 @@ public static class DependencyInjection
         services.AddSwaggerGen(options =>
         {
             // SignalR support
-            options.AddSignalRSwaggerGen();
+            options.AddSignalRSwaggerGen(signalROptions =>
+                // Scan the assembly containing the hubs
+                signalROptions.ScanAssembly(typeof(RandomNumberHub).Assembly));
 
             // Fix problem with swagger and scalar ui -> treats strings as nullable even if they are not marked as nullable
             options.SupportNonNullableReferenceTypes();

@@ -1,5 +1,8 @@
-﻿namespace Template.Application.Hubs;
+﻿using SignalRSwaggerGen.Attributes;
 
+namespace Template.Application.Hubs;
+
+[SignalRHub]
 public interface IRandomNumberHub
 {
     Task ReceiveRandomNumbers(List<int> numbers);

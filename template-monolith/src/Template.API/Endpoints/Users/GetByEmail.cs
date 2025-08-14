@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Template.API.Authentication;
+﻿using Template.API.Authentication;
+using Template.Application.Features.Users;
 using Template.Application.Features.Users.Queries.GetByEmail;
 
 namespace Template.API.Endpoints.Users;

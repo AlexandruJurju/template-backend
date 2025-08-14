@@ -8,9 +8,11 @@ IResourceBuilder<PostgresDatabaseResource> database = builder
     .WithImage("postgres:17")
     .AddDatabase("template");
 
-// IResourceBuilder<RedisResource> cache = builder.AddRedis("template-redis");
+IResourceBuilder<KeycloakResource> keycloak = builder
+    .AddKeycloak(name: "keycloak")
+    .WithDataVolume();
 
-IResourceBuilder<GarnetResource> cache = builder.AddGarnet("garnet");
+IResourceBuilder<GarnetResource> cache = builder.AddGarnet(name: "garnet");
 
 IResourceBuilder<PapercutSmtpContainerResource> papercut = builder.AddPapercutSmtp("papercut");
 
@@ -19,7 +21,7 @@ IResourceBuilder<AzureBlobStorageResource> azureStorage = builder
     .RunAsEmulator()
     .AddBlobs("blob-storage");
 
-IResourceBuilder<ProjectResource> templateApi = builder.AddProject<Template_API>("template-api")
+builder.AddProject<Template_API>("template-api")
     .WithEnvironment("ConnectionStrings__Database", database)
     .WithEnvironment("ConnectionStrings__Cache", cache)
     .WithEnvironment("ConnectionStrings__Papercut", papercut)
@@ -28,16 +30,18 @@ IResourceBuilder<ProjectResource> templateApi = builder.AddProject<Template_API>
     .WithReference(cache)
     .WithReference(papercut)
     .WithReference(azureStorage)
+    .WithReference(keycloak)
     .WaitFor(database)
     .WaitFor(cache)
     .WaitFor(papercut)
-    .WaitFor(azureStorage);
+    .WaitFor(azureStorage)
+    .WaitFor(keycloak);
 
-builder.AddNpmApp("template-ui", "../../../../template-ui")
-    .WithReference(templateApi)
-    .WaitFor(templateApi)
-    .WithHttpEndpoint(env: "PORT", port: 3000, isProxied: false)
-    .WithExternalHttpEndpoints()
-    .PublishAsDockerFile();
+// builder.AddNpmApp("template-ui", "../../../../template-ui")
+//     .WithReference(templateApi)
+//     .WaitFor(templateApi)
+//     .WithHttpEndpoint(env: "PORT", port: 3000, isProxied: false)
+//     .WithExternalHttpEndpoints()
+//     .PublishAsDockerFile();
 
 await builder.Build().RunAsync();

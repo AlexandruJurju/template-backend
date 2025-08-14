@@ -1,4 +1,5 @@
-﻿using Template.Domain.Abstractions.Persistence;
+﻿using Template.Application.Mapping;
+using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;
 
 namespace Template.Application.Features.Users.Queries.GetByEmail;
@@ -18,14 +19,6 @@ internal sealed class GetUserByEmailQueryHandler(
             return UserErrors.NotFound(query.Email);
         }
 
-        var response = new UserResponse
-        {
-            Id = user.Id,
-            FirstName = user.FirstName,
-            LastName = user.LastName,
-            Email = user.Email
-        };
-
-        return response;
+        return user.Map();
     }
 }

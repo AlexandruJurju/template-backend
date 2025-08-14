@@ -16,12 +16,14 @@ public sealed class ApplicationDbContext(
         TypeNameHandling = TypeNameHandling.All
     };
 
+    #region DbSets
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<OutboxMessage> OutboxMessages { get; set; }
     public DbSet<ApiKey> ApiKeys { get; set; }
     public DbSet<EmailVerificationToken> EmailVerificationTokens { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+    #endregion
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
