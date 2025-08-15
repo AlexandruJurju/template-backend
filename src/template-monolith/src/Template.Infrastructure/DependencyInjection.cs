@@ -25,7 +25,7 @@ namespace Template.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddDatabase(services, configuration);
 
@@ -40,8 +40,6 @@ public static class DependencyInjection
         AddEmail(services, configuration);
 
         AddStorage(services, configuration);
-
-        return services;
     }
 
     private static void AddEmail(IServiceCollection services, IConfiguration configuration)
@@ -62,7 +60,7 @@ public static class DependencyInjection
 
     private static void AddCaching(IServiceCollection services, IConfiguration configuration)
     {
-        string connectionString = configuration.GetConnectionString(Components.Cache)!;
+        string connectionString = configuration.GetConnectionString(Components.Valkey)!;
 
         services.AddStackExchangeRedisCache(options => options.Configuration = connectionString);
 

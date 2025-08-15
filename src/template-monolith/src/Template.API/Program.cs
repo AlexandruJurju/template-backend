@@ -6,6 +6,7 @@ using Template.API.Cors;
 using Template.API.Extensions;
 using Template.Application;
 using Template.Application.Hubs;
+using Template.Constants.Aspire;
 using Template.Infrastructure;
 using Template.ServiceDefaults;
 using TickerQ.DependencyInjection.Hosting;
@@ -16,10 +17,10 @@ builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configu
 
 builder.AddServiceDefaults();
 
-builder.Services
-    .AddPresentation(builder.Configuration)
-    .AddApplication()
-    .AddInfrastructure(builder.Configuration);
+builder.Services.AddPresentation(builder.Configuration);
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.AddSeqEndpoint(Components.Seq);
 
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 

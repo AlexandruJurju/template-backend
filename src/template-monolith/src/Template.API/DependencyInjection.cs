@@ -9,7 +9,7 @@ namespace Template.API;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddPresentation(this IServiceCollection services, IConfiguration configuration)
+    public static void AddPresentation(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
@@ -17,8 +17,6 @@ public static class DependencyInjection
         AddSwaggerGenWithAuth(services, configuration);
 
         AddCors(services, configuration);
-
-        return services;
     }
 
     private static void AddCors(IServiceCollection services, IConfiguration configuration)

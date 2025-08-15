@@ -24,11 +24,14 @@
     <PackageVersion Include="Aspire.Hosting.Valkey" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.Garnet" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Keycloak.Authentication" Version="9.4.1-preview.1.25408.4" />
+    <PackageVersion Include="Aspire.Seq" Version="9.4.1" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.MailPit" Version="9.7.0" />
     <!-- Community Toolkit add-ons -->
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.PapercutSmtp" Version="$(ToolKitVersion)" />
     <PackageVersion Include="Keycloak.Net.Core" Version="1.0.34" />
     <PackageVersion Include="Scalar.Aspire" Version="0.3.3" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
     <PackageVersion Include="SignalRSwaggerGen" Version="4.8.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.3" />
   </ItemGroup>
@@ -89,8 +92,6 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
     <!-- Serilog -->
     <PackageVersion Include="Serilog" Version="4.3.0" />
-    <PackageVersion Include="Serilog.AspNetCore" Version="9.0.0" />
-    <PackageVersion Include="Serilog.Sinks.Seq" Version="9.0.0" />
     <!-- Email -->
     <PackageVersion Include="FluentEmail.Razor" Version="$(FluentEmailVersion)" />
     <PackageVersion Include="FluentEmail.Smtp" Version="$(FluentEmailVersion)" />
