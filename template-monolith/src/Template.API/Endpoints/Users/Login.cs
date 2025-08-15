@@ -20,7 +20,6 @@ internal sealed class Login : IEndpoint
 
                 return result.ToMinimalApiResult();
             })
-            .WithName("LoginUser")
             .WithTags(Tags.Users)
             .WithOpenApi()
             .Produces<LoginResponse>()

@@ -15,7 +15,6 @@ public class VerifyLink : IEndpoint
 
                 return result.ToMinimalApiResult();
             })
-            .WithName("VerifyEmail")
             .WithTags(Tags.Users)
             .WithOpenApi();
     }

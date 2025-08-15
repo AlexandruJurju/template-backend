@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Newtonsoft.Json;
-using Template.Application.Abstractions.Outbox;
+using Template.Application.Contracts.Outbox;
 using Template.Domain.Abstractions.Persistence;
 using Template.SharedKernel.Domain;
 using Template.SharedKernel.Infrastructure.Outbox;

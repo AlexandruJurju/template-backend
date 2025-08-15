@@ -1,4 +1,4 @@
-﻿using Template.Application.Abstractions.Authentication;
+﻿using Template.Application.Contracts.Authentication;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;
 

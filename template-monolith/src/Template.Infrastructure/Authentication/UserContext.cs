@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Template.Application.Abstractions.Authentication;
+using Template.Application.Contracts.Authentication;
 
 namespace Template.Infrastructure.Authentication;
 

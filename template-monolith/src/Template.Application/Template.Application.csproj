@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <ProjectReference Include="..\..\..\template-common\src\Template.SharedKernel\Template.SharedKernel.csproj"/>
+        <ProjectReference Include="..\..\..\template-aspire\src\Template.SharedKernel\Template.SharedKernel.csproj"/>
         <ProjectReference Include="..\Template.Domain\Template.Domain.csproj"/>
     </ItemGroup>
 

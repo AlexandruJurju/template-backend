@@ -1,4 +1,5 @@
 ﻿using Template.Domain.Entities.Users;
+using Template.SharedKernel.Infrastructure.Persistence;
 
 namespace Template.Application.Features.Users.Queries.GetById;
 

@@ -31,7 +31,7 @@
     <!--    </Target>-->
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\template-common\src\Template.ServiceDefaults\Template.ServiceDefaults.csproj"/>
+        <ProjectReference Include="..\..\..\template-aspire\src\Template.ServiceDefaults\Template.ServiceDefaults.csproj"/>
         <ProjectReference Include="..\Template.Application\Template.Application.csproj"/>
         <ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj"/>
     </ItemGroup>

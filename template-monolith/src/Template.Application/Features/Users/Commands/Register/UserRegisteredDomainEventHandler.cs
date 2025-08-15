@@ -1,4 +1,4 @@
-﻿using Template.Application.Abstractions.Email;
+﻿using Template.Application.Contracts.Email;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;
 

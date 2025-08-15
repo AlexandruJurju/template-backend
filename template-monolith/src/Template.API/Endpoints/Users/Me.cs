@@ -1,4 +1,4 @@
-﻿using Template.Application.Abstractions.Authentication;
+﻿using Template.Application.Contracts.Authentication;
 using Template.Application.Features.Users;
 using Template.Application.Features.Users.Queries.GetById;
 
@@ -17,7 +17,6 @@ public class Me : IEndpoint
 
                 return result.ToMinimalApiResult();
             })
-            .WithName("Me")
             .WithTags(Tags.Users)
             .WithOpenApi()
             .Produces<UserResponse>();

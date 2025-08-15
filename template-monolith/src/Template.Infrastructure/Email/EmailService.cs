@@ -1,6 +1,6 @@
 ﻿using FluentEmail.Core;
 using FluentEmail.Core.Models;
-using Template.Application.Abstractions.Email;
+using Template.Application.Contracts.Email;
 using Template.Domain.Entities.Users;
 
 namespace Template.Infrastructure.Email;

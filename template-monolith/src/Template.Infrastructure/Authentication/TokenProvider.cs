@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
-using Template.Application.Abstractions.Authentication;
+using Template.Application.Contracts.Authentication;
 using Template.Domain.Entities.Users;
 
 namespace Template.Infrastructure.Authentication;

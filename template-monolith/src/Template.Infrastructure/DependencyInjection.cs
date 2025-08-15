@@ -5,19 +5,21 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.IdentityModel.Tokens;
-using Template.Application.Abstractions.Authentication;
-using Template.Application.Abstractions.Email;
-using Template.Application.Abstractions.Outbox;
-using Template.Application.Abstractions.Storage;
+using Template.Application.Contracts.Authentication;
+using Template.Application.Contracts.Email;
+using Template.Application.Contracts.Outbox;
+using Template.Application.Contracts.Storage;
 using Template.Domain.Abstractions.Persistence;
 using Template.Infrastructure.Authentication;
 using Template.Infrastructure.Authorization;
-using Template.Infrastructure.Data;
-using Template.Infrastructure.Data.GenericRepository;
 using Template.Infrastructure.Email;
 using Template.Infrastructure.Outbox;
+using Template.Infrastructure.Persistence;
+using Template.Infrastructure.Persistence.Dapper;
+using Template.Infrastructure.Persistence.GenericRepository;
 using Template.Infrastructure.Storage;
 using Template.SharedKernel.Domain;
+using Template.SharedKernel.Infrastructure.Persistence;
 using TickerQ.Dashboard.DependencyInjection;
 using TickerQ.DependencyInjection;
 using TickerQ.EntityFrameworkCore.DependencyInjection;
@@ -34,7 +36,7 @@ public static class DependencyInjection
 
         AddTickerQ(services);
 
-        AddAuthenticationInternal(services, configuration);
+        AddAuthenticationInternal(services);
 
         AddAuthorizationInternal(services);
 
@@ -116,27 +118,18 @@ public static class DependencyInjection
         services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
     }
 
-    private static void AddAuthenticationInternal(IServiceCollection services, IConfiguration configuration)
+    private static void AddAuthenticationInternal(IServiceCollection services)
     {
-        services.Configure<JwtOptions>(configuration.GetSection("Jwt")!);
-
-        JwtOptions jwtOptions = configuration
-            .GetSection("Jwt")
-            .Get<JwtOptions>()!;
-
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(o =>
-            {
-                o.RequireHttpsMetadata = false;
-                o.TokenValidationParameters = new TokenValidationParameters
+            .AddKeycloakJwtBearer(
+                serviceName: "keycloak",
+                realm: "template-realm",
+                options =>
                 {
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(jwtOptions.Secret)),
-                    ValidIssuer = jwtOptions.Issuer,
-                    ValidAudience = jwtOptions.Audience,
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
+                    options.RequireHttpsMetadata = false;
+                    options.Audience = "account";
+                }
+            );
 
         services.AddHttpContextAccessor();
         services.AddScoped<IUserContext, UserContext>();

@@ -17,7 +17,6 @@ internal sealed class RefreshToken : IEndpoint
 
                 return result.ToMinimalApiResult();
             })
-            .WithName("RefreshToken")
             .WithTags(Tags.Users)
             .WithOpenApi()
             .Produces<LoginResponse>()

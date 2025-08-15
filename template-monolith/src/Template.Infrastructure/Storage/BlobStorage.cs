@@ -1,7 +1,7 @@
 ﻿using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using Template.Application.Abstractions.Storage;
+using Template.Application.Contracts.Storage;
 
 namespace Template.Infrastructure.Storage;
 

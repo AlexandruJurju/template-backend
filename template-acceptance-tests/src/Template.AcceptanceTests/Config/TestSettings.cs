@@ -29,7 +29,7 @@ public class TestSettings
         string? envName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")
                           ?? Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-        Guard.Against.NullOrEmpty(envName, nameof(envName));
+        Guard.Against.NullOrEmpty(envName);
 
         Configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())

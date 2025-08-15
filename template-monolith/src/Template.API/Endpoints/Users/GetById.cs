@@ -17,10 +17,11 @@ internal sealed class GetById : IEndpoint
 
                 return result.ToMinimalApiResult();
             })
-            .WithName("GetById")
             .WithTags(Tags.Users)
-            .WithOpenApi()
+            .RequireAuthorization()
             .Produces<UserResponse>()
-            .ProducesProblem(StatusCodes.Status404NotFound);
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .ProducesProblem(StatusCodes.Status404NotFound)
+            .WithOpenApi();
     }
 }
