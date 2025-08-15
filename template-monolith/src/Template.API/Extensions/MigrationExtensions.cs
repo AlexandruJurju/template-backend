@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Template.Infrastructure;
+using Template.Infrastructure.Persistence;
 
 namespace Template.API.Extensions;
 

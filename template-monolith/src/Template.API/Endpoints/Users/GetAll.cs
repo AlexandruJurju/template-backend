@@ -19,7 +19,6 @@ public class GetAll : IEndpoint
 
                 return result.ToMinimalApiResult();
             })
-            .WithName("GetAll")
             .WithTags(Tags.Users)
             .HasPermission(Permissions.UsersRead)
             .Produces<IEnumerable<UserResponse>>()

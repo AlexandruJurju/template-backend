@@ -6,11 +6,13 @@ IDistributedApplicationBuilder builder = DistributedApplication.CreateBuilder(ar
 IResourceBuilder<PostgresDatabaseResource> database = builder
     .AddPostgres("database")
     .WithImage("postgres:17")
+    .WithDataVolume()
     .AddDatabase("template");
 
 IResourceBuilder<KeycloakResource> keycloak = builder
-    .AddKeycloak(name: "keycloak")
-    .WithDataVolume();
+    .AddKeycloak(name: "keycloak", 18080)
+    .WithDataVolume()
+    .WithExternalHttpEndpoints();
 
 IResourceBuilder<GarnetResource> cache = builder.AddGarnet(name: "garnet");
 

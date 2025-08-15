@@ -72,17 +72,29 @@ public static class DependencyInjection
 
             options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, jwtSecurityScheme);
 
-            // ================== API Key Configuration ==================
-            var apiKeySecurityScheme = new OpenApiSecurityScheme
-            {
-                Name = "X-ApiKey",
-                Description = "API Key authentication",
-                In = ParameterLocation.Header,
-                Type = SecuritySchemeType.ApiKey,
-                Scheme = "ApiKeyScheme"
-            };
+            // // ================== API Key Configuration ==================
+            // var apiKeySecurityScheme = new OpenApiSecurityScheme
+            // {
+            //     Name = "X-ApiKey",
+            //     Description = "API Key authentication",
+            //     In = ParameterLocation.Header,
+            //     Type = SecuritySchemeType.ApiKey,
+            //     Scheme = "ApiKeyScheme"
+            // };
 
-            options.AddSecurityDefinition("ApiKey", apiKeySecurityScheme);
+            // options.AddSecurityDefinition("ApiKey", apiKeySecurityScheme);
+
+            // (OpenApiSecurityScheme, string[]) apiKeyRequirement = (
+            //     new OpenApiSecurityScheme
+            //     {
+            //         Reference = new OpenApiReference
+            //         {
+            //             Type = ReferenceType.SecurityScheme,
+            //             Id = "ApiKey"
+            //         }
+            //     },
+            //     []
+            // );
 
             // ================== Combined Security Requirements ==================
             options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -100,17 +112,10 @@ public static class DependencyInjection
                     Array.Empty<string>()
                 },
                 // API Key Requirement
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "ApiKey"
-                        }
-                    },
-                    Array.Empty<string>()
-                }
+                // {
+                //     apiKeyRequirement.Item1,
+                //     apiKeyRequirement.Item2
+                // }
             });
         });
     }

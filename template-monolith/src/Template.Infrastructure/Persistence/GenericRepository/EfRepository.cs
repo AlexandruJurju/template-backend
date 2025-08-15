@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Linq.Expressions;
 using Template.SharedKernel.Domain;
+using Template.SharedKernel.Infrastructure.Persistence;
 
-namespace Template.Infrastructure.Data.GenericRepository;
+namespace Template.Infrastructure.Persistence.GenericRepository;
 
 public class EfRepository<TEntity>(ApplicationDbContext dbContext) : IRepository<TEntity> where TEntity : EntityBase
 {

@@ -1,6 +1,6 @@
 ﻿using Template.SharedKernel.Domain;
 
-namespace Template.Infrastructure.Data.GenericRepository;
+namespace Template.Infrastructure.Persistence.GenericRepository;
 
 public class EfUnitOfWork(ApplicationDbContext dbContext) : IUnitOfWork
 {

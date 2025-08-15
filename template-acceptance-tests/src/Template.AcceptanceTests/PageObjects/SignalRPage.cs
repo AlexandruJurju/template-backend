@@ -190,43 +190,4 @@ public class SignalRTestPage(IPage page, string pageUrl) : BasePage(page, pageUr
 
         return webSockets;
     }
-
-    // Helper Methods
-    private static string ExtractLogType(string? classes)
-    {
-        if (string.IsNullOrEmpty(classes))
-        {
-            return "unknown";
-        }
-
-        if (classes.Contains("log-success"))
-        {
-            return "success";
-        }
-
-        if (classes.Contains("log-error"))
-        {
-            return "error";
-        }
-
-        if (classes.Contains("log-warning"))
-        {
-            return "warning";
-        }
-
-        if (classes.Contains("log-info"))
-        {
-            return "info";
-        }
-
-        return "unknown";
-    }
-}
-
-// Supporting class for log entries
-public class LogEntry
-{
-    public string Timestamp { get; set; } = "";
-    public string Message { get; set; } = "";
-    public string Type { get; set; } = "";
 }

@@ -1,6 +1,6 @@
 ﻿using Template.Domain.Entities.Users;
 
-namespace Template.Infrastructure.Configurations;
+namespace Template.Infrastructure.Persistence.Configurations;
 
 public class EmailVerificationTokenConfiguration : IEntityTypeConfiguration<EmailVerificationToken>
 {

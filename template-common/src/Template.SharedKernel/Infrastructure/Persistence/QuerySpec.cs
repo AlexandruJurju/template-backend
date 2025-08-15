@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Linq.Expressions;
 
-namespace Template.SharedKernel.Infrastructure.Data;
+namespace Template.SharedKernel.Infrastructure.Persistence;
 
 public sealed record QuerySpec<T>(
     Expression<Func<T, bool>>? Filter = null,

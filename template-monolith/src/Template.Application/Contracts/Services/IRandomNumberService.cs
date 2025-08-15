@@ -1,4 +1,4 @@
-﻿namespace Template.Application.Services;
+﻿namespace Template.Application.Contracts.Services;
 
 public interface IRandomNumberService
 {

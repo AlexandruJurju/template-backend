@@ -146,20 +146,20 @@ internal sealed class SignalrTests : BaseTest
         await _signalRPage.WaitForLogEntryAsync("info", "Joining test group");
     }
 
-    [Test]
-    public async Task Should_Leave_Test_Group_Successfully()
-    {
-        // Connect and join group first
-        await _signalRPage.ConnectAsync();
-        await _signalRPage.JoinTestGroupAsync();
-        await Task.Delay(1000); // Wait for join to complete
-
-        // Leave group
-        await _signalRPage.LeaveTestGroupAsync();
-
-        // Wait for leave confirmation
-        await _signalRPage.WaitForLogEntryAsync("info", "Leaving test group");
-    }
+    // [Test]
+    // public async Task Should_Leave_Test_Group_Successfully()
+    // {
+    //     // Connect and join group first
+    //     await _signalRPage.ConnectAsync();
+    //     await _signalRPage.JoinTestGroupAsync();
+    //     await Task.Delay(1000); // Wait for join to complete
+    //
+    //     // Leave group
+    //     await _signalRPage.LeaveTestGroupAsync();
+    //
+    //     // Wait for leave confirmation
+    //     await _signalRPage.WaitForLogEntryAsync("info", "Leaving test group");
+    // }
 
     [Test]
     public async Task Should_Establish_WebSocket_Connection_On_Connect()

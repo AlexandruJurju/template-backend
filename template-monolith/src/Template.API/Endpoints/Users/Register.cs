@@ -21,7 +21,6 @@ internal sealed class Register : IEndpoint
 
                 return result.ToMinimalApiResult();
             })
-            .WithName("RegisterUser")
             .WithTags(Tags.Users)
             .WithOpenApi()
             .Produces<User>(StatusCodes.Status201Created)

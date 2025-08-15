@@ -17,7 +17,6 @@ public class Me : IEndpoint
 
                 return result.ToMinimalApiResult();
             })
-            .WithName("Me")
             .WithTags(Tags.Users)
             .WithOpenApi()
             .Produces<UserResponse>();

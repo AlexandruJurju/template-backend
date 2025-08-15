@@ -1,6 +1,6 @@
 ﻿using Template.SharedKernel.Infrastructure.Outbox;
 
-namespace Template.Infrastructure.Configurations;
+namespace Template.Infrastructure.Persistence.Configurations;
 
 public class OutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessage>
 {

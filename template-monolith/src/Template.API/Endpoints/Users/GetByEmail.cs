@@ -18,12 +18,10 @@ internal sealed class GetByEmail : IEndpoint
 
                 return result.ToMinimalApiResult();
             })
-            .WithName("GetByEmail")
             .WithTags(Tags.Users)
             .WithOpenApi()
             .Produces<UserResponse>()
             .ProducesProblem(StatusCodes.Status401Unauthorized)
-            .ProducesProblem(StatusCodes.Status404NotFound)
-            .AddEndpointFilter<ApiKeyEndpointFilter>();
+            .ProducesProblem(StatusCodes.Status404NotFound);
     }
 }

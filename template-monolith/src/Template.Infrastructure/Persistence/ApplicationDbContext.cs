@@ -5,7 +5,7 @@ using Template.Domain.Entities.Users;
 using Template.SharedKernel.Domain;
 using Template.SharedKernel.Infrastructure.Outbox;
 
-namespace Template.Infrastructure;
+namespace Template.Infrastructure.Persistence;
 
 public sealed class ApplicationDbContext(
     DbContextOptions<ApplicationDbContext> options

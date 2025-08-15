@@ -1,6 +1,6 @@
 ﻿using Template.Domain.Entities.ApiKeys;
 
-namespace Template.Infrastructure.Configurations;
+namespace Template.Infrastructure.Persistence.Configurations;
 
 public class ApiKeyConfiguration : IEntityTypeConfiguration<ApiKey>
 {
