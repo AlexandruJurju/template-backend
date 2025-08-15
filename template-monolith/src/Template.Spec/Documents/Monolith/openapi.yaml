@@ -236,11 +236,11 @@ paths:
       requestBody:
         content:
           application/json:
-            schema: {}
+            schema: { }
           text/json:
-            schema: {}
+            schema: { }
           application/*+json:
-            schema: {}
+            schema: { }
       responses:
         "200":
           description: OK
@@ -251,11 +251,11 @@ paths:
       requestBody:
         content:
           application/json:
-            schema: {}
+            schema: { }
           text/json:
-            schema: {}
+            schema: { }
           application/*+json:
-            schema: {}
+            schema: { }
       responses:
         "200":
           description: OK
@@ -266,11 +266,11 @@ paths:
       requestBody:
         content:
           application/json:
-            schema: {}
+            schema: { }
           text/json:
-            schema: {}
+            schema: { }
           application/*+json:
-            schema: {}
+            schema: { }
       responses:
         "200":
           description: OK
@@ -287,11 +287,11 @@ paths:
       requestBody:
         content:
           application/json:
-            schema: {}
+            schema: { }
           text/json:
-            schema: {}
+            schema: { }
           application/*+json:
-            schema: {}
+            schema: { }
       responses:
         "200":
           description: OK
@@ -520,7 +520,7 @@ paths:
         "200":
           description: OK
           content:
-            application/json: {}
+            application/json: { }
         "201":
           description: Created
           content:
@@ -573,7 +573,7 @@ components:
         instance:
           type: string
           nullable: true
-      additionalProperties: {}
+      additionalProperties: { }
     System.Void:
       type: object
       additionalProperties: false
@@ -742,5 +742,5 @@ components:
       name: X-ApiKey
       in: header
 security:
-  - Bearer: []
-    ApiKey: []
+  - Bearer: [ ]
+    ApiKey: [ ]

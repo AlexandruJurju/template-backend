@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Template.SharedKernel.Domain;
+namespace Template.Common.SharedKernel.Domain;
 
 public class HasDomainEventsBase : IHasDomainEvents
 {

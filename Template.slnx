@@ -14,9 +14,10 @@
   <Folder Name="/template-aspire/">
     <Project Path="template-aspire\src\Template.AspireHost\Template.AspireHost.csproj" Type="Classic C#" />
     <Project Path="template-aspire\src\Template.ServiceDefaults\Template.ServiceDefaults.csproj" Type="Classic C#" />
-    <Project Path="template-aspire\src\Template.SharedKernel\Template.SharedKernel.csproj" Type="Classic C#" />
   </Folder>
-  <Folder Name="/template-common/" />
+  <Folder Name="/template-common/">
+    <Project Path="template-aspire\src\Template.Common.SharedKernel\Template.Common.SharedKernel.csproj" Type="Classic C#" />
+  </Folder>
   <Folder Name="/template-monolith/">
     <Project Path="template-monolith\src\Template.API\Template.API.csproj" Type="Classic C#" />
     <Project Path="template-monolith\src\Template.Application\Template.Application.csproj" Type="Classic C#" />

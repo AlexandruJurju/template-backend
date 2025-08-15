@@ -33,7 +33,7 @@ public class TestSettings
 
         Configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile($"Config/appsettings.{envName}.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"Config/appsettings.{envName}.json", true, true)
             .AddEnvironmentVariables()
             .Build();
 

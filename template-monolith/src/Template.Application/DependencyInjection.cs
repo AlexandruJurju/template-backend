@@ -1,7 +1,7 @@
 ﻿using Template.Application.BackgroundServices;
 using Template.Application.Contracts.Services;
 using Template.Application.Services;
-using Template.SharedKernel.Application.Behaviors;
+using Template.Common.SharedKernel.Application.Behaviors;
 
 namespace Template.Application;
 

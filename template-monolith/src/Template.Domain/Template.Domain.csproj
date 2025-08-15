@@ -5,10 +5,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Contracts\" />
+        <Folder Include="Contracts\"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\template-aspire\src\Template.SharedKernel\Template.SharedKernel.csproj"/>
+        <ProjectReference Include="..\..\..\template-aspire\src\Template.Common.SharedKernel\Template.Common.SharedKernel.csproj" />
     </ItemGroup>
 </Project>

@@ -10,11 +10,11 @@ IResourceBuilder<PostgresDatabaseResource> database = builder
     .AddDatabase("template");
 
 IResourceBuilder<KeycloakResource> keycloak = builder
-    .AddKeycloak(name: "keycloak", 18080)
+    .AddKeycloak("keycloak", 18080)
     .WithDataVolume()
     .WithExternalHttpEndpoints();
 
-IResourceBuilder<GarnetResource> cache = builder.AddGarnet(name: "garnet");
+IResourceBuilder<GarnetResource> cache = builder.AddGarnet("garnet");
 
 IResourceBuilder<PapercutSmtpContainerResource> papercut = builder.AddPapercutSmtp("papercut");
 

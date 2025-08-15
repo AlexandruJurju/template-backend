@@ -2,9 +2,9 @@
 using MediatR;
 using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.Extensions.Logging;
-using Template.SharedKernel.Application.Messaging;
+using Template.Common.SharedKernel.Application.Messaging;
 
-namespace Template.SharedKernel.Application.Behaviors;
+namespace Template.Common.SharedKernel.Application.Behaviors;
 
 public sealed class QueryCachingBehavior<TRequest, TResponse>(
     HybridCache hybridCache,

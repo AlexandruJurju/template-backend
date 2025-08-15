@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using Npgsql;
-using Template.SharedKernel.Infrastructure.Persistence;
+using Template.Common.SharedKernel.Infrastructure.Persistence;
 
 namespace Template.Infrastructure.Persistence.Dapper;
 

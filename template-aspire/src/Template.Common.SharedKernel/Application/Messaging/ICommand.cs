@@ -1,7 +1,7 @@
 ﻿using Ardalis.Result;
 using MediatR;
 
-namespace Template.SharedKernel.Application.Messaging;
+namespace Template.Common.SharedKernel.Application.Messaging;
 
 public interface IBaseCommand;
 

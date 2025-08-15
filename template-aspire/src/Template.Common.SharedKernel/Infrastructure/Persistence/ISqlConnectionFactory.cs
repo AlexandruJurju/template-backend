@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace Template.SharedKernel.Infrastructure.Persistence;
+namespace Template.Common.SharedKernel.Infrastructure.Persistence;
 
 public interface ISqlConnectionFactory
 {

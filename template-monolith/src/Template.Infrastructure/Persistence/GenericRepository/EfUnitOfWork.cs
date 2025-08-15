@@ -1,5 +1,4 @@
-﻿using Template.SharedKernel.Domain;
-
+﻿
 namespace Template.Infrastructure.Persistence.GenericRepository;
 
 public class EfUnitOfWork(ApplicationDbContext dbContext) : IUnitOfWork

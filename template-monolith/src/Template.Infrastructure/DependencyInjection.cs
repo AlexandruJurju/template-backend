@@ -1,10 +1,8 @@
-﻿using System.Text;
-using Azure.Storage.Blobs;
+﻿using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Caching.Hybrid;
-using Microsoft.IdentityModel.Tokens;
 using Template.Application.Contracts.Authentication;
 using Template.Application.Contracts.Email;
 using Template.Application.Contracts.Outbox;
@@ -18,8 +16,6 @@ using Template.Infrastructure.Persistence;
 using Template.Infrastructure.Persistence.Dapper;
 using Template.Infrastructure.Persistence.GenericRepository;
 using Template.Infrastructure.Storage;
-using Template.SharedKernel.Domain;
-using Template.SharedKernel.Infrastructure.Persistence;
 using TickerQ.Dashboard.DependencyInjection;
 using TickerQ.DependencyInjection;
 using TickerQ.EntityFrameworkCore.DependencyInjection;
@@ -122,8 +118,8 @@ public static class DependencyInjection
     {
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddKeycloakJwtBearer(
-                serviceName: "keycloak",
-                realm: "template-realm",
+                "keycloak",
+                "template-realm",
                 options =>
                 {
                     options.RequireHttpsMetadata = false;

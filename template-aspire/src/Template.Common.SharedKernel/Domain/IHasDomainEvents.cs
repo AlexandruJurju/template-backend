@@ -1,4 +1,4 @@
-﻿namespace Template.SharedKernel.Domain;
+﻿namespace Template.Common.SharedKernel.Domain;
 
 public interface IHasDomainEvents
 {
