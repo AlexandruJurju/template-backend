@@ -1,4 +1,4 @@
-﻿using Template.Application.Abstractions.Authentication;
+﻿using Template.Application.Contracts.Authentication;
 using Template.Application.Features.Users;
 using Template.Application.Features.Users.Queries.GetById;
 

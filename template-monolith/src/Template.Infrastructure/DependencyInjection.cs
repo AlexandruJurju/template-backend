@@ -1,13 +1,14 @@
-﻿using Azure.Storage.Blobs;
+﻿using System.Text;
+using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Caching.Hybrid;
-using Template.Application.Abstractions.Authentication;
-using Template.Application.Abstractions.Email;
-using Template.Application.Abstractions.Outbox;
-using Template.Application.Abstractions.Storage;
+using Microsoft.IdentityModel.Tokens;
 using Template.Application.Contracts.Authentication;
+using Template.Application.Contracts.Email;
+using Template.Application.Contracts.Outbox;
+using Template.Application.Contracts.Storage;
 using Template.Domain.Abstractions.Persistence;
 using Template.Infrastructure.Authentication;
 using Template.Infrastructure.Authorization;
@@ -42,8 +43,6 @@ public static class DependencyInjection
         AddEmail(services, configuration);
 
         AddStorage(services, configuration);
-
-        services.AddScoped<IKeycloakService, KeycloakService>();
 
         return services;
     }

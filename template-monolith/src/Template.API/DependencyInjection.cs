@@ -14,7 +14,7 @@ public static class DependencyInjection
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
 
-        AddSwaggerGenWithAuth(services);
+        AddSwaggerGenWithAuth(services, configuration);
 
         AddCors(services, configuration);
 
@@ -34,10 +34,9 @@ public static class DependencyInjection
                 .SetIsOriginAllowed(_ => true)));
     }
 
-    private static void AddSwaggerGenWithAuth(IServiceCollection services)
+    private static void AddSwaggerGenWithAuth(IServiceCollection services, IConfiguration configuration)
     {
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
 
         services.AddSwaggerGen(options =>
         {
@@ -59,6 +58,44 @@ public static class DependencyInjection
             string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             options.IncludeXmlComments(xmlPath);
 
+            // ================== Keycloak Configuration ==================
+            var keycloakSecurityScheme = new OpenApiSecurityScheme
+            {
+                Type = SecuritySchemeType.OAuth2,
+                Flows = new OpenApiOAuthFlows()
+                {
+                    Implicit = new OpenApiOAuthFlow()
+                    {
+                        AuthorizationUrl = new Uri(configuration["Keycloak:AuthorizationUrl"]!),
+                        Scopes = new Dictionary<string, string>
+                        {
+                            { "openid", "openid" },
+                            { "profile", "profile" }
+                        }
+                    }
+                }
+            };
+
+            options.AddSecurityDefinition("Keycloak", keycloakSecurityScheme);
+
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Id = "Keycloak",
+                            Type = ReferenceType.SecurityScheme
+                        },
+                        In = ParameterLocation.Header,
+                        Name = "Bearer",
+                        Scheme = "Bearer"
+                    },
+                    []
+                }
+            });
+
             // ================== JWT Configuration ==================
             var jwtSecurityScheme = new OpenApiSecurityScheme
             {
@@ -72,6 +109,21 @@ public static class DependencyInjection
 
             options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, jwtSecurityScheme);
 
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = JwtBearerDefaults.AuthenticationScheme
+                        }
+                    },
+                    []
+                }
+            });
+
             // // ================== API Key Configuration ==================
             // var apiKeySecurityScheme = new OpenApiSecurityScheme
             // {
@@ -83,40 +135,6 @@ public static class DependencyInjection
             // };
 
             // options.AddSecurityDefinition("ApiKey", apiKeySecurityScheme);
-
-            // (OpenApiSecurityScheme, string[]) apiKeyRequirement = (
-            //     new OpenApiSecurityScheme
-            //     {
-            //         Reference = new OpenApiReference
-            //         {
-            //             Type = ReferenceType.SecurityScheme,
-            //             Id = "ApiKey"
-            //         }
-            //     },
-            //     []
-            // );
-
-            // ================== Combined Security Requirements ==================
-            options.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-                // JWT Requirement
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = JwtBearerDefaults.AuthenticationScheme
-                        }
-                    },
-                    Array.Empty<string>()
-                },
-                // API Key Requirement
-                // {
-                //     apiKeyRequirement.Item1,
-                //     apiKeyRequirement.Item2
-                // }
-            });
         });
     }
 }

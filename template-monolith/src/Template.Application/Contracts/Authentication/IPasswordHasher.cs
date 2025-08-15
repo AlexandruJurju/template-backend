@@ -1,4 +1,4 @@
-﻿namespace Template.Application.Abstractions.Authentication;
+﻿namespace Template.Application.Contracts.Authentication;
 
 // this could also be a domain service
 public interface IPasswordHasher

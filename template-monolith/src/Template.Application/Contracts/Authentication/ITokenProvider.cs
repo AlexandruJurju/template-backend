@@ -1,6 +1,6 @@
 ﻿using Template.Domain.Entities.Users;
 
-namespace Template.Application.Abstractions.Authentication;
+namespace Template.Application.Contracts.Authentication;
 
 public interface ITokenProvider
 {

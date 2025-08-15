@@ -1,4 +1,4 @@
-﻿namespace Template.Application.Abstractions.Email;
+﻿namespace Template.Application.Contracts.Email;
 
 public interface IEmailService
 {

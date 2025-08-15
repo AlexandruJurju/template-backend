@@ -1,6 +1,6 @@
 ﻿namespace Template.Application.Contracts.Authentication;
 
-public interface IUserContext
+public interface IAuthenticationService
 {
-    Guid GetUserId();
+    
 }

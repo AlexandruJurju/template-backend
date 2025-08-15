@@ -1,5 +1,4 @@
-﻿using Template.Application.Abstractions.Authentication;
-using Template.Application.Contracts.Authentication;
+﻿using Template.Application.Contracts.Authentication;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;
 
@@ -10,14 +9,11 @@ internal sealed class LoginUserCommandHandler(
     ITokenProvider tokenProvider,
     IConfiguration configuration,
     TimeProvider timeProvider,
-    IKeycloakService keycloakService,
     IApplicationDbContext dbContext
 ) : ICommandHandler<LoginUserCommand, LoginResponse>
 {
     public async Task<Result<LoginResponse>> Handle(LoginUserCommand command, CancellationToken cancellationToken)
     {
-        await keycloakService.CreateUserAsync("bruh", "bruh@gmail.com", "bruh", "bruh", "123");
-
         User? user = await dbContext.Users
             .Include(u => u.Role)
             .ThenInclude(u => u.Permissions)

@@ -1,4 +1,4 @@
-﻿namespace Template.Application.Abstractions.Outbox;
+﻿namespace Template.Application.Contracts.Outbox;
 
 public interface IProcessOutboxMessagesJob
 {

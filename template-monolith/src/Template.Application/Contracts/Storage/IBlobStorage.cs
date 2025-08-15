@@ -1,4 +1,4 @@
-﻿namespace Template.Application.Abstractions.Storage;
+﻿namespace Template.Application.Contracts.Storage;
 
 public interface IBlobStorage
 {
