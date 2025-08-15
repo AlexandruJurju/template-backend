@@ -19,6 +19,7 @@
         <PackageReference Include="CommunityToolkit.Aspire.Hosting.PapercutSmtp"/>
         <PackageReference Include="Aspire.Hosting.Garnet"/>
         <PackageReference Include="Aspire.Hosting.Valkey"/>
+        <PackageReference Include="Scalar.Aspire" />
     </ItemGroup>
 
     <ItemGroup Label="Azure">

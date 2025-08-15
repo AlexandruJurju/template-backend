@@ -28,6 +28,7 @@
     <!-- Community Toolkit add-ons -->
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.PapercutSmtp" Version="$(ToolKitVersion)" />
     <PackageVersion Include="Keycloak.Net.Core" Version="1.0.34" />
+    <PackageVersion Include="Scalar.Aspire" Version="0.3.3" />
     <PackageVersion Include="SignalRSwaggerGen" Version="4.8.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.3" />
   </ItemGroup>

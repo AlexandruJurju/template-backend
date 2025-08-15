@@ -1,5 +1,6 @@
 using Aspire.Hosting.Azure;
 using Projects;
+using Scalar.Aspire;
 using Template.Constants.Aspire;
 
 IDistributedApplicationBuilder builder = DistributedApplication.CreateBuilder(args);
@@ -35,7 +36,7 @@ IResourceBuilder<AzureStorageResource> storage = builder
 IResourceBuilder<AzureBlobStorageContainerResource> blobStorage = storage
     .AddBlobContainer(Components.Azure.BlobContainer);
 
-builder.AddProject<Template_API>(Services.MonolithApi)
+IResourceBuilder<ProjectResource> templateService = builder.AddProject<Template_API>(Services.MonolithApi)
     .WithReference(templateDb)
     .WaitFor(templateDb)
     .WithReference(cache)
@@ -46,6 +47,12 @@ builder.AddProject<Template_API>(Services.MonolithApi)
     .WaitFor(blobStorage)
     .WithReference(keycloak)
     .WaitFor(keycloak);
+
+// Add Scalar API Reference for all services
+builder
+    .AddScalarApiReference()
+    .WithApiReference(templateService, options => options.WithOpenApiRoutePattern("/swagger/v1/swagger.json"))
+    .WaitFor(templateService);
 
 // builder.AddNpmApp(Services.AngularUi, "../../../../template-ui")
 //     .WithReference(templateApi)

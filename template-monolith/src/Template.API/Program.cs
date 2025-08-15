@@ -1,5 +1,4 @@
 using System.Reflection;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Scalar.AspNetCore;
 using Serilog;
 using Template.API;
@@ -33,7 +32,6 @@ app.MapHub<RandomNumberHub>("random-number-hub");
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
     app.MapScalarApiReference(options => options.WithOpenApiRoutePattern("/swagger/v1/swagger.json"));
     app.ApplyMigrations();
 }
