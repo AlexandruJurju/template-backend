@@ -17,6 +17,7 @@
     <Project Path="template-common\src\Template.Common.Application\Template.Common.Application.csproj" Type="Classic C#" />
     <Project Path="template-common\src\Template.Common.Domain\Template.Common.Domain.csproj" Type="Classic C#" />
     <Project Path="template-common\src\Template.Common.Infrastructure\Template.Common.Infrastructure.csproj" Type="Classic C#" />
+    <Project Path="template-common\src\Template.Constants\Template.Constants.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/template-monolith/">
     <Project Path="template-monolith\src\Template.API\Template.API.csproj" Type="Classic C#" />
