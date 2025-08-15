@@ -13,11 +13,9 @@
         <PackageReference Include="Aspire.Hosting.Keycloak"/>
         <PackageReference Include="Aspire.Hosting.NodeJs"/>
         <PackageReference Include="Aspire.Hosting.PostgreSQL"/>
-        <PackageReference Include="Aspire.Hosting.Redis"/>
         <PackageReference Include="Aspire.Hosting.Seq"/>
         <PackageReference Include="CommunityToolkit.Aspire.Hosting.MailPit"/>
         <PackageReference Include="CommunityToolkit.Aspire.Hosting.PapercutSmtp"/>
-        <PackageReference Include="Aspire.Hosting.Garnet"/>
         <PackageReference Include="Aspire.Hosting.Valkey"/>
         <PackageReference Include="Scalar.Aspire" />
     </ItemGroup>

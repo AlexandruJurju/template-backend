@@ -19,7 +19,13 @@ IResourceBuilder<KeycloakResource> keycloak = builder
     .WithExternalHttpEndpoints()
     .WithLifetime(ContainerLifetime.Persistent);
 
-IResourceBuilder<GarnetResource> cache = builder.AddGarnet(Components.Cache);
+IResourceBuilder<SeqResource> seq = builder
+    .AddSeq(Components.Seq, 5341)
+    .WithLifetime(ContainerLifetime.Persistent);
+
+IResourceBuilder<ValkeyResource> valkey = builder
+    .AddValkey(Components.Valkey)
+    .WithLifetime(ContainerLifetime.Persistent);
 
 IResourceBuilder<MailPitContainerResource> mailpit = builder
     .AddMailPit(Components.MailPit)
@@ -39,14 +45,16 @@ IResourceBuilder<AzureBlobStorageContainerResource> blobStorage = storage
 IResourceBuilder<ProjectResource> templateService = builder.AddProject<Template_API>(Services.MonolithApi)
     .WithReference(templateDb)
     .WaitFor(templateDb)
-    .WithReference(cache)
-    .WaitFor(cache)
+    .WithReference(valkey)
+    .WaitFor(valkey)
     .WithReference(mailpit)
     .WaitFor(mailpit)
     .WithReference(blobStorage)
     .WaitFor(blobStorage)
     .WithReference(keycloak)
-    .WaitFor(keycloak);
+    .WaitFor(keycloak)
+    .WithReference(seq)
+    .WaitFor(seq);
 
 // Add Scalar API Reference for all services
 builder

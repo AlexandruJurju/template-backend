@@ -7,7 +7,7 @@ namespace Template.Application;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services)
+    public static void AddApplication(this IServiceCollection services)
     {
         AddMediatR(services);
 
@@ -16,8 +16,6 @@ public static class DependencyInjection
         AddBackgroundServices(services);
 
         AddServices(services);
-
-        return services;
     }
 
     private static void AddServices(IServiceCollection services)

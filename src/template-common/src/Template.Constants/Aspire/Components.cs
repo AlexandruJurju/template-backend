@@ -7,7 +7,8 @@ public static class Components
     public static readonly string MailPit = nameof(MailPit).ToLowerInvariant();
     public static readonly string Postgres = nameof(Postgres).ToLowerInvariant();
     public static readonly string KeyCloak = nameof(KeyCloak).ToLowerInvariant();
-    public static readonly string Cache = nameof(Cache).ToLowerInvariant();
+    public static readonly string Valkey = nameof(Valkey).ToLowerInvariant();
+    public static readonly string Seq = nameof(Seq).ToLowerInvariant();
 
     public static class Database
     {
