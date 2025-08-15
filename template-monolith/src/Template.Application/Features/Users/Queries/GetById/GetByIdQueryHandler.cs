@@ -1,5 +1,5 @@
 ﻿using Template.Domain.Entities.Users;
-using Template.SharedKernel.Infrastructure.Persistence;
+using Template.Common.SharedKernel.Infrastructure.Persistence;
 
 namespace Template.Application.Features.Users.Queries.GetById;
 
@@ -11,19 +11,17 @@ internal sealed class GetUserByIdQueryHandler(
     {
         using IDbConnection connection = connectionFactory.CreateConnection();
 
-        const string sql = """
+        const string sql = $"""
+                            SELECT 
+                                id as {nameof(UserResponse.Id)},
+                                first_name as {nameof(UserResponse.FirstName)},
+                                last_name as {nameof(UserResponse.LastName)},
+                                email as {nameof(UserResponse.Email)}
+                            FROM Users
+                            WHERE id = @UserId;
+                            """;
 
-                                       SELECT 
-                                           Id as Id,
-                                           first_name as FirstName,
-                                           last_name as LastName,
-                                           Email as Email
-                                       FROM Users
-                                       WHERE Id = @UserId;
-                                   
-                           """;
-
-        dynamic? user = await connection.QuerySingleOrDefaultAsync<UserResponse>(
+        UserResponse? user = await connection.QuerySingleOrDefaultAsync<UserResponse>(
             sql,
             new { query.UserId }
         );

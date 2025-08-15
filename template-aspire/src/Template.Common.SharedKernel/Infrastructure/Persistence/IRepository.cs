@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
-using Template.SharedKernel.Domain;
+using Template.Common.SharedKernel.Domain;
 
-namespace Template.SharedKernel.Infrastructure.Persistence;
+namespace Template.Common.SharedKernel.Infrastructure.Persistence;
 
 public interface IRepository<T> where T : EntityBase
 {

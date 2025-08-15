@@ -34,7 +34,7 @@ public class SignalRTestPage(IPage page, string pageUrl) : BasePage(page, pageUr
     {
         try
         {
-            await Page.WaitForSelectorAsync(ConnectedStatus, new() { Timeout = timeout });
+            await Page.WaitForSelectorAsync(ConnectedStatus, new PageWaitForSelectorOptions { Timeout = timeout });
             return true;
         }
         catch (TimeoutException)
@@ -47,7 +47,7 @@ public class SignalRTestPage(IPage page, string pageUrl) : BasePage(page, pageUr
     {
         try
         {
-            await Page.WaitForSelectorAsync(DisconnectedStatus, new() { Timeout = timeout });
+            await Page.WaitForSelectorAsync(DisconnectedStatus, new PageWaitForSelectorOptions { Timeout = timeout });
             return true;
         }
         catch (TimeoutException)
@@ -134,12 +134,12 @@ public class SignalRTestPage(IPage page, string pageUrl) : BasePage(page, pageUr
     public async Task WaitForLogEntryAsync(string logType, string containsText, int timeout = 5000)
     {
         string selector = $".log-{logType}:has-text('{containsText}')";
-        await Page.WaitForSelectorAsync(selector, new() { Timeout = timeout });
+        await Page.WaitForSelectorAsync(selector, new PageWaitForSelectorOptions { Timeout = timeout });
     }
 
     public async Task WaitForNumbersAsync(int timeout = 5000)
     {
-        await Page.WaitForSelectorAsync(LatestNumbersSection, new() { Timeout = timeout });
+        await Page.WaitForSelectorAsync(LatestNumbersSection, new PageWaitForSelectorOptions { Timeout = timeout });
     }
 
     // Network Monitoring Helpers

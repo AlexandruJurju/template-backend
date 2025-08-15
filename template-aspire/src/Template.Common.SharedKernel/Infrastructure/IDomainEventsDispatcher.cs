@@ -1,6 +1,6 @@
-﻿using Template.SharedKernel.Domain;
+﻿using Template.Common.SharedKernel.Domain;
 
-namespace Template.SharedKernel.Infrastructure;
+namespace Template.Common.SharedKernel.Infrastructure;
 
 public interface IDomainEventsDispatcher
 {

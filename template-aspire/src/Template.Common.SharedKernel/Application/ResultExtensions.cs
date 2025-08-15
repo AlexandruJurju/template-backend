@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 
-namespace Template.SharedKernel.Application;
+namespace Template.Common.SharedKernel.Application;
 
 public static class ResultExtensions
 {

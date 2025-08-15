@@ -1,4 +1,4 @@
-﻿global using Template.SharedKernel.Application.Messaging;
+﻿global using Template.Common.SharedKernel.Application.Messaging;
 global using Ardalis.Result;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Configuration;

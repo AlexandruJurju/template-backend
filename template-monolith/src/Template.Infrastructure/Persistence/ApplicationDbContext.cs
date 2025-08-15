@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
+using Template.Common.SharedKernel.Infrastructure.Outbox;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.ApiKeys;
 using Template.Domain.Entities.Users;
-using Template.SharedKernel.Domain;
-using Template.SharedKernel.Infrastructure.Outbox;
 
 namespace Template.Infrastructure.Persistence;
 
@@ -17,12 +16,14 @@ public sealed class ApplicationDbContext(
     };
 
     #region DbSets
+
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<OutboxMessage> OutboxMessages { get; set; }
     public DbSet<ApiKey> ApiKeys { get; set; }
     public DbSet<EmailVerificationToken> EmailVerificationTokens { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+
     #endregion
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

@@ -5,7 +5,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
 
-namespace Template.SharedKernel.Application.Behaviors;
+namespace Template.Common.SharedKernel.Application.Behaviors;
 
 public sealed class ValidationPipelineBehavior<TRequest, TResponse>(
     IEnumerable<IValidator<TRequest>> validators)

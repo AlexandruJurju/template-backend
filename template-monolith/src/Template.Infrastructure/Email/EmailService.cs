@@ -12,7 +12,7 @@ public class EmailService(IFluentEmail fluentEmail) : IEmailService
         SendResponse? result = await fluentEmail
             .To(toMail)
             .Subject(subject)
-            .UsingTemplateFromFile(emailTemplateName, model, isHtml: true)
+            .UsingTemplateFromFile(emailTemplateName, model, true)
             .SendAsync();
 
         return !result.Successful

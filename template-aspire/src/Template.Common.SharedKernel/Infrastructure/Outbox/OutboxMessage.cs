@@ -1,4 +1,4 @@
-﻿namespace Template.SharedKernel.Infrastructure.Outbox;
+﻿namespace Template.Common.SharedKernel.Infrastructure.Outbox;
 
 public sealed class OutboxMessage(Guid id, DateTime occurredOnUtc, string type, string content)
 {

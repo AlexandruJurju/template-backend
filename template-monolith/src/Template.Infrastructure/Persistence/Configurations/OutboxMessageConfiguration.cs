@@ -1,4 +1,4 @@
-﻿using Template.SharedKernel.Infrastructure.Outbox;
+﻿using Template.Common.SharedKernel.Infrastructure.Outbox;
 
 namespace Template.Infrastructure.Persistence.Configurations;
 
