@@ -2,14 +2,11 @@
   <Folder Name="/others/">
     <Project Path="template-monolith\src\Template.Spec\Template.Spec.csproj" Type="Classic C#" />
   </Folder>
-  <Folder Name="/solution-items/">
+  <Folder Name="/Solution Items/">
     <File Path=".gitignore" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
     <File Path=".editorconfig" />
-  </Folder>
-  <Folder Name="/template-acceptance-tests/">
-    <Project Path="template-acceptance-tests\src\Template.AcceptanceTests\Template.AcceptanceTests.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/template-aspire/">
     <Project Path="template-aspire\src\Template.AspireHost\Template.AspireHost.csproj" Type="Classic C#" />
@@ -17,6 +14,10 @@
   </Folder>
   <Folder Name="/template-common/">
     <Project Path="template-aspire\src\Template.Common.SharedKernel\Template.Common.SharedKernel.csproj" Type="Classic C#" />
+    <Project Path="template-common\src\Template.Common.Application\Template.Common.Application.csproj" Type="Classic C#" />
+    <Project Path="template-common\src\Template.Common.Domain\Template.Common.Domain.csproj" Type="Classic C#" />
+    <Project Path="template-common\src\Template.Common.Infrastructure\Template.Common.Infrastructure.csproj" Type="Classic C#" />
+    <Project Path="template-common\src\Template.Constants\Template.Constants.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/template-monolith/">
     <Project Path="template-monolith\src\Template.API\Template.API.csproj" Type="Classic C#" />
@@ -24,5 +25,8 @@
     <Project Path="template-monolith\src\Template.Domain\Template.Domain.csproj" Type="Classic C#" />
     <Project Path="template-monolith\src\Template.Infrastructure\Template.Infrastructure.csproj" Type="Classic C#" />
     <Project Path="template-monolith\src\Template.UnitTests\Template.UnitTests.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/template-tests/">
+    <Project Path="template-acceptance-tests\src\Template.AcceptanceTests\Template.AcceptanceTests.csproj" Type="Classic C#" />
   </Folder>
 </Solution>

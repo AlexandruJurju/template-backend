@@ -15,9 +15,11 @@
         <PackageReference Include="Aspire.Hosting.PostgreSQL"/>
         <PackageReference Include="Aspire.Hosting.Redis"/>
         <PackageReference Include="Aspire.Hosting.Seq"/>
+        <PackageReference Include="CommunityToolkit.Aspire.Hosting.MailPit"/>
         <PackageReference Include="CommunityToolkit.Aspire.Hosting.PapercutSmtp"/>
         <PackageReference Include="Aspire.Hosting.Garnet"/>
         <PackageReference Include="Aspire.Hosting.Valkey"/>
+        <PackageReference Include="Scalar.Aspire" />
     </ItemGroup>
 
     <ItemGroup Label="Azure">
@@ -25,7 +27,16 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference
+                Include="..\..\..\template-common\src\Template.Constants\Template.Constants.csproj"
+                IsAspireProjectResource="false"
+        />
+        
         <ProjectReference Include="..\..\..\template-monolith\src\Template.API\Template.API.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Extensions\" />
     </ItemGroup>
 
     <!--    <Target Name="RunUnitTests" AfterTargets="Build" Condition=" '$(Configuration)' == 'Debug'">-->

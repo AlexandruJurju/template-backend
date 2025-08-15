@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using Template.Application.Contracts.Services;
-using Template.Application.Services;
 
 namespace Template.Application.Hubs;
 

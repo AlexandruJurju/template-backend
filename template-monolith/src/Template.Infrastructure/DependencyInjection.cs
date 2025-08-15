@@ -7,6 +7,7 @@ using Template.Application.Contracts.Authentication;
 using Template.Application.Contracts.Email;
 using Template.Application.Contracts.Outbox;
 using Template.Application.Contracts.Storage;
+using Template.Constants.Aspire;
 using Template.Domain.Abstractions.Persistence;
 using Template.Infrastructure.Authentication;
 using Template.Infrastructure.Authorization;
@@ -49,9 +50,9 @@ public static class DependencyInjection
 
         services.AddScoped<IEmailService, EmailService>();
 
-        // Get the Papercut connection string
-        string papercutConnectionString = configuration.GetConnectionString("papercut")!;
-        var smtpUri = new Uri(papercutConnectionString.Replace("Endpoint=", ""));
+        // Get smtp connection string
+        string smtpConnectionString = configuration.GetConnectionString(Components.MailPit)!;
+        var smtpUri = new Uri(smtpConnectionString.Replace("Endpoint=", ""));
 
         services
             .AddFluentEmail(configuration["Email:SenderEmail"], configuration["Email:Sender"])
@@ -61,7 +62,7 @@ public static class DependencyInjection
 
     private static void AddCaching(IServiceCollection services, IConfiguration configuration)
     {
-        string connectionString = configuration.GetConnectionString("cache")!;
+        string connectionString = configuration.GetConnectionString(Components.Cache)!;
 
         services.AddStackExchangeRedisCache(options => options.Configuration = connectionString);
 
@@ -94,7 +95,7 @@ public static class DependencyInjection
 
     private static void AddDatabase(IServiceCollection services, IConfiguration configuration)
     {
-        string? connectionString = configuration.GetConnectionString("database");
+        string? connectionString = configuration.GetConnectionString(Components.Database.Template);
 
         services.AddDbContext<ApplicationDbContext>(options => options
             .UseNpgsql(connectionString, npgsqlOptions =>
@@ -118,7 +119,7 @@ public static class DependencyInjection
     {
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddKeycloakJwtBearer(
-                "keycloak",
+                Components.KeyCloak,
                 "template-realm",
                 options =>
                 {
@@ -147,6 +148,6 @@ public static class DependencyInjection
     private static void AddStorage(IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<IBlobStorage, BlobStorage>();
-        services.AddSingleton(_ => new BlobServiceClient(configuration.GetConnectionString("blob-storage")!));
+        services.AddSingleton(_ => new BlobServiceClient(configuration.GetConnectionString(Components.Azure.BlobContainer)!));
     }
 }
