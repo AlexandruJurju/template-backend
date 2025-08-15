@@ -49,9 +49,9 @@ public static class DependencyInjection
 
         services.AddScoped<IEmailService, EmailService>();
 
-        // Get the Papercut connection string
-        string papercutConnectionString = configuration.GetConnectionString("papercut")!;
-        var smtpUri = new Uri(papercutConnectionString.Replace("Endpoint=", ""));
+        // Get smtp connection string
+        string smtpConnectionString = configuration.GetConnectionString("mailpit")!;
+        var smtpUri = new Uri(smtpConnectionString.Replace("Endpoint=", ""));
 
         services
             .AddFluentEmail(configuration["Email:SenderEmail"], configuration["Email:Sender"])

@@ -16,7 +16,7 @@ IResourceBuilder<KeycloakResource> keycloak = builder
 
 IResourceBuilder<GarnetResource> cache = builder.AddGarnet("garnet");
 
-IResourceBuilder<PapercutSmtpContainerResource> papercut = builder.AddPapercutSmtp("papercut");
+IResourceBuilder<MailPitContainerResource> mailpit = builder.AddMailPit("mailpit");
 
 IResourceBuilder<AzureBlobStorageResource> azureStorage = builder
     .AddAzureStorage("azure-storage")
@@ -26,16 +26,16 @@ IResourceBuilder<AzureBlobStorageResource> azureStorage = builder
 builder.AddProject<Template_API>("template-api")
     .WithEnvironment("ConnectionStrings__Database", database)
     .WithEnvironment("ConnectionStrings__Cache", cache)
-    .WithEnvironment("ConnectionStrings__Papercut", papercut)
+    .WithEnvironment("ConnectionStrings__Mailpit", mailpit)
     .WithEnvironment("ConnectionStrings__AzureStorage", azureStorage)
     .WithReference(database)
     .WithReference(cache)
-    .WithReference(papercut)
+    .WithReference(mailpit)
     .WithReference(azureStorage)
     .WithReference(keycloak)
     .WaitFor(database)
     .WaitFor(cache)
-    .WaitFor(papercut)
+    .WaitFor(mailpit)
     .WaitFor(azureStorage)
     .WaitFor(keycloak);
 
