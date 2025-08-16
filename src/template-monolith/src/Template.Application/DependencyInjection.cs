@@ -27,6 +27,6 @@ public static class DependencyInjection
 
     private static void AddBackgroundServices(IServiceCollection services)
     {
-        services.AddHostedService<RandomNumberBackgroundService>();
+        // services.AddHostedService<RandomNumberBackgroundService>();
     }
 }

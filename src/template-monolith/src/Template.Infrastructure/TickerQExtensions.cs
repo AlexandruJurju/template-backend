@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using TickerQ.Dashboard.DependencyInjection;
+﻿using TickerQ.Dashboard.DependencyInjection;
 using TickerQ.DependencyInjection;
 using TickerQ.EntityFrameworkCore.DependencyInjection;
 
-namespace Template.Common.SharedKernel.Infrastructure.TickerQ;
+namespace Template.Infrastructure;
 
 public static class TickerQExtensions
 {
@@ -12,7 +10,7 @@ public static class TickerQExtensions
         this IServiceCollection services,
         int maxConcurrency = 4,
         bool addDashboard = true,
-        bool addDashboardAuth = true
+        bool addDashboardAuth = false
     )
         where TDbContext : DbContext
     {
@@ -30,7 +28,7 @@ public static class TickerQExtensions
                 return;
             }
 
-            options.AddDashboard();
+            options.AddDashboard(basePath: "/tickerq-dashboard");
 
             if (addDashboardAuth)
             {

@@ -10,12 +10,14 @@ using Template.Common.SharedKernel.Infrastructure.Email;
 using Template.Common.SharedKernel.Infrastructure.Outbox;
 using Template.Common.SharedKernel.Infrastructure.Repository;
 using Template.Common.SharedKernel.Infrastructure.Storage;
-using Template.Common.SharedKernel.Infrastructure.TickerQ;
 using Template.Domain.Abstractions.Persistence;
 using Template.Infrastructure.Authentication;
 using Template.Infrastructure.Authorization;
 using Template.Infrastructure.Outbox;
 using Template.Infrastructure.Persistence;
+using TickerQ.Dashboard.DependencyInjection;
+using TickerQ.DependencyInjection;
+using TickerQ.EntityFrameworkCore.DependencyInjection;
 
 namespace Template.Infrastructure;
 
@@ -35,10 +37,9 @@ public static class DependencyInjection
         builder.AddDefaultPostgresDb<ApplicationDbContext>(Components.Database.Template);
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
-        services.AddDefaultDapper(configuration, Components.Database.Template);
+        AddTickerQ(services);
 
-        services.AddDefaultTickerQ<ApplicationDbContext>();
-        services.AddScoped<IProcessOutboxMessagesJob, ProcessOutboxMessagesJob>();
+        services.AddDefaultDapper(configuration, Components.Database.Template);
 
         services.AddDefaultJwtAuthentication();
         services.AddScoped<ITokenProvider, TokenProvider>();
@@ -55,5 +56,21 @@ public static class DependencyInjection
         services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
         services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
+    }
+
+    private static void AddTickerQ(IServiceCollection services)
+    {
+        services.AddTickerQ(options =>
+        {
+            options.SetMaxConcurrency(4);
+            options.AddOperationalStore<ApplicationDbContext>(efOpt =>
+            {
+                efOpt.UseModelCustomizerForMigrations();
+                efOpt.CancelMissedTickersOnApplicationRestart();
+            });
+            options.AddDashboard();
+        });
+
+        services.AddScoped<IProcessOutboxMessagesJob, ProcessOutboxMessagesJob>();
     }
 }

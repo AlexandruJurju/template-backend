@@ -23,7 +23,7 @@ builder.AddServiceDefaults();
 builder.Services.AddPresentation(builder.Configuration);
 builder.Services.AddApplication();
 builder.AddInfrastructure();
-builder.AddSeqEndpoint(Components.Seq);
+// builder.AddSeqEndpoint(Components.Seq);
 
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 
@@ -31,7 +31,7 @@ WebApplication app = builder.Build();
 
 app.MapEndpoints();
 
-app.MapHub<RandomNumberHub>("random-number-hub");
+// app.MapHub<RandomNumberHub>("random-number-hub");
 
 if (app.Environment.IsDevelopment())
 {

@@ -20,7 +20,6 @@ public static class MigrateDbContextExtensions
         dbContext.Database.Migrate();
     }
 
-
     private const string ActivitySourceName = "DbMigrations";
     private static readonly ActivitySource ActivitySource = new(ActivitySourceName);
 
