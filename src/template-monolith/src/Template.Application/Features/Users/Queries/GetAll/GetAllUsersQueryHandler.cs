@@ -1,4 +1,5 @@
-﻿using Template.Domain.Abstractions.Persistence;
+﻿using Template.Common.SharedKernel.Application.CQRS.Queries;
+using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;
 
 namespace Template.Application.Features.Users.Queries.GetAll;

@@ -1,4 +1,6 @@
 ﻿using Template.Application.Contracts.Authentication;
+using Template.Common.SharedKernel.Application.CQRS.Commands;
+using Template.Common.SharedKernel.Infrastructure;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;
 
@@ -6,7 +8,6 @@ namespace Template.Application.Features.Users.Commands.RefreshToken;
 
 public class RefreshTokenCommandHandler(
     IApplicationDbContext dbContext,
-    TimeProvider timeProvider,
     ITokenProvider tokenProvider
 ) : ICommandHandler<RefreshTokenCommand, RefreshTokenResponse>
 {
@@ -15,7 +16,7 @@ public class RefreshTokenCommandHandler(
         Domain.Entities.Users.RefreshToken? refreshToken = await dbContext.RefreshTokens
             .SingleOrDefaultAsync(x => x.Token == request.RefreshToken, cancellationToken);
 
-        if (refreshToken is null || refreshToken.ExpiresOnUtc < timeProvider.GetUtcNow().UtcDateTime)
+        if (refreshToken is null || refreshToken.ExpiresOnUtc < DateTimeHelper.UtcNow())
         {
             return UserErrors.RefreshTokenExpired;
         }
@@ -23,7 +24,7 @@ public class RefreshTokenCommandHandler(
         string accessToken = tokenProvider.GenerateToken(refreshToken.User);
 
         refreshToken.Token = tokenProvider.GenerateRefreshToken();
-        refreshToken.ExpiresOnUtc = timeProvider.GetUtcNow().UtcDateTime.AddDays(7);
+        refreshToken.ExpiresOnUtc = DateTimeHelper.UtcNow().AddDays(7);
 
         await dbContext.SaveChangesAsync(cancellationToken);
 

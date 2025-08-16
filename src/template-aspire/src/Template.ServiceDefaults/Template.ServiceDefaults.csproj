@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\template-common\src\Template.Constants\Template.Constants.csproj" />
+      <ProjectReference Include="..\..\..\template-common\src\Template.Common.Constants\Template.Common.Constants.csproj" />
     </ItemGroup>
 
 </Project>

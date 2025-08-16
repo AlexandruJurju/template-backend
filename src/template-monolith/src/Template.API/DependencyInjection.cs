@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Template.API.Cors;
-using Template.API.ExceptionHandler;
 using Template.Application.Hubs;
+using Template.Common.SharedKernel.Api.Exceptions;
 
 namespace Template.API;
 

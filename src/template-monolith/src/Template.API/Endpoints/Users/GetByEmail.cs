@@ -1,6 +1,6 @@
-﻿using Template.API.Authentication;
-using Template.Application.Features.Users;
+﻿using Template.Application.Features.Users;
 using Template.Application.Features.Users.Queries.GetByEmail;
+using Template.Common.SharedKernel.Api.Endpoints;
 
 namespace Template.API.Endpoints.Users;
 
