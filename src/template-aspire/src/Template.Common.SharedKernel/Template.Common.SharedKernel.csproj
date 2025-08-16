@@ -17,14 +17,14 @@
         <PackageReference Include="FluentEmail.Razor"/>
         <PackageReference Include="FluentEmail.Smtp"/>
         <PackageReference Include="Azure.Storage.Blobs"/>
-        <PackageReference Include="TickerQ"/>
-        <PackageReference Include="TickerQ.Dashboard"/>
-        <PackageReference Include="TickerQ.EntityFrameworkCore"/>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
         <PackageReference Include="Keycloak.Net.Core"/>
         <PackageReference Include="Aspire.Keycloak.Authentication"/>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\template-common\src\Template.Common.Constants\Template.Common.Constants.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Infrastructure\TickerQ\" />
     </ItemGroup>
 </Project>

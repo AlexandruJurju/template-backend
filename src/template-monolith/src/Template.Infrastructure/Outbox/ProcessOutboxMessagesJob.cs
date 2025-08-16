@@ -20,7 +20,7 @@ public class ProcessOutboxMessagesJob(
         TypeNameHandling = TypeNameHandling.All
     };
 
-    [TickerFunction("Process", "%BackgroundJobs:Outbox:Schedule%")]
+    [TickerFunction(nameof(ProcessOutboxMessagesJob), "%BackgroundJobs:Outbox:Schedule%")]
     public async Task ProcessAsync()
     {
         logger.LogInformation("Starting to process outbox messages");
