@@ -1,5 +1,5 @@
-﻿using Template.Application.Contracts.Authentication;
-using Template.Common.SharedKernel.Application.CQRS.Commands;
+﻿using Template.Common.SharedKernel.Application.CQRS.Commands;
+using Template.Common.SharedKernel.Infrastructure.Auth.Jwt;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;
 

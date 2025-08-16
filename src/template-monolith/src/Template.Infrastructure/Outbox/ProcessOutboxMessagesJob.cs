@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Newtonsoft.Json;
+using Template.Common.SharedKernel.Infrastructure;
 using Template.Common.SharedKernel.Infrastructure.Outbox;
 using Template.Domain.Abstractions.Persistence;
 using TickerQ.Utilities.Base;
@@ -9,7 +10,6 @@ namespace Template.Infrastructure.Outbox;
 public class ProcessOutboxMessagesJob(
     IMediator mediator,
     IApplicationDbContext applicationDbContext,
-    TimeProvider timeProvider,
     ILogger<ProcessOutboxMessagesJob> logger
 ) : IProcessOutboxMessagesJob
 {
@@ -43,10 +43,7 @@ public class ProcessOutboxMessagesJob(
 
             try
             {
-                IDomainEvent domainEvent = JsonConvert.DeserializeObject<IDomainEvent>(
-                    outboxMessage.Content,
-                    JsonSerializerSettings)!;
-
+                IDomainEvent domainEvent = JsonConvert.DeserializeObject<IDomainEvent>(outboxMessage.Content, JsonSerializerSettings)!;
                 await mediator.Publish(domainEvent);
             }
             catch (Exception ex)
@@ -60,7 +57,7 @@ public class ProcessOutboxMessagesJob(
             }
 
             // Update message status (whether success or failed)
-            outboxMessage.ProcessedOnUtc = timeProvider.GetUtcNow().UtcDateTime;
+            outboxMessage.ProcessedOnUtc = DateTimeHelper.UtcNow();
             outboxMessage.Error = exception?.ToString();
         }
 

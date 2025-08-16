@@ -3,6 +3,13 @@
     <Project Path="src\template-monolith\src\Template.Spec\Template.Spec.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/services/" />
+  <Folder Name="/services/template-monolith/">
+    <Project Path="src\template-monolith\src\Template.API\Template.API.csproj" Type="Classic C#" />
+    <Project Path="src\template-monolith\src\Template.Application\Template.Application.csproj" Type="Classic C#" />
+    <Project Path="src\template-monolith\src\Template.Domain\Template.Domain.csproj" Type="Classic C#" />
+    <Project Path="src\template-monolith\src\Template.Infrastructure\Template.Infrastructure.csproj" Type="Classic C#" />
+    <Project Path="src\template-monolith\src\Template.UnitTests\Template.UnitTests.csproj" Type="Classic C#" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".gitignore" />
     <File Path="Directory.Build.props" />
@@ -17,14 +24,8 @@
     <Project Path="src\template-aspire\src\Template.Common.SharedKernel\Template.Common.SharedKernel.csproj" Type="Classic C#" />
     <Project Path="src\template-common\src\Template.Common.Constants\Template.Common.Constants.csproj" Type="Classic C#" />
   </Folder>
-  <Folder Name="/template-monolith/">
-    <Project Path="src\template-monolith\src\Template.API\Template.API.csproj" Type="Classic C#" />
-    <Project Path="src\template-monolith\src\Template.Application\Template.Application.csproj" Type="Classic C#" />
-    <Project Path="src\template-monolith\src\Template.Domain\Template.Domain.csproj" Type="Classic C#" />
-    <Project Path="src\template-monolith\src\Template.Infrastructure\Template.Infrastructure.csproj" Type="Classic C#" />
-    <Project Path="src\template-monolith\src\Template.UnitTests\Template.UnitTests.csproj" Type="Classic C#" />
-  </Folder>
-  <Folder Name="/template-tests/">
+  <Folder Name="/tests/" />
+  <Folder Name="/tests/template-tests/">
     <Project Path="src\template-acceptance-tests\src\Template.AcceptanceTests\Template.AcceptanceTests.csproj" Type="Classic C#" />
   </Folder>
 </Solution>

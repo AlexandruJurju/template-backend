@@ -1,4 +1,4 @@
-﻿using Template.Application.Contracts.Email;
+﻿using Template.Common.SharedKernel.Infrastructure.Email;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;
 
@@ -19,11 +19,6 @@ internal sealed class UserRegisteredDomainEventHandler(
             return;
         }
 
-        Result result = await emailService.SendEmail(user.Email, "User Registered", EmailTemplates.UserRegistered, new RegisterUserMailModel());
-
-        if (!result.IsSuccess)
-        {
-            throw new Exception();
-        }
+        await emailService.SendEmail(user.Email, "User Registered", EmailTemplates.UserRegistered, new RegisterUserMailModel());
     }
 }

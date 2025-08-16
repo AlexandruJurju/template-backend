@@ -42,7 +42,7 @@ IResourceBuilder<AzureStorageResource> storage = builder
 IResourceBuilder<AzureBlobStorageContainerResource> blobStorage = storage
     .AddBlobContainer(Components.Azure.BlobContainer);
 
-IResourceBuilder<ProjectResource> templateService = builder.AddProject<Template_API>(Services.MonolithApi)
+IResourceBuilder<ProjectResource> templateService = builder.AddProject<Template_API>(Services.TemplateApi)
     .WithReference(templateDb)
     .WaitFor(templateDb)
     .WithReference(valkey)

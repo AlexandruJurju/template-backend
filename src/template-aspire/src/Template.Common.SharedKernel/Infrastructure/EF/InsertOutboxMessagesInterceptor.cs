@@ -23,19 +23,19 @@ public sealed class InsertOutboxMessagesInterceptor : SaveChangesInterceptor
 
     private static void InsertOutboxMessages(DbContext context)
     {
-        var outboxMessages = context
+        var domainEvents = context
             .ChangeTracker
             .Entries<Entity>()
             .Select(entry => entry.Entity)
             .SelectMany(entity =>
             {
                 IReadOnlyCollection<IDomainEvent> domainEvents = entity.DomainEvents;
-
                 entity.ClearDomainEvents();
-
                 return domainEvents;
             })
-            .Select(domainEvent => new OutboxMessage(
+            .ToList();
+
+        var outboxMessages = domainEvents.Select(domainEvent => new OutboxMessage(
                 Guid.NewGuid(),
                 domainEvent.OccurredOnUtc,
                 domainEvent.GetType().Name,

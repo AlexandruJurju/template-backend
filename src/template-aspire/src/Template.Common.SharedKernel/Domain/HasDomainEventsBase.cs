@@ -7,7 +7,7 @@ public class HasDomainEventsBase
 {
     private readonly List<IDomainEvent> _domainEvents = [];
 
-    [NotMapped] [JsonIgnore] public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+    [NotMapped] [JsonIgnore] public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.ToList();
 
     protected void RegisterDomainEvent(IDomainEvent domainEvent)
     {
