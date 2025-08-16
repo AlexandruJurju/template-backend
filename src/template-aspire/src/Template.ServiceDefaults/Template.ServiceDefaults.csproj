@@ -22,4 +22,8 @@
       <ProjectReference Include="..\..\..\template-common\src\Template.Common.Constants\Template.Common.Constants.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="CustomExtensions\" />
+    </ItemGroup>
+
 </Project>

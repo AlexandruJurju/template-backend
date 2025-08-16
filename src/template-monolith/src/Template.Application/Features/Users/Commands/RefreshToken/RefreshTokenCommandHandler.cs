@@ -1,4 +1,4 @@
-﻿using Template.Application.Contracts.Authentication;
+﻿using Template.Application.Contracts;
 using Template.Common.SharedKernel.Application.CQRS.Commands;
 using Template.Common.SharedKernel.Infrastructure;
 using Template.Domain.Abstractions.Persistence;

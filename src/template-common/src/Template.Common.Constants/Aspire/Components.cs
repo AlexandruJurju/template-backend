@@ -1,6 +1,5 @@
 ﻿namespace Template.Common.Constants.Aspire;
 
-#pragma warning disable CA1308
 public static class Components
 {
     public static readonly string RabbitMq = nameof(RabbitMq).ToLowerInvariant();
@@ -22,4 +21,3 @@ public static class Components
         public static readonly string BlobContainer = nameof(BlobContainer).ToLowerInvariant();
     }
 }
-#pragma warning restore CA1308

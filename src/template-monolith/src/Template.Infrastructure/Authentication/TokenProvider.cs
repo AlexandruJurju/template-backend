@@ -3,17 +3,16 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
-using Template.Application.Contracts.Authentication;
+using Template.Application.Contracts;
+using Template.Common.SharedKernel.Infrastructure.Auth.Jwt;
 using Template.Domain.Entities.Users;
 
 namespace Template.Infrastructure.Authentication;
 
 internal sealed class TokenProvider(
-    IOptions<JwtOptions> jwtOptions
+    JwtSettings jwtOptions
 ) : ITokenProvider
 {
-    private readonly JwtOptions _jwtOptions = jwtOptions.Value;
-
     public string GenerateRefreshToken()
     {
         return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
@@ -21,7 +20,7 @@ internal sealed class TokenProvider(
 
     public string GenerateToken(User user)
     {
-        string secretKey = _jwtOptions.Secret;
+        string secretKey = jwtOptions.Secret;
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -35,10 +34,10 @@ internal sealed class TokenProvider(
                 new Claim("role", user.Role.Name),
                 ..user.Role.Permissions.Select(p => new Claim("permission", p.Name))
             ]),
-            Expires = DateTime.UtcNow.AddMinutes(_jwtOptions.ExpireInMinutes),
+            Expires = DateTime.UtcNow.AddMinutes(jwtOptions.ExpireInMinutes),
             SigningCredentials = credentials,
-            Issuer = _jwtOptions.Issuer,
-            Audience = _jwtOptions.Audience
+            Issuer = jwtOptions.Issuer,
+            Audience = jwtOptions.Audience
         };
 
         var handler = new JsonWebTokenHandler();

@@ -1,7 +1,7 @@
-﻿using Template.Application.Contracts.Authentication;
-using Template.Application.Features.Users;
+﻿using Template.Application.Features.Users;
 using Template.Application.Features.Users.Queries.GetById;
 using Template.Common.SharedKernel.Api.Endpoints;
+using Template.Common.SharedKernel.Infrastructure.Auth.Jwt;
 
 namespace Template.API.Endpoints.Users;
 

@@ -5,7 +5,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Aspire.Keycloak.Authentication"/>
         <PackageReference Include="Azure.Storage.Blobs"/>
         <PackageReference Include="EFCore.NamingConventions"/>
         <PackageReference Include="FluentEmail.Razor"/>
@@ -22,7 +21,10 @@
         <PackageReference Include="TickerQ"/>
         <PackageReference Include="TickerQ.Dashboard"/>
         <PackageReference Include="TickerQ.EntityFrameworkCore"/>
-        <PackageReference Include="Keycloak.Net.Core"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Persistence\GenericRepository\" />
     </ItemGroup>
 
 </Project>

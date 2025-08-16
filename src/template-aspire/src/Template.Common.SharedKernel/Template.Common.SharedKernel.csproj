@@ -2,15 +2,29 @@
     <ItemGroup>
         <PackageReference Include="Ardalis.Result.AspNetCore"/>
         <PackageReference Include="Ardalis.Result.FluentValidation"/>
-        <PackageReference Include="EFCore.NamingConventions" />
+        <PackageReference Include="EFCore.NamingConventions"/>
         <PackageReference Include="FluentValidation"/>
         <PackageReference Include="MediatR"/>
         <PackageReference Include="MediatR.Contracts"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore"/>
         <PackageReference Include="Microsoft.Extensions.Caching.Abstractions"/>
-        <PackageReference Include="Newtonsoft.Json" />
+        <PackageReference Include="Newtonsoft.Json"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
         <PackageReference Include="Scrutor"/>
         <PackageReference Include="Serilog"/>
+        <PackageReference Include="Microsoft.Extensions.Caching.Hybrid"/>
+        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis"/>
+        <PackageReference Include="FluentEmail.Razor"/>
+        <PackageReference Include="FluentEmail.Smtp"/>
+        <PackageReference Include="Azure.Storage.Blobs"/>
+        <PackageReference Include="TickerQ"/>
+        <PackageReference Include="TickerQ.Dashboard"/>
+        <PackageReference Include="TickerQ.EntityFrameworkCore"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
+        <PackageReference Include="Keycloak.Net.Core"/>
+        <PackageReference Include="Aspire.Keycloak.Authentication"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\template-common\src\Template.Common.Constants\Template.Common.Constants.csproj"/>
     </ItemGroup>
 </Project>
