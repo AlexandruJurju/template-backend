@@ -45,7 +45,7 @@ public sealed class ApplicationDbContext(
     private void AddDomainEventsAsOutboxMessages()
     {
         var outboxMessages = ChangeTracker
-            .Entries<EntityBase>()
+            .Entries<Entity>()
             .Select(entry => entry.Entity)
             .SelectMany(entity =>
             {

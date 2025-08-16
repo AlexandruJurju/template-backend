@@ -1,4 +1,5 @@
 ﻿using Template.Application.Features.Users.Commands.VerifyEmail;
+using Template.Common.SharedKernel.Api.Endpoints;
 
 namespace Template.API.Endpoints.Users;
 

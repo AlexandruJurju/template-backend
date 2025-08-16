@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Template.Application.Features.Users.Commands.Login;
+using Template.Common.SharedKernel.Api.Endpoints;
 
 namespace Template.API.Endpoints.Users;
 

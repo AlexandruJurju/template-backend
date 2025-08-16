@@ -1,3 +1,5 @@
-﻿namespace Template.Application.Features.Users.Commands.RefreshToken;
+﻿using Template.Common.SharedKernel.Application.CQRS.Commands;
+
+namespace Template.Application.Features.Users.Commands.RefreshToken;
 
 public sealed record RefreshTokenCommand(string RefreshToken) : ICommand<RefreshTokenResponse>;

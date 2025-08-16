@@ -1,5 +1,6 @@
 ﻿using Template.Application.Features.Users.Commands.Login;
 using Template.Application.Features.Users.Commands.RefreshToken;
+using Template.Common.SharedKernel.Api.Endpoints;
 
 namespace Template.API.Endpoints.Users;
 

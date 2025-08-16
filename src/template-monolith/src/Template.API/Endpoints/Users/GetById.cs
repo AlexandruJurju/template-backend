@@ -1,5 +1,6 @@
 ﻿using Template.Application.Features.Users;
 using Template.Application.Features.Users.Queries.GetById;
+using Template.Common.SharedKernel.Api.Endpoints;
 
 namespace Template.API.Endpoints.Users;
 

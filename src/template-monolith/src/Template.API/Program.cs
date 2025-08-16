@@ -3,11 +3,14 @@ using Scalar.AspNetCore;
 using Serilog;
 using Template.API;
 using Template.API.Cors;
-using Template.API.Extensions;
+using Template.API.Middleware;
 using Template.Application;
 using Template.Application.Hubs;
-using Template.Constants.Aspire;
+using Template.Common.Constants.Aspire;
+using Template.Common.SharedKernel.Api.Endpoints;
+using Template.Common.SharedKernel.Infrastructure.EF;
 using Template.Infrastructure;
+using Template.Infrastructure.Persistence;
 using Template.ServiceDefaults;
 using TickerQ.DependencyInjection.Hosting;
 
@@ -19,7 +22,7 @@ builder.AddServiceDefaults();
 
 builder.Services.AddPresentation(builder.Configuration);
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.AddInfrastructure();
 builder.AddSeqEndpoint(Components.Seq);
 
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
@@ -34,14 +37,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.MapScalarApiReference(options => options.WithOpenApiRoutePattern("/swagger/v1/swagger.json"));
-    app.ApplyMigrations();
+    app.ApplyMigrations<ApplicationDbContext>();
 }
 
 app.UseTickerQ();
 
 app.UseHttpsRedirection();
 
-app.UseRequestContextLogging();
+app.UseMiddleware<RequestContextLoggingMiddleware>();
 
 app.UseSerilogRequestLogging();
 

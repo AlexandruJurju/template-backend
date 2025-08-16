@@ -3,11 +3,16 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Caching.Hybrid;
+using Microsoft.Extensions.Hosting;
 using Template.Application.Contracts.Authentication;
 using Template.Application.Contracts.Email;
-using Template.Application.Contracts.Outbox;
 using Template.Application.Contracts.Storage;
-using Template.Constants.Aspire;
+using Template.Common.Constants.Aspire;
+using Template.Common.SharedKernel.Infrastructure;
+using Template.Common.SharedKernel.Infrastructure.Dapper;
+using Template.Common.SharedKernel.Infrastructure.EF;
+using Template.Common.SharedKernel.Infrastructure.Outbox;
+using Template.Common.SharedKernel.Infrastructure.Repository;
 using Template.Domain.Abstractions.Persistence;
 using Template.Infrastructure.Authentication;
 using Template.Infrastructure.Authorization;
@@ -25,9 +30,12 @@ namespace Template.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static void AddInfrastructure(this IHostApplicationBuilder builder)
     {
-        AddDatabase(services, configuration);
+        IServiceCollection services = builder.Services;
+        IConfigurationManager configuration = builder.Configuration;
+
+        AddDatabase(builder);
 
         AddCaching(services, configuration);
 
@@ -91,24 +99,18 @@ public static class DependencyInjection
         services.AddScoped<IProcessOutboxMessagesJob, ProcessOutboxMessagesJob>();
     }
 
-    private static void AddDatabase(IServiceCollection services, IConfiguration configuration)
+    private static void AddDatabase(IHostApplicationBuilder builder)
     {
-        string? connectionString = configuration.GetConnectionString(Components.Database.Template);
+        IServiceCollection services = builder.Services;
 
-        services.AddDbContext<ApplicationDbContext>(options => options
-            .UseNpgsql(connectionString, npgsqlOptions =>
-                npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Default))
-            .UseSnakeCaseNamingConvention());
+        builder.AddPostgresDbContext<ApplicationDbContext>(Components.Database.Template);
 
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
-        services.AddSingleton<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString!));
+        services.AddSingleton<ISqlConnectionFactory>(_ =>
+            new SqlConnectionFactory(builder.Configuration.GetConnectionString(Components.Database.Template)!)
+        );
 
-        AddGenericRepository(services);
-    }
-
-    private static void AddGenericRepository(IServiceCollection services)
-    {
         services.AddScoped<IUnitOfWork, EfUnitOfWork>();
         services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
     }

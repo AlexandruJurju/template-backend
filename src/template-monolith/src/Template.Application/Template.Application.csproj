@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
         <ProjectReference Include="..\..\..\template-aspire\src\Template.Common.SharedKernel\Template.Common.SharedKernel.csproj"/>
-        <ProjectReference Include="..\..\..\template-common\src\Template.Constants\Template.Constants.csproj" />
+        <ProjectReference Include="..\..\..\template-common\src\Template.Common.Constants\Template.Common.Constants.csproj" />
         <ProjectReference Include="..\Template.Domain\Template.Domain.csproj"/>
     </ItemGroup>
 

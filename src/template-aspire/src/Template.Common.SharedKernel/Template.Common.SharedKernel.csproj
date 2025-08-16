@@ -2,11 +2,15 @@
     <ItemGroup>
         <PackageReference Include="Ardalis.Result.AspNetCore"/>
         <PackageReference Include="Ardalis.Result.FluentValidation"/>
+        <PackageReference Include="EFCore.NamingConventions" />
         <PackageReference Include="FluentValidation"/>
         <PackageReference Include="MediatR"/>
         <PackageReference Include="MediatR.Contracts"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore"/>
         <PackageReference Include="Microsoft.Extensions.Caching.Abstractions"/>
+        <PackageReference Include="Newtonsoft.Json" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
+        <PackageReference Include="Scrutor"/>
         <PackageReference Include="Serilog"/>
     </ItemGroup>
 </Project>

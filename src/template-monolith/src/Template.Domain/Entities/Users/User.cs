@@ -1,6 +1,6 @@
 ﻿namespace Template.Domain.Entities.Users;
 
-public sealed class User : EntityBase
+public sealed class User : Entity
 {
     private User(Guid id, string email, string firstName, string lastName, string passwordHash)
     {

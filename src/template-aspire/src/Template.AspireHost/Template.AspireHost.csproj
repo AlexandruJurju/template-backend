@@ -25,10 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference
-                Include="..\..\..\template-common\src\Template.Constants\Template.Constants.csproj"
-                IsAspireProjectResource="false"
-        />
+        <ProjectReference Include="..\..\..\template-common\src\Template.Common.Constants\Template.Common.Constants.csproj" IsAspireProjectResource="false" />
         
         <ProjectReference Include="..\..\..\template-monolith\src\Template.API\Template.API.csproj"/>
     </ItemGroup>

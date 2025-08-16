@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Linq.Expressions;
+using Template.Common.SharedKernel.Infrastructure.Repository;
 
 namespace Template.Infrastructure.Persistence.GenericRepository;
 
-public class EfRepository<TEntity>(ApplicationDbContext dbContext) : IRepository<TEntity> where TEntity : EntityBase
+public class EfRepository<TEntity>(ApplicationDbContext dbContext) : IRepository<TEntity> where TEntity : Entity
 {
     private readonly DbSet<TEntity> _dbSet = dbContext.Set<TEntity>();
 

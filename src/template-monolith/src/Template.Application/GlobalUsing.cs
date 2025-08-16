@@ -1,5 +1,4 @@
-﻿global using Template.Common.SharedKernel.Application.Messaging;
-global using Ardalis.Result;
+﻿global using Ardalis.Result;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Configuration;
 global using FluentValidation;

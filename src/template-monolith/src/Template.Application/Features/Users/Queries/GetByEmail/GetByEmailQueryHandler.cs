@@ -1,5 +1,7 @@
 ﻿using Template.Application.Mapping;
-using Template.Common.SharedKernel.Infrastructure.Persistence;
+using Template.Common.SharedKernel.Application.CQRS.Queries;
+using Template.Common.SharedKernel.Infrastructure;
+using Template.Common.SharedKernel.Infrastructure.Dapper;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;
 

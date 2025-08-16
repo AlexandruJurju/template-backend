@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Newtonsoft.Json;
-using Template.Application.Contracts.Outbox;
 using Template.Common.SharedKernel.Infrastructure.Outbox;
 using Template.Domain.Abstractions.Persistence;
 using TickerQ.Utilities.Base;

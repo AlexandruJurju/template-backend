@@ -1,4 +1,5 @@
 ﻿using Template.Application.Features.Users.Commands.Register;
+using Template.Common.SharedKernel.Api.Endpoints;
 using Template.Domain.Entities.Users;
 
 namespace Template.API.Endpoints.Users;

@@ -2,6 +2,7 @@
   <Folder Name="/others/">
     <Project Path="src\template-monolith\src\Template.Spec\Template.Spec.csproj" Type="Classic C#" />
   </Folder>
+  <Folder Name="/services/" />
   <Folder Name="/Solution Items/">
     <File Path=".gitignore" />
     <File Path="Directory.Build.props" />
@@ -14,10 +15,7 @@
   </Folder>
   <Folder Name="/template-common/">
     <Project Path="src\template-aspire\src\Template.Common.SharedKernel\Template.Common.SharedKernel.csproj" Type="Classic C#" />
-    <Project Path="src\template-common\src\Template.Common.Application\Template.Common.Application.csproj" Type="Classic C#" />
-    <Project Path="src\template-common\src\Template.Common.Domain\Template.Common.Domain.csproj" Type="Classic C#" />
-    <Project Path="src\template-common\src\Template.Common.Infrastructure\Template.Common.Infrastructure.csproj" Type="Classic C#" />
-    <Project Path="src\template-common\src\Template.Constants\Template.Constants.csproj" Type="Classic C#" />
+    <Project Path="src\template-common\src\Template.Common.Constants\Template.Common.Constants.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/template-monolith/">
     <Project Path="src\template-monolith\src\Template.API\Template.API.csproj" Type="Classic C#" />

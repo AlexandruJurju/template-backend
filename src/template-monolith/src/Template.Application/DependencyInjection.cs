@@ -1,7 +1,7 @@
 ﻿using Template.Application.BackgroundServices;
 using Template.Application.Contracts.Services;
 using Template.Application.Services;
-using Template.Common.SharedKernel.Application.Behaviors;
+using Template.Common.SharedKernel.Application.CQRS.Mediator;
 
 namespace Template.Application;
 
@@ -9,9 +9,11 @@ public static class DependencyInjection
 {
     public static void AddApplication(this IServiceCollection services)
     {
-        AddMediatR(services);
+        services.AddDefaultMediatR<AssemblyMarker>();
 
         services.AddSignalR();
+
+        services.AddValidatorsFromAssembly(typeof(AssemblyMarker).Assembly, includeInternalTypes: true);
 
         AddBackgroundServices(services);
 
@@ -26,19 +28,5 @@ public static class DependencyInjection
     private static void AddBackgroundServices(IServiceCollection services)
     {
         services.AddHostedService<RandomNumberBackgroundService>();
-    }
-
-    private static void AddMediatR(IServiceCollection services)
-    {
-        services.AddMediatR(config =>
-        {
-            config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
-
-            config.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
-            config.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
-            config.AddOpenBehavior(typeof(QueryCachingBehavior<,>));
-        });
-
-        services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly, includeInternalTypes: true);
     }
 }
