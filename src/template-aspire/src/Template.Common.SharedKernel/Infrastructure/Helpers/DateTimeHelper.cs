@@ -7,7 +7,7 @@ public static class DateTimeHelper
         return TimeProvider.System.GetUtcNow();
     }
 
-    public static System.DateTime UtcNow()
+    public static DateTime UtcNow()
     {
         return TimeProvider.System.GetUtcNow().UtcDateTime;
     }

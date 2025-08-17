@@ -10,9 +10,9 @@ public static class JwtExtensions
 {
     public static void AddDefaultJwtAuthentication(this IServiceCollection services)
     {
-        services.AddOptionsWithValidation<Authentication.Jwt.JwtOptions>(Authentication.Jwt.JwtOptions.SectionName);
+        services.AddOptionsWithValidation<JwtOptions>(JwtOptions.SectionName);
 
-        Authentication.Jwt.JwtOptions options = services.BuildServiceProvider().GetRequiredService<Authentication.Jwt.JwtOptions>();
+        JwtOptions options = services.BuildServiceProvider().GetRequiredService<JwtOptions>();
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(o =>

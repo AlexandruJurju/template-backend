@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.Primitives;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 using Serilog.Context;
 
-namespace Template.API.Middleware;
+namespace Template.Common.SharedKernel.Api.Middleware;
 
 public class RequestContextLoggingMiddleware(RequestDelegate next)
 {

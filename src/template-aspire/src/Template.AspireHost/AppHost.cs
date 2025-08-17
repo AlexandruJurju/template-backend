@@ -53,6 +53,12 @@ IResourceBuilder<RabbitMQServerResource> rabbitMq = builder
 IResourceBuilder<AzureBlobStorageContainerResource> blobStorage = storage
     .AddBlobContainer(Components.Azure.BlobContainer);
 
+IResourceBuilder<ParameterResource> templateTickerQUsername = builder
+    .AddParameter("tickerq-user", "admin", true);
+
+IResourceBuilder<ParameterResource> templateTickerQPassword = builder
+    .AddParameter("tickerq-password", "admin", true);
+
 IResourceBuilder<ProjectResource> templateService = builder.AddProject<Template_API>(Services.TemplateApi)
     .WithReference(templateDb)
     .WaitFor(templateDb)
@@ -67,7 +73,9 @@ IResourceBuilder<ProjectResource> templateService = builder.AddProject<Template_
     .WithReference(seq)
     .WaitFor(seq)
     .WithReference(rabbitMq)
-    .WaitFor(rabbitMq);
+    .WaitFor(rabbitMq)
+    .WithEnvironment("TickerQBasicAuth__Username", templateTickerQUsername)
+    .WithEnvironment("TickerQBasicAuth__Password", templateTickerQPassword);
 
 // Add Scalar API Reference for all services
 builder

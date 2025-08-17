@@ -1,4 +1,4 @@
-﻿namespace Template.API.Cors;
+﻿namespace Template.Common.SharedKernel.Api.Cors;
 
 public sealed class CorsOptions
 {

@@ -8,9 +8,13 @@ public abstract class IntegrationEventHandler<TIntegrationEvent>
 {
     public abstract Task Handle(TIntegrationEvent integrationEvent, CancellationToken cancellationToken = default);
 
-    public Task Handle(IIntegrationEvent integrationEvent, CancellationToken cancellationToken = default) =>
-        Handle((TIntegrationEvent)integrationEvent, cancellationToken);
+    public Task Handle(IIntegrationEvent integrationEvent, CancellationToken cancellationToken = default)
+    {
+        return Handle((TIntegrationEvent)integrationEvent, cancellationToken);
+    }
 
-    public Task Consume(ConsumeContext<TIntegrationEvent> context) =>
-        Handle(context.Message, context.CancellationToken);
+    public Task Consume(ConsumeContext<TIntegrationEvent> context)
+    {
+        return Handle(context.Message, context.CancellationToken);
+    }
 }

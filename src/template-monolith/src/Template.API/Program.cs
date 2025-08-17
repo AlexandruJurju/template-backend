@@ -2,9 +2,11 @@ using System.Reflection;
 using Scalar.AspNetCore;
 using Serilog;
 using Template.API;
-using Template.API.Cors;
 using Template.Application;
+using Template.Application.Hubs;
+using Template.Common.SharedKernel.Api.Cors;
 using Template.Common.SharedKernel.Api.Endpoints;
+using Template.Common.SharedKernel.Api.Middleware;
 using Template.Common.SharedKernel.Infrastructure.EF;
 using Template.Infrastructure;
 using Template.Infrastructure.Database;
@@ -28,7 +30,7 @@ WebApplication app = builder.Build();
 
 app.MapEndpoints();
 
-// app.MapHub<RandomNumberHub>("random-number-hub");
+app.MapHub<RandomNumberHub>("random-number-hub");
 
 if (app.Environment.IsDevelopment())
 {
@@ -41,7 +43,7 @@ app.UseTickerQ();
 
 app.UseHttpsRedirection();
 
-// app.UseMiddleware<RequestContextLoggingMiddleware>();
+app.UseMiddleware<RequestContextLoggingMiddleware>();
 
 app.UseSerilogRequestLogging();
 

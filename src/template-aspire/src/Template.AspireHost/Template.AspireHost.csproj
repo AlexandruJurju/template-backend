@@ -10,12 +10,12 @@
 
     <ItemGroup Label="Aspire">
         <PackageReference Include="Aspire.Hosting.AppHost"/>
-        <PackageReference Include="Aspire.Hosting.Kafka" />
+        <PackageReference Include="Aspire.Hosting.Kafka"/>
         <PackageReference Include="Aspire.Hosting.Keycloak"/>
-        <PackageReference Include="Aspire.Hosting.MongoDB" />
+        <PackageReference Include="Aspire.Hosting.MongoDB"/>
         <PackageReference Include="Aspire.Hosting.NodeJs"/>
         <PackageReference Include="Aspire.Hosting.PostgreSQL"/>
-        <PackageReference Include="Aspire.Hosting.RabbitMQ" />
+        <PackageReference Include="Aspire.Hosting.RabbitMQ"/>
         <PackageReference Include="Aspire.Hosting.Redis"/>
         <PackageReference Include="Aspire.Hosting.Seq"/>
         <PackageReference Include="CommunityToolkit.Aspire.Hosting.MailPit"/>
