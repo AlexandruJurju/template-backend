@@ -26,8 +26,8 @@ public class TestSettings
 
     private TestSettings()
     {
-        string? envName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")
-                          ?? Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        var envName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")
+                      ?? Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
         Guard.Against.NullOrEmpty(envName);
 

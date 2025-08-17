@@ -13,11 +13,12 @@
         <PackageReference Include="Aspire.Hosting.Keycloak"/>
         <PackageReference Include="Aspire.Hosting.NodeJs"/>
         <PackageReference Include="Aspire.Hosting.PostgreSQL"/>
+        <PackageReference Include="Aspire.Hosting.Redis"/>
         <PackageReference Include="Aspire.Hosting.Seq"/>
         <PackageReference Include="CommunityToolkit.Aspire.Hosting.MailPit"/>
         <PackageReference Include="CommunityToolkit.Aspire.Hosting.PapercutSmtp"/>
         <PackageReference Include="Aspire.Hosting.Valkey"/>
-        <PackageReference Include="Scalar.Aspire" />
+        <PackageReference Include="Scalar.Aspire"/>
     </ItemGroup>
 
     <ItemGroup Label="Azure">
@@ -25,13 +26,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\template-common\src\Template.Common.Constants\Template.Common.Constants.csproj" IsAspireProjectResource="false" />
-        
+        <ProjectReference Include="..\..\..\template-common\src\Template.Common.Constants\Template.Common.Constants.csproj" IsAspireProjectResource="false"/>
+
         <ProjectReference Include="..\..\..\template-monolith\src\Template.API\Template.API.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Extensions\" />
+        <Folder Include="Extensions\"/>
     </ItemGroup>
 
     <!--    <Target Name="RunUnitTests" AfterTargets="Build" Condition=" '$(Configuration)' == 'Debug'">-->

@@ -17,7 +17,7 @@ public class GetAll : IEndpoint
                 return result.ToMinimalApiResult();
             })
             .WithTags(Tags.Users)
-            .HasPermission(Permissions.UsersRead)
+            // .HasPermission(Permissions.UsersRead)
             .Produces<IEnumerable<UserResponse>>()
             .ProducesProblem(StatusCodes.Status401Unauthorized);
     }

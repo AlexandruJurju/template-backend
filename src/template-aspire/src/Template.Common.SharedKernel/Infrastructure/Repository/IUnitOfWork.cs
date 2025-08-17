@@ -1,4 +1,5 @@
-﻿namespace Template.Common.SharedKernel.Infrastructure.Repository;
+﻿
+namespace Template.Common.SharedKernel.Infrastructure.Repository;
 
 public interface IUnitOfWork
 {

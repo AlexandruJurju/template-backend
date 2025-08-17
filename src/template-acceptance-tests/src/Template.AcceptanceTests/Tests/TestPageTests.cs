@@ -20,7 +20,7 @@ internal sealed class TestPageTests : BaseTest
     {
         await _testPage.NavigateToAsync();
 
-        bool result = await _testPage.HasExpectedTextAsync();
+        var result = await _testPage.HasExpectedTextAsync();
 
         Assert.That(result, Is.True);
     }

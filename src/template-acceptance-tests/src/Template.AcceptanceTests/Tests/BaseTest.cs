@@ -55,12 +55,12 @@ internal abstract class BaseTest : PageTest
     [TearDown]
     public async Task TearDown()
     {
-        string testName = TestContext.CurrentContext.Test.Name;
+        var testName = TestContext.CurrentContext.Test.Name;
         TestStatus testStatus = TestContext.CurrentContext.Result.Outcome.Status;
 
         if (testStatus == TestStatus.Failed && Settings.Screenshot)
         {
-            string screenshotPath = Path.Combine(
+            var screenshotPath = Path.Combine(
                 Settings.ScreenshotDir,
                 $"{testName}_{DateTime.Now:yyyyMMdd_HHmmss}.png"
             );
@@ -79,7 +79,7 @@ internal abstract class BaseTest : PageTest
         {
             if (testStatus == TestStatus.Failed)
             {
-                string tracePath = Path.Combine(
+                var tracePath = Path.Combine(
                     Settings.TracingDir,
                     $"{testName}_{DateTime.Now:yyyyMMdd_HHmmss}.zip"
                 );
@@ -96,10 +96,10 @@ internal abstract class BaseTest : PageTest
 
         if (Settings.RecordVideo && Page.Video != null)
         {
-            string videoPath = await Page.Video.PathAsync();
+            var videoPath = await Page.Video.PathAsync();
             if (!string.IsNullOrEmpty(videoPath) && File.Exists(videoPath))
             {
-                string finalVideoPath = Path.Combine(
+                var finalVideoPath = Path.Combine(
                     Settings.VideoDir,
                     $"{testName}_{DateTime.Now:yyyyMMdd_HHmmss}.webm"
                 );

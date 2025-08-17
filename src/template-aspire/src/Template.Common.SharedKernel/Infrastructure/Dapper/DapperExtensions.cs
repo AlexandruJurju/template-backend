@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Template.Common.SharedKernel.Api;
+using Template.Common.SharedKernel.Infrastructure.Configuration;
 
 namespace Template.Common.SharedKernel.Infrastructure.Dapper;
 
@@ -12,7 +13,7 @@ public static class DapperExtensions
         string name)
     {
         services.AddSingleton<ISqlConnectionFactory>(_ =>
-            new SqlConnectionFactory(configuration.GetRequiredConnectionString(name))
+            new SqlConnectionFactory(configuration.GetConnectionStringOrThrow(name))
         );
     }
 }

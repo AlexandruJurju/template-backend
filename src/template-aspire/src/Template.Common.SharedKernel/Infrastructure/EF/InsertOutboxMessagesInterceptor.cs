@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Newtonsoft.Json;
 using Template.Common.SharedKernel.Domain;
 using Template.Common.SharedKernel.Infrastructure.Outbox;
+using Template.Common.SharedKernel.Infrastructure.Serialization;
 
 namespace Template.Common.SharedKernel.Infrastructure.EF;
 

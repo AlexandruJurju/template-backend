@@ -2,6 +2,7 @@
 using Template.Application.Contracts.Services;
 using Template.Application.Services;
 using Template.Common.SharedKernel.Application.CQRS.Mediator;
+using Template.Common.SharedKernel.Application.Mapper;
 
 namespace Template.Application;
 
@@ -14,6 +15,8 @@ public static class DependencyInjection
         services.AddSignalR();
 
         services.AddValidatorsFromAssembly(typeof(AssemblyMarker).Assembly, includeInternalTypes: true);
+
+        services.AddMappersFromAssembly(typeof(AssemblyMarker).Assembly);
 
         AddBackgroundServices(services);
 

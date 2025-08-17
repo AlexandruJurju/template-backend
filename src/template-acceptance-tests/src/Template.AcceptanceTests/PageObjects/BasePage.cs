@@ -12,7 +12,7 @@ public abstract class BasePage(IPage page, string pageUrl)
 
     public async Task NavigateToAsync(string path = "")
     {
-        string url = string.IsNullOrEmpty(path) ? PageUrl : $"{PageUrl}/{path.TrimStart('/')}";
+        var url = string.IsNullOrEmpty(path) ? PageUrl : $"{PageUrl}/{path.TrimStart('/')}";
         await Page.GotoAsync(url);
         await WaitForPageLoadAsync();
     }
@@ -27,7 +27,7 @@ public abstract class BasePage(IPage page, string pageUrl)
     {
         if (_settings.Screenshot)
         {
-            string screenshotPath = Path.Combine(_settings.ScreenshotDir, $"{name}_{DateTime.Now:yyyyMMdd_HHmmss}.png");
+            var screenshotPath = Path.Combine(_settings.ScreenshotDir, $"{name}_{DateTime.Now:yyyyMMdd_HHmmss}.png");
 
             Directory.CreateDirectory(_settings.ScreenshotDir);
 
@@ -59,7 +59,7 @@ public abstract class BasePage(IPage page, string pageUrl)
             return false;
         }
 
-        string? classes = await element.GetAttributeAsync("class");
+        var classes = await element.GetAttributeAsync("class");
         return classes?.Contains(className) ?? false;
     }
 }

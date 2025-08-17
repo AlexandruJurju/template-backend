@@ -2,8 +2,10 @@
     <ItemGroup>
         <PackageReference Include="Ardalis.Result.AspNetCore"/>
         <PackageReference Include="Ardalis.Result.FluentValidation"/>
+        <PackageReference Include="Dapper"/>
         <PackageReference Include="EFCore.NamingConventions"/>
         <PackageReference Include="FluentValidation"/>
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions"/>
         <PackageReference Include="MediatR"/>
         <PackageReference Include="MediatR.Contracts"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore"/>
@@ -20,11 +22,16 @@
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
         <PackageReference Include="Keycloak.Net.Core"/>
         <PackageReference Include="Aspire.Keycloak.Authentication"/>
+        <PackageReference Include="TickerQ"/>
+        <PackageReference Include="TickerQ.Dashboard"/>
+        <PackageReference Include="TickerQ.EntityFrameworkCore"/>
     </ItemGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\..\..\template-common\src\Template.Common.Constants\Template.Common.Constants.csproj"/>
     </ItemGroup>
+
     <ItemGroup>
-      <Folder Include="Infrastructure\TickerQ\" />
+      <Folder Include="Infrastructure\Authorization\Keycloak\" />
     </ItemGroup>
 </Project>

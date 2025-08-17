@@ -30,7 +30,7 @@ public sealed class ValidationPipelineBehavior<TRequest, TResponse>(
             validators.Select(v => v.ValidateAsync(context, cancellationToken)));
 
         // Any failures?
-        bool hasFailures = results.Any(r => !r.IsValid);
+        var hasFailures = results.Any(r => !r.IsValid);
         if (!hasFailures)
         {
             return await next(cancellationToken);

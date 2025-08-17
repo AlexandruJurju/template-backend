@@ -14,7 +14,7 @@ public static class DependencyInjection
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
 
-        AddSwaggerGenWithAuth(services, configuration);
+        AddSwaggerGenWithAuth(services);
 
         AddCors(services, configuration);
     }
@@ -32,7 +32,7 @@ public static class DependencyInjection
                 .SetIsOriginAllowed(_ => true)));
     }
 
-    private static void AddSwaggerGenWithAuth(IServiceCollection services, IConfiguration configuration)
+    private static void AddSwaggerGenWithAuth(IServiceCollection services)
     {
         services.AddEndpointsApiExplorer();
 
@@ -52,47 +52,47 @@ public static class DependencyInjection
             options.ResolveConflictingActions(descriptions => descriptions.First());
 
             // Add xml comments
-            string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             options.IncludeXmlComments(xmlPath);
 
             // ================== Keycloak Configuration ==================
-            var keycloakSecurityScheme = new OpenApiSecurityScheme
-            {
-                Type = SecuritySchemeType.OAuth2,
-                Flows = new OpenApiOAuthFlows
-                {
-                    Implicit = new OpenApiOAuthFlow
-                    {
-                        AuthorizationUrl = new Uri(configuration["Keycloak:AuthorizationUrl"]!),
-                        Scopes = new Dictionary<string, string>
-                        {
-                            { "openid", "openid" },
-                            { "profile", "profile" }
-                        }
-                    }
-                }
-            };
-
-            options.AddSecurityDefinition("Keycloak", keycloakSecurityScheme);
-
-            options.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Id = "Keycloak",
-                            Type = ReferenceType.SecurityScheme
-                        },
-                        In = ParameterLocation.Header,
-                        Name = "Bearer",
-                        Scheme = "Bearer"
-                    },
-                    []
-                }
-            });
+            // var keycloakSecurityScheme = new OpenApiSecurityScheme
+            // {
+            //     Type = SecuritySchemeType.OAuth2,
+            //     Flows = new OpenApiOAuthFlows
+            //     {
+            //         Implicit = new OpenApiOAuthFlow
+            //         {
+            //             AuthorizationUrl = new Uri(configuration["Keycloak:AuthorizationUrl"]!),
+            //             Scopes = new Dictionary<string, string>
+            //             {
+            //                 { "openid", "openid" },
+            //                 { "profile", "profile" }
+            //             }
+            //         }
+            //     }
+            // };
+            //
+            // options.AddSecurityDefinition("Keycloak", keycloakSecurityScheme);
+            //
+            // options.AddSecurityRequirement(new OpenApiSecurityRequirement
+            // {
+            //     {
+            //         new OpenApiSecurityScheme
+            //         {
+            //             Reference = new OpenApiReference
+            //             {
+            //                 Id = "Keycloak",
+            //                 Type = ReferenceType.SecurityScheme
+            //             },
+            //             In = ParameterLocation.Header,
+            //             Name = "Bearer",
+            //             Scheme = "Bearer"
+            //         },
+            //         []
+            //     }
+            // });
 
             // ================== JWT Configuration ==================
             var jwtSecurityScheme = new OpenApiSecurityScheme
@@ -121,18 +121,6 @@ public static class DependencyInjection
                     []
                 }
             });
-
-            // // ================== API Key Configuration ==================
-            // var apiKeySecurityScheme = new OpenApiSecurityScheme
-            // {
-            //     Name = "X-ApiKey",
-            //     Description = "API Key authentication",
-            //     In = ParameterLocation.Header,
-            //     Type = SecuritySchemeType.ApiKey,
-            //     Scheme = "ApiKeyScheme"
-            // };
-
-            // options.AddSecurityDefinition("ApiKey", apiKeySecurityScheme);
         });
     }
 }

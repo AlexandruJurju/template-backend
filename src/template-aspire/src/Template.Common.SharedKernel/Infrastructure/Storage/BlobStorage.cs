@@ -6,10 +6,10 @@ namespace Template.Common.SharedKernel.Infrastructure.Storage;
 
 public class BlobStorage(
     BlobServiceClient blobServiceClient,
-    StorageSettings storageSettings
+    StorageOptions storageOptions
 ) : IBlobStorage
 {
-    private readonly string _container = storageSettings.ContainerName;
+    private readonly string _container = storageOptions.ContainerName;
 
     public async Task<Guid> UploadAsync(Stream stream, string contentType, CancellationToken cancellationToken = default)
     {

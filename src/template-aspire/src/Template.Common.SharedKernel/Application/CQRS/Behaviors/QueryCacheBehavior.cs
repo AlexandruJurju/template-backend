@@ -15,7 +15,7 @@ public sealed class QueryCachingBehavior<TRequest, TResponse>(
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-        bool cacheMiss = false;
+        var cacheMiss = false;
 
         TResponse result = await hybridCache.GetOrCreateAsync<TResponse>(
             request.CacheKey,

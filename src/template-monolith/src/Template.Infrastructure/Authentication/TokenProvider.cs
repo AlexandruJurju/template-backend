@@ -4,13 +4,13 @@ using System.Text;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using Template.Application.Contracts;
-using Template.Common.SharedKernel.Infrastructure.Auth.Jwt;
+using Template.Common.SharedKernel.Infrastructure.Authentication.Jwt;
 using Template.Domain.Entities.Users;
 
 namespace Template.Infrastructure.Authentication;
 
 internal sealed class TokenProvider(
-    JwtSettings jwtOptions
+    JwtOptions jwtOptions
 ) : ITokenProvider
 {
     public string GenerateRefreshToken()
@@ -20,7 +20,7 @@ internal sealed class TokenProvider(
 
     public string GenerateToken(User user)
     {
-        string secretKey = jwtOptions.Secret;
+        var secretKey = jwtOptions.Secret;
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -42,7 +42,7 @@ internal sealed class TokenProvider(
 
         var handler = new JsonWebTokenHandler();
 
-        string? token = handler.CreateToken(tokenDescriptor);
+        var token = handler.CreateToken(tokenDescriptor);
 
         return token;
     }

@@ -4,23 +4,4 @@
         <ProjectReference Include="..\Template.Application\Template.Application.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Azure.Storage.Blobs"/>
-        <PackageReference Include="EFCore.NamingConventions"/>
-        <PackageReference Include="FluentEmail.Razor"/>
-        <PackageReference Include="FluentEmail.Smtp"/>
-        <PackageReference Include="MediatR.Contracts"/>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore"/>
-        <PackageReference Include="Microsoft.Extensions.Caching.Hybrid"/>
-        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions"/>
-        <PackageReference Include="Newtonsoft.Json"/>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
-        <PackageReference Include="RazorLight"/>
-        <PackageReference Include="TickerQ"/>
-        <PackageReference Include="TickerQ.Dashboard"/>
-        <PackageReference Include="TickerQ.EntityFrameworkCore"/>
-    </ItemGroup>
-
 </Project>

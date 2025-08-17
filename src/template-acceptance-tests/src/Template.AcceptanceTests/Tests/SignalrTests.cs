@@ -48,14 +48,14 @@ internal sealed class SignalrTests : BaseTest
 
                 ws.FrameSent += (_, frame) =>
                 {
-                    string data = frame.Text ?? frame.Binary?.ToString() ?? "";
+                    var data = frame.Text ?? frame.Binary?.ToString() ?? "";
                     _signalRMessages.Add($"Sent: {data}");
                     TestContext.Out.WriteLine($"SignalR WS Frame Sent: {data}");
                 };
 
                 ws.FrameReceived += (_, frame) =>
                 {
-                    string data = frame.Text ?? frame.Binary?.ToString() ?? "";
+                    var data = frame.Text ?? frame.Binary?.ToString() ?? "";
                     _signalRMessages.Add($"Received: {data}");
                     TestContext.Out.WriteLine($"SignalR WS Frame Received: {data}");
                 };
@@ -87,7 +87,7 @@ internal sealed class SignalrTests : BaseTest
         Assert.That(await _signalRPage.IsDisconnectButtonEnabledAsync(), Is.False);
 
         // Connect
-        bool connected = await _signalRPage.ConnectAsync();
+        var connected = await _signalRPage.ConnectAsync();
         Assert.That(connected, Is.True);
 
         // Verify connected state
@@ -102,7 +102,7 @@ internal sealed class SignalrTests : BaseTest
         Assert.That(await _signalRPage.IsConnectedAsync(), Is.True);
 
         // Disconnect
-        bool disconnected = await _signalRPage.DisconnectAsync();
+        var disconnected = await _signalRPage.DisconnectAsync();
         Assert.That(disconnected, Is.True, "Disconnection should succeed");
 
         // Verify disconnected state
@@ -211,7 +211,7 @@ internal sealed class SignalrTests : BaseTest
             "Should have sent at least one message");
 
         await TestContext.Out.WriteLineAsync($"Total SignalR messages: {_signalRMessages.Count}");
-        foreach (string msg in _signalRMessages.Take(10)) // Log first 10 messages
+        foreach (var msg in _signalRMessages.Take(10)) // Log first 10 messages
         {
             await TestContext.Out.WriteLineAsync($"Message: {msg}");
         }
@@ -327,7 +327,7 @@ internal sealed class SignalrTests : BaseTest
         await _signalRPage.ConnectAsync();
         await Task.Delay(1000);
 
-        int initialWebSocketCount = _capturedWebSockets.Count;
+        var initialWebSocketCount = _capturedWebSockets.Count;
 
         await _signalRPage.RequestRandomNumbersAsync();
         await _signalRPage.JoinTestGroupAsync();
@@ -353,8 +353,8 @@ internal sealed class SignalrTests : BaseTest
         Assert.That(_signalRMessages.Count, Is.GreaterThan(5));
 
 #pragma warning disable CA1310
-        int sentCount = _signalRMessages.Count(m => m.StartsWith("Sent:"));
-        int receivedCount = _signalRMessages.Count(m => m.StartsWith("Received:"));
+        var sentCount = _signalRMessages.Count(m => m.StartsWith("Sent:"));
+        var receivedCount = _signalRMessages.Count(m => m.StartsWith("Received:"));
 #pragma warning restore CA1310
 
         Assert.That(sentCount, Is.GreaterThan(0));
@@ -367,7 +367,7 @@ internal sealed class SignalrTests : BaseTest
         await _signalRPage.ConnectAsync();
         await Task.Delay(1000);
 
-        int webSocketsBeforeDisconnect = _capturedWebSockets.Count;
+        var webSocketsBeforeDisconnect = _capturedWebSockets.Count;
         Assert.That(webSocketsBeforeDisconnect, Is.GreaterThan(0));
 
         await _signalRPage.DisconnectAsync();
@@ -384,21 +384,21 @@ internal sealed class SignalrTests : BaseTest
         await _signalRPage.ConnectAsync();
         await Task.Delay(1000);
 
-        int initialMessageCount = _signalRMessages.Count;
+        var initialMessageCount = _signalRMessages.Count;
 
         await _signalRPage.RequestRandomNumbersAsync();
         await Task.Delay(3000);
 
-        int finalMessageCount = _signalRMessages.Count;
-        int newMessages = finalMessageCount - initialMessageCount;
+        var finalMessageCount = _signalRMessages.Count;
+        var newMessages = finalMessageCount - initialMessageCount;
 
         Assert.That(newMessages, Is.GreaterThanOrEqualTo(2));
 
-        int newSentMessages = _signalRMessages.Skip(initialMessageCount)
+        var newSentMessages = _signalRMessages.Skip(initialMessageCount)
 #pragma warning disable CA1310
             .Count(m => m.StartsWith("Sent:"));
 #pragma warning restore CA1310
-        int newReceivedMessages = _signalRMessages.Skip(initialMessageCount)
+        var newReceivedMessages = _signalRMessages.Skip(initialMessageCount)
 #pragma warning disable CA1310
             .Count(m => m.StartsWith("Received:"));
 #pragma warning restore CA1310

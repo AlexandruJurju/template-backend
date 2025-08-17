@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Template.Common.SharedKernel.Api;
+using Template.Common.SharedKernel.Infrastructure.Configuration;
 
 namespace Template.Common.SharedKernel.Infrastructure.Storage;
 
@@ -13,10 +14,10 @@ public static class StorageExtensions
         string connectionName
     )
     {
-        services.GetRequiredConfiguration<StorageSettings>(StorageSettings.SectionName);
+        services.AddOptionsWithValidation<StorageOptions>(StorageOptions.SectionName);
 
         services.AddSingleton<IBlobStorage, BlobStorage>();
 
-        services.AddSingleton(_ => new BlobServiceClient(configuration.GetRequiredConnectionString(connectionName)));
+        services.AddSingleton(_ => new BlobServiceClient(configuration.GetConnectionStringOrThrow(connectionName)));
     }
 }

@@ -42,7 +42,7 @@ public static class WaitHelpers
 
     public static async Task RetryAsync(Func<Task> action, int maxAttempts = 3, int delayMs = 1000)
     {
-        for (int i = 0; i < maxAttempts; i++)
+        for (var i = 0; i < maxAttempts; i++)
         {
             try
             {

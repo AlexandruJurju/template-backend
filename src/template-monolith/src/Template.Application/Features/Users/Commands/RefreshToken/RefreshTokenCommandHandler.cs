@@ -1,6 +1,7 @@
 ﻿using Template.Application.Contracts;
 using Template.Common.SharedKernel.Application.CQRS.Commands;
 using Template.Common.SharedKernel.Infrastructure;
+using Template.Common.SharedKernel.Infrastructure.Helpers;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;
 
@@ -21,7 +22,7 @@ public class RefreshTokenCommandHandler(
             return UserErrors.RefreshTokenExpired;
         }
 
-        string accessToken = tokenProvider.GenerateToken(refreshToken.User);
+        var accessToken = tokenProvider.GenerateToken(refreshToken.User);
 
         refreshToken.Token = tokenProvider.GenerateRefreshToken();
         refreshToken.ExpiresOnUtc = DateTimeHelper.UtcNow().AddDays(7);

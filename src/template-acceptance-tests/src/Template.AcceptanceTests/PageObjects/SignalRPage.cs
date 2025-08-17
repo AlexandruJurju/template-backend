@@ -64,13 +64,13 @@ public class SignalRTestPage(IPage page, string pageUrl) : BasePage(page, pageUr
 
     public async Task<bool> IsConnectedAsync()
     {
-        string status = await GetConnectionStatusAsync();
+        var status = await GetConnectionStatusAsync();
         return status == "Connected";
     }
 
     public async Task<bool> IsDisconnectedAsync()
     {
-        string status = await GetConnectionStatusAsync();
+        var status = await GetConnectionStatusAsync();
         return status == "Disconnected";
     }
 
@@ -98,7 +98,7 @@ public class SignalRTestPage(IPage page, string pageUrl) : BasePage(page, pageUr
 
         foreach (IElementHandle element in numberElements)
         {
-            string? text = await element.TextContentAsync();
+            var text = await element.TextContentAsync();
             if (!string.IsNullOrEmpty(text))
             {
                 numbers.Add(text);
@@ -133,7 +133,7 @@ public class SignalRTestPage(IPage page, string pageUrl) : BasePage(page, pageUr
     // Wait Helpers
     public async Task WaitForLogEntryAsync(string logType, string containsText, int timeout = 5000)
     {
-        string selector = $".log-{logType}:has-text('{containsText}')";
+        var selector = $".log-{logType}:has-text('{containsText}')";
         await Page.WaitForSelectorAsync(selector, new PageWaitForSelectorOptions { Timeout = timeout });
     }
 

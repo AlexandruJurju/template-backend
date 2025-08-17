@@ -1,17 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
         <ProjectReference Include="..\..\..\template-aspire\src\Template.Common.SharedKernel\Template.Common.SharedKernel.csproj"/>
-        <ProjectReference Include="..\..\..\template-common\src\Template.Common.Constants\Template.Common.Constants.csproj" />
+        <ProjectReference Include="..\..\..\template-common\src\Template.Common.Constants\Template.Common.Constants.csproj"/>
         <ProjectReference Include="..\Template.Domain\Template.Domain.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Dapper"/>
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions"/>
-        <PackageReference Include="MediatR"/>
         <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions"/>
         <PackageReference Include="Microsoft.Extensions.Configuration.Binder"/>
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions"/>
         <PackageReference Include="SignalRSwaggerGen"/>
     </ItemGroup>
 

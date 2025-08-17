@@ -1,20 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Template.Application.Contracts;
 using Template.Common.Constants.Aspire;
-using Template.Common.SharedKernel.Infrastructure.Auth.Jwt;
+using Template.Common.SharedKernel.Infrastructure.Authentication.Jwt;
+using Template.Common.SharedKernel.Infrastructure.Authorization.Jwt;
 using Template.Common.SharedKernel.Infrastructure.Caching;
 using Template.Common.SharedKernel.Infrastructure.Dapper;
 using Template.Common.SharedKernel.Infrastructure.EF;
 using Template.Common.SharedKernel.Infrastructure.Email;
 using Template.Common.SharedKernel.Infrastructure.Outbox;
-using Template.Common.SharedKernel.Infrastructure.Repository;
 using Template.Common.SharedKernel.Infrastructure.Storage;
 using Template.Domain.Abstractions.Persistence;
 using Template.Infrastructure.Authentication;
-using Template.Infrastructure.Authorization;
-using Template.Infrastructure.Outbox;
-using Template.Infrastructure.Persistence;
+using Template.Infrastructure.Database;
+using Template.Infrastructure.Jobs;
 using TickerQ.Dashboard.DependencyInjection;
 using TickerQ.DependencyInjection;
 using TickerQ.EntityFrameworkCore.DependencyInjection;
@@ -28,49 +26,32 @@ public static class DependencyInjection
         IServiceCollection services = builder.Services;
         IConfigurationManager configuration = builder.Configuration;
 
+        builder.AddDefaultPostgresDb<ApplicationDbContext>(Components.Database.Template);
+        services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
+
         services.AddDefaultFluentEmailWithSmtp(configuration, Components.MailPit);
 
         services.AddDefaultAzureBlobStorage(configuration, Components.Azure.BlobContainer);
 
-        services.AddDefaultCaching(configuration, Components.Valkey);
-
-        builder.AddDefaultPostgresDb<ApplicationDbContext>(Components.Database.Template);
-        services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
-
-        AddTickerQ(services);
+        services.AddDefaultCaching(configuration, Components.Redis);
 
         services.AddDefaultDapper(configuration, Components.Database.Template);
 
         services.AddDefaultJwtAuthentication();
         services.AddScoped<ITokenProvider, TokenProvider>();
+        services.AddDefaultJwtAuthorization();
 
-        AddAuthorizationInternal(services);
-    }
-
-    private static void AddAuthorizationInternal(IServiceCollection services)
-    {
-        services.AddAuthorization();
-
-        services.AddScoped<PermissionProvider>();
-
-        services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
-
-        services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
-    }
-
-    private static void AddTickerQ(IServiceCollection services)
-    {
-        services.AddTickerQ(options =>
+        services.AddTickerQ(opt =>
         {
-            options.SetMaxConcurrency(4);
-            options.AddOperationalStore<ApplicationDbContext>(efOpt =>
+            opt.SetMaxConcurrency(Environment.ProcessorCount);
+            opt.SetInstanceIdentifier(Environment.MachineName);
+            opt.UpdateMissedJobCheckDelay(TimeSpan.FromMinutes(5));
+            opt.AddOperationalStore<ApplicationDbContext>(efOpt =>
             {
                 efOpt.UseModelCustomizerForMigrations();
                 efOpt.CancelMissedTickersOnApplicationRestart();
             });
-            options.AddDashboard();
+            opt.AddDashboard("/tickerq").AddDashboardBasicAuth();
         });
-
-        services.AddScoped<IProcessOutboxMessagesJob, ProcessOutboxMessagesJob>();
     }
 }

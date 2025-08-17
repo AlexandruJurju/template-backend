@@ -9,7 +9,7 @@ public class TestPage(IPage page, string pageUrl) : BasePage(page, pageUrl)
 
     public bool IsOnTestPageAsync()
     {
-        string url = Page.Url;
+        var url = Page.Url;
         return url.Contains("/test");
     }
 

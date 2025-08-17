@@ -1,6 +1,6 @@
 ﻿using Template.Application.Contracts;
 using Template.Common.SharedKernel.Application.CQRS.Commands;
-using Template.Common.SharedKernel.Infrastructure.Auth.Jwt;
+using Template.Common.SharedKernel.Infrastructure.Authentication.Jwt;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;
 
@@ -26,7 +26,7 @@ internal sealed class LoginUserCommandHandler(
             return UserErrors.NotFound(command.Email);
         }
 
-        bool verified = passwordHasher.Verify(command.Password, user.PasswordHash);
+        var verified = passwordHasher.Verify(command.Password, user.PasswordHash);
 
         if (!verified)
         {

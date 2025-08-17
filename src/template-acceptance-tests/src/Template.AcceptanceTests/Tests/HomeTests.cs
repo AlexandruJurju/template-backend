@@ -19,7 +19,7 @@ internal sealed class HomePageTests : BaseTest
     [Test]
     public async Task HomePage_ShouldHaveNoErrors()
     {
-        bool result = await _homePage.HasConsoleErrorsAsync();
+        var result = await _homePage.HasConsoleErrorsAsync();
         Assert.That(result, Is.False);
     }
 
@@ -28,7 +28,7 @@ internal sealed class HomePageTests : BaseTest
     {
         await Page.GotoAsync(BaseUrl);
         await WaitForAngularAsync();
-        string title = await Page.TitleAsync();
+        var title = await Page.TitleAsync();
 
         Assert.That(title, Is.Not.Null);
     }
@@ -45,7 +45,7 @@ internal sealed class HomePageTests : BaseTest
 
         if (buttons.Any())
         {
-            string? firstButtonText = await buttons[0].TextContentAsync();
+            var firstButtonText = await buttons[0].TextContentAsync();
             await TestContext.Out.WriteLineAsync($"First button text: {firstButtonText}");
         }
     }
@@ -58,9 +58,9 @@ internal sealed class HomePageTests : BaseTest
         await _homePage.TakeScreenshotAsync("Before_Navigation");
         TestPage testPage = await _homePage.ClickGoToTestButtonAsync();
 
-        bool isOnTestPage = testPage.IsOnTestPageAsync();
-        bool hasExpectedText = await testPage.HasExpectedTextAsync();
-        string? pageText = await testPage.GetPageTextAsync();
+        var isOnTestPage = testPage.IsOnTestPageAsync();
+        var hasExpectedText = await testPage.HasExpectedTextAsync();
+        var pageText = await testPage.GetPageTextAsync();
 
         Assert.That(pageText, Is.EqualTo("test-page works!"));
         Assert.That(isOnTestPage, Is.True);

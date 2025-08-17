@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Template.Common.SharedKernel.Api;
+using Template.Common.SharedKernel.Infrastructure.Configuration;
 
 namespace Template.Common.SharedKernel.Infrastructure.Email;
 
@@ -11,19 +12,19 @@ public static class EmailExtensions
         IConfiguration configuration,
         string smtpConnectionName)
     {
-        services.GetRequiredConfiguration<EmailSettings>(EmailSettings.SectionName);
+        services.AddOptionsWithValidation<EmailOptions>(EmailOptions.SectionName);
 
-        EmailSettings settings = services.BuildServiceProvider().GetRequiredService<EmailSettings>();
+        EmailOptions options = services.BuildServiceProvider().GetRequiredService<EmailOptions>();
 
         services.AddScoped<IEmailService, EmailService>();
 
-        string smtpConnectionString = configuration.GetRequiredConnectionString(smtpConnectionName)!;
+        var smtpConnectionString = configuration.GetConnectionStringOrThrow(smtpConnectionName)!;
 
         // todo: fix
         var smtpUri = new Uri(smtpConnectionString.Replace("Endpoint=", ""));
 
         services
-            .AddFluentEmail(settings.SenderEmail, settings.Sender)
+            .AddFluentEmail(options.SenderEmail, options.Sender)
             .AddSmtpSender(smtpUri.Host, smtpUri.Port)
             .AddRazorRenderer();
     }

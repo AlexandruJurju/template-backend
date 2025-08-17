@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Template.Common.SharedKernel.Api;
+using Template.Common.SharedKernel.Infrastructure.Configuration;
 
 namespace Template.Common.SharedKernel.Infrastructure.Caching;
 
@@ -14,7 +15,7 @@ public static class CachingExtensions
         TimeSpan? localCacheExpiration = null,
         TimeSpan? distributedCacheExpiration = null)
     {
-        services.AddStackExchangeRedisCache(options => options.Configuration = configuration.GetRequiredConnectionString(connectionName));
+        services.AddStackExchangeRedisCache(options => options.Configuration = configuration.GetConnectionStringOrThrow(connectionName));
 
         services.AddHybridCache(options =>
             options.DefaultEntryOptions = new HybridCacheEntryOptions

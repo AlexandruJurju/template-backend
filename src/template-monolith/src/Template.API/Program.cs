@@ -3,14 +3,11 @@ using Scalar.AspNetCore;
 using Serilog;
 using Template.API;
 using Template.API.Cors;
-using Template.API.Middleware;
 using Template.Application;
-using Template.Application.Hubs;
-using Template.Common.Constants.Aspire;
 using Template.Common.SharedKernel.Api.Endpoints;
 using Template.Common.SharedKernel.Infrastructure.EF;
 using Template.Infrastructure;
-using Template.Infrastructure.Persistence;
+using Template.Infrastructure.Database;
 using Template.ServiceDefaults;
 using TickerQ.DependencyInjection.Hosting;
 
@@ -44,7 +41,7 @@ app.UseTickerQ();
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<RequestContextLoggingMiddleware>();
+// app.UseMiddleware<RequestContextLoggingMiddleware>();
 
 app.UseSerilogRequestLogging();
 

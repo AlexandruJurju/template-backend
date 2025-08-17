@@ -23,8 +23,8 @@ IResourceBuilder<SeqResource> seq = builder
     .AddSeq(Components.Seq, 5341)
     .WithLifetime(ContainerLifetime.Persistent);
 
-IResourceBuilder<ValkeyResource> valkey = builder
-    .AddValkey(Components.Valkey)
+IResourceBuilder<RedisResource> redis = builder
+    .AddRedis(Components.Redis)
     .WithLifetime(ContainerLifetime.Persistent);
 
 IResourceBuilder<MailPitContainerResource> mailpit = builder
@@ -45,8 +45,8 @@ IResourceBuilder<AzureBlobStorageContainerResource> blobStorage = storage
 IResourceBuilder<ProjectResource> templateService = builder.AddProject<Template_API>(Services.TemplateApi)
     .WithReference(templateDb)
     .WaitFor(templateDb)
-    .WithReference(valkey)
-    .WaitFor(valkey)
+    .WithReference(redis)
+    .WaitFor(redis)
     .WithReference(mailpit)
     .WaitFor(mailpit)
     .WithReference(blobStorage)
