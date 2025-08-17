@@ -8,6 +8,7 @@ public static class Components
     public static readonly string KeyCloak = nameof(KeyCloak).ToLowerInvariant();
     public static readonly string Redis = nameof(Redis).ToLowerInvariant();
     public static readonly string Seq = nameof(Seq).ToLowerInvariant();
+    public static readonly string MongoDb = nameof(MongoDb).ToLowerInvariant();
 
     public static class Database
     {

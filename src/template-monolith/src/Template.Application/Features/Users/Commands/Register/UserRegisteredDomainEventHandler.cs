@@ -1,4 +1,4 @@
-﻿using Template.Common.SharedKernel.Infrastructure.Email;
+﻿using Microsoft.Extensions.Logging;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;
 
@@ -6,7 +6,8 @@ namespace Template.Application.Features.Users.Commands.Register;
 
 internal sealed class UserRegisteredDomainEventHandler(
     IApplicationDbContext dbContext,
-    IEmailService emailService
+    ILogger<UserRegisteredIntegrationEventHandler> logger
+    // IEmailService emailService
 ) : INotificationHandler<UserRegisteredDomainEvent>
 {
     public async Task Handle(UserRegisteredDomainEvent notification, CancellationToken cancellationToken)
@@ -19,6 +20,8 @@ internal sealed class UserRegisteredDomainEventHandler(
             return;
         }
 
-        await emailService.SendEmail(user.Email, "User Registered", EmailTemplates.UserRegistered, new RegisterUserMailModel());
+        logger.LogInformation("User {UserEmail} registered", user.Email);
+
+        // await emailService.SendEmail(user.Email, "User Registered", EmailTemplates.UserRegistered, new RegisterUserMailModel());
     }
 }

@@ -1,4 +1,5 @@
-﻿using Template.Common.SharedKernel.Application.CQRS.Queries;
+﻿using Template.Application.Features.Users.Dto;
+using Template.Common.SharedKernel.Application.CQRS.Queries;
 using Template.Common.SharedKernel.Application.Mapper;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;

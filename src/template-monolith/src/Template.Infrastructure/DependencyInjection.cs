@@ -21,12 +21,11 @@ namespace Template.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static void AddInfrastructure(this IHostApplicationBuilder builder)
+    public static void AddInfrastructure(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
-        IServiceCollection services = builder.Services;
-        IConfigurationManager configuration = builder.Configuration;
-
-        builder.AddDefaultPostgresDb<ApplicationDbContext>(Components.Database.Template);
+        services.AddDefaultPostgresDb<ApplicationDbContext>(configuration, Components.Database.Template);
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
         services.AddDefaultFluentEmailWithSmtp(configuration, Components.MailPit);
@@ -35,23 +34,21 @@ public static class DependencyInjection
 
         services.AddDefaultCaching(configuration, Components.Redis);
 
-        services.AddDefaultDapper(configuration, Components.Database.Template);
-
         services.AddDefaultJwtAuthentication();
         services.AddScoped<ITokenProvider, TokenProvider>();
         services.AddDefaultJwtAuthorization();
 
-        services.AddTickerQ(opt =>
+        services.AddTickerQ(options =>
         {
-            opt.SetMaxConcurrency(Environment.ProcessorCount);
-            opt.SetInstanceIdentifier(Environment.MachineName);
-            opt.UpdateMissedJobCheckDelay(TimeSpan.FromMinutes(5));
-            opt.AddOperationalStore<ApplicationDbContext>(efOpt =>
+            options.SetMaxConcurrency(Environment.ProcessorCount);
+            options.SetInstanceIdentifier(Environment.MachineName);
+            options.UpdateMissedJobCheckDelay(TimeSpan.FromMinutes(5));
+            options.AddOperationalStore<ApplicationDbContext>(efOpt =>
             {
                 efOpt.UseModelCustomizerForMigrations();
                 efOpt.CancelMissedTickersOnApplicationRestart();
             });
-            opt.AddDashboard("/tickerq").AddDashboardBasicAuth();
+            options.AddDashboard("/tickerq").AddDashboardBasicAuth();
         });
     }
 }

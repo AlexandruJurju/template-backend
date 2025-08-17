@@ -4,4 +4,10 @@
         <ProjectReference Include="..\Template.Application\Template.Application.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="TickerQ" />
+      <PackageReference Include="TickerQ.Dashboard" />
+      <PackageReference Include="TickerQ.EntityFrameworkCore" />
+    </ItemGroup>
+
 </Project>

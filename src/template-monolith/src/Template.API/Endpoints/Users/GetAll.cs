@@ -1,4 +1,5 @@
 ﻿using Template.Application.Features.Users;
+using Template.Application.Features.Users.Dto;
 using Template.Application.Features.Users.Queries.GetAll;
 using Template.Common.SharedKernel.Api.Endpoints;
 
@@ -17,8 +18,9 @@ public class GetAll : IEndpoint
                 return result.ToMinimalApiResult();
             })
             .WithTags(Tags.Users)
+            .WithName(nameof(GetAll))
+            .ProducesGet<IEnumerable<UserResponse>>()
             // .HasPermission(Permissions.UsersRead)
-            .Produces<IEnumerable<UserResponse>>()
             .ProducesProblem(StatusCodes.Status401Unauthorized);
     }
 }

@@ -11,6 +11,8 @@ public sealed class ApplicationDbContext(
     DbContextOptions<ApplicationDbContext> options
 ) : DbContext(options), IApplicationDbContext
 {
+    private const string Schema = "public";
+
     #region DbSets
 
     public DbSet<Role> Roles { get; set; }
@@ -26,7 +28,7 @@ public sealed class ApplicationDbContext(
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.HasDefaultSchema("public");
+        modelBuilder.HasDefaultSchema(Schema);
 
         modelBuilder.ApplyConfiguration(new TimeTickerConfigurations());
         modelBuilder.ApplyConfiguration(new CronTickerConfigurations());

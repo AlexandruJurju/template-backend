@@ -1,4 +1,4 @@
-﻿using Template.Common.SharedKernel.Application.CQRS.Commands;
+using Template.Common.SharedKernel.Application.CQRS.Commands;
 
 namespace Template.Application.Features.Users.Commands.Register;
 

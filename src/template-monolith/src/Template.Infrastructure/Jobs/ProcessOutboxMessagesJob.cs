@@ -16,7 +16,7 @@ public sealed class ProcessOutboxMessagesJob(
 {
     private const int BatchSize = 1000;
 
-    [TickerFunction(nameof(ProcessOutboxMessagesJob), "0 0 * * *")]
+    [TickerFunction(nameof(ProcessOutboxMessagesJob), "* * * * *")]
     public async Task ProcessAsync()
     {
         logger.LogInformation("Starting to process outbox messages");

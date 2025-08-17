@@ -21,10 +21,13 @@ public static class Extensions
             config.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
             config.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
             config.AddOpenBehavior(typeof(QueryCachingBehavior<,>));
+
+            // action for extra config if service has something custom
             options?.Invoke(config);
         });
     }
 
+    // In memory domain events dispatcher -> use outbox pattern
     public static async Task DispatchDomainEventsAsync(this IPublisher publisher, DbContext ctx)
     {
         var domainEntities = ctx

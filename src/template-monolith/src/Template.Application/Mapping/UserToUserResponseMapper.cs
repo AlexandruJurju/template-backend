@@ -1,4 +1,5 @@
 ﻿using Template.Application.Features.Users;
+using Template.Application.Features.Users.Dto;
 using Template.Common.SharedKernel.Application.Mapper;
 using Template.Domain.Entities.Users;
 

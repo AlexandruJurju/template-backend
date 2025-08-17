@@ -39,6 +39,17 @@ IResourceBuilder<AzureStorageResource> storage = builder
             .WithLifetime(ContainerLifetime.Persistent)
     );
 
+// IResourceBuilder<MongoDBServerResource> mongoDb = builder
+//     .AddMongoDB(Components.MongoDb)
+//     .WithDataVolume()
+//     .WithLifetime(ContainerLifetime.Persistent);
+
+IResourceBuilder<RabbitMQServerResource> rabbitMq = builder
+    .AddRabbitMQ(Components.RabbitMq)
+    .WithManagementPlugin()
+    .WithDataVolume()
+    .WithLifetime(ContainerLifetime.Persistent);
+
 IResourceBuilder<AzureBlobStorageContainerResource> blobStorage = storage
     .AddBlobContainer(Components.Azure.BlobContainer);
 
@@ -54,7 +65,9 @@ IResourceBuilder<ProjectResource> templateService = builder.AddProject<Template_
     .WithReference(keycloak)
     .WaitFor(keycloak)
     .WithReference(seq)
-    .WaitFor(seq);
+    .WaitFor(seq)
+    .WithReference(rabbitMq)
+    .WaitFor(rabbitMq);
 
 // Add Scalar API Reference for all services
 builder

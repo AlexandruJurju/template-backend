@@ -1,14 +1,15 @@
-﻿using Template.Application.BackgroundServices;
-using Template.Application.Contracts.Services;
+﻿using Template.Application.Contracts.Services;
+using Template.Application.Features.Users;
 using Template.Application.Services;
 using Template.Common.SharedKernel.Application.CQRS.Mediator;
+using Template.Common.SharedKernel.Application.EventBus;
 using Template.Common.SharedKernel.Application.Mapper;
 
 namespace Template.Application;
 
 public static class DependencyInjection
 {
-    public static void AddApplication(this IServiceCollection services)
+    public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDefaultMediatR<AssemblyMarker>();
 
@@ -17,6 +18,8 @@ public static class DependencyInjection
         services.AddValidatorsFromAssembly(typeof(AssemblyMarker).Assembly, includeInternalTypes: true);
 
         services.AddMappersFromAssembly(typeof(AssemblyMarker).Assembly);
+
+        services.AddMassTransitEventBus(configuration, typeof(AssemblyMarker));
 
         AddBackgroundServices(services);
 

@@ -6,6 +6,8 @@
         <PackageReference Include="EFCore.NamingConventions"/>
         <PackageReference Include="FluentValidation"/>
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions"/>
+        <PackageReference Include="MassTransit" />
+        <PackageReference Include="MassTransit.RabbitMQ" />
         <PackageReference Include="MediatR"/>
         <PackageReference Include="MediatR.Contracts"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore"/>
@@ -22,9 +24,6 @@
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
         <PackageReference Include="Keycloak.Net.Core"/>
         <PackageReference Include="Aspire.Keycloak.Authentication"/>
-        <PackageReference Include="TickerQ"/>
-        <PackageReference Include="TickerQ.Dashboard"/>
-        <PackageReference Include="TickerQ.EntityFrameworkCore"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -33,5 +32,6 @@
 
     <ItemGroup>
       <Folder Include="Infrastructure\Authorization\Keycloak\" />
+      <Folder Include="Infrastructure\TickerQ\" />
     </ItemGroup>
 </Project>

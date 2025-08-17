@@ -1,4 +1,5 @@
 ﻿using Template.Application.Features.Users;
+using Template.Application.Features.Users.Dto;
 using Template.Application.Features.Users.Queries.GetByEmail;
 using Template.Common.SharedKernel.Api.Endpoints;
 
@@ -19,9 +20,8 @@ internal sealed class GetByEmail : IEndpoint
                 return result.ToMinimalApiResult();
             })
             .WithTags(Tags.Users)
+            .WithName(nameof(GetByEmail))
             .WithOpenApi()
-            .Produces<UserResponse>()
-            .ProducesProblem(StatusCodes.Status401Unauthorized)
-            .ProducesProblem(StatusCodes.Status404NotFound);
+            .ProducesGet<UserResponse>(false, true);
     }
 }

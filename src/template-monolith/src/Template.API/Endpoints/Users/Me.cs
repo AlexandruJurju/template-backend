@@ -1,4 +1,5 @@
 ﻿using Template.Application.Features.Users;
+using Template.Application.Features.Users.Dto;
 using Template.Application.Features.Users.Queries.GetById;
 using Template.Common.SharedKernel.Api.Endpoints;
 using Template.Common.SharedKernel.Infrastructure.Authentication.Jwt;

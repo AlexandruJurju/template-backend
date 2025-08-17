@@ -18,8 +18,8 @@ builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configu
 builder.AddServiceDefaults();
 
 builder.Services.AddPresentation(builder.Configuration);
-builder.Services.AddApplication();
-builder.AddInfrastructure();
+builder.Services.AddApplication(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration);
 // builder.AddSeqEndpoint(Components.Seq);
 
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
