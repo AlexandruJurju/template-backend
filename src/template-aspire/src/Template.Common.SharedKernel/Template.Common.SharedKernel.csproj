@@ -12,8 +12,8 @@
         <PackageReference Include="MediatR.Contracts"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore"/>
         <PackageReference Include="Microsoft.Extensions.Caching.Abstractions"/>
-        <PackageReference Include="MongoDB.Driver" />
-        <PackageReference Include="MongoDB.Driver.Core" />
+        <PackageReference Include="MongoDB.Driver"/>
+        <PackageReference Include="MongoDB.Driver.Core"/>
         <PackageReference Include="Newtonsoft.Json"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
         <PackageReference Include="Scrutor"/>
@@ -35,6 +35,5 @@
     <ItemGroup>
         <Folder Include="Api\Swagger\"/>
         <Folder Include="Infrastructure\Authorization\Keycloak\"/>
-        <Folder Include="Infrastructure\TickerQ\"/>
     </ItemGroup>
 </Project>

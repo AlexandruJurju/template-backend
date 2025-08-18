@@ -1,6 +1,9 @@
-﻿namespace Template.Common.SharedKernel.Infrastructure.Repository;
+﻿using System.Data.Common;
+
+namespace Template.Common.SharedKernel.Infrastructure.Repository;
 
 public interface IUnitOfWork
 {
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+    Task<DbTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default);
 }

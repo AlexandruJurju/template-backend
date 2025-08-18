@@ -1,4 +1,6 @@
-﻿using Template.Common.SharedKernel.Infrastructure.Outbox;
+﻿using System.Data.Common;
+using Microsoft.EntityFrameworkCore.Storage;
+using Template.Common.SharedKernel.Infrastructure.Outbox;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.ApiKeys;
 using Template.Domain.Entities.Users;
@@ -42,5 +44,15 @@ public sealed class ApplicationDbContext(
         modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguration());
+    }
+
+    public async Task<DbTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)
+    {
+        if (Database.CurrentTransaction is not null)
+        {
+            await Database.CurrentTransaction.DisposeAsync();
+        }
+
+        return (await Database.BeginTransactionAsync(cancellationToken)).GetDbTransaction();
     }
 }

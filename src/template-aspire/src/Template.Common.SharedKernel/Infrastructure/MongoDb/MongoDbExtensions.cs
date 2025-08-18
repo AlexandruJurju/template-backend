@@ -20,7 +20,8 @@ public static class MongoDbExtensions
         {
             IMongoClient client = serviceProvider.GetRequiredService<IMongoClient>();
             var dbName = GetDatabaseNameFromConnectionString(connectionString)
-                         ?? throw new InvalidOperationException($"Database name not provided and could not be extracted from connection string '{name}'");
+                         ?? throw new InvalidOperationException(
+                             $"Database name not provided and could not be extracted from connection string '{name}'");
             return client.GetDatabase(dbName);
         });
 

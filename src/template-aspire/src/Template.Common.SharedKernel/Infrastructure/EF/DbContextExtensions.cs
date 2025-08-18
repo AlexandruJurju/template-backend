@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Template.Common.SharedKernel.Api;
 using Template.Common.SharedKernel.Infrastructure.Configuration;
 using Template.Common.SharedKernel.Infrastructure.Dapper;
 using Template.Common.SharedKernel.Infrastructure.Repository;
@@ -18,7 +15,7 @@ public static class DbContextExtensions
         IConfiguration configuration,
         string name
     )
-        where TDbContext : DbContext
+        where TDbContext : DbContext, IUnitOfWork
     {
         services.AddSingleton<IInterceptor, InsertOutboxMessagesInterceptor>();
 
@@ -41,7 +38,7 @@ public static class DbContextExtensions
             }
         );
 
-        services.AddScoped<IUnitOfWork, EfUnitOfWork<TDbContext>>();
+        services.AddScoped<IUnitOfWork>(provider => provider.GetRequiredService<TDbContext>());
 
         services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 

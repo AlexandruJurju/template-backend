@@ -13,7 +13,7 @@
 
     <ItemGroup>
         <Folder Include="Features\"/>
-        <Folder Include="MongoTEST\" />
+        <Folder Include="MongoTEST\"/>
     </ItemGroup>
 
 </Project>
