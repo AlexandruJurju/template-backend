@@ -1,6 +1,4 @@
-﻿using MassTransit;
-using Template.Common.SharedKernel.Application.CQRS.Commands;
-using Template.Common.SharedKernel.Application.EventBus;
+﻿using Template.Common.SharedKernel.Application.CQRS.Commands;
 using Template.Common.SharedKernel.Infrastructure.Authentication.Jwt;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;
@@ -9,8 +7,7 @@ namespace Template.Application.Features.Users.Commands.Register;
 
 public sealed class RegisterUserCommandHandler(
     IApplicationDbContext dbContext,
-    IPasswordHasher passwordHasher,
-    IEventBus bus
+    IPasswordHasher passwordHasher
 ) : ICommandHandler<RegisterUserCommand, Guid>
 {
     public async Task<Result<Guid>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -22,13 +19,11 @@ public sealed class RegisterUserCommandHandler(
 
         var user = User.Create(request.Email, request.FirstName, request.LastName, passwordHasher.Hash(request.Password));
 
-        // dbContext.Attach(user.Role);
-        //
-        // dbContext.Users.Add(user);
-        //
-        // await dbContext.SaveChangesAsync(cancellationToken);
+        dbContext.Attach(user.Role);
 
-        await bus.PublishAsync(new UserRegisteredIntegrationEvent("test@gmaiul.com"), cancellationToken);
+        dbContext.Users.Add(user);
+
+        await dbContext.SaveChangesAsync(cancellationToken);
 
         return user.Id;
     }

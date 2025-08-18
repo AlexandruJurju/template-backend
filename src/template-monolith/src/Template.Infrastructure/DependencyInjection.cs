@@ -5,6 +5,7 @@ using Template.Common.SharedKernel.Infrastructure.Authorization.Jwt;
 using Template.Common.SharedKernel.Infrastructure.Caching;
 using Template.Common.SharedKernel.Infrastructure.EF;
 using Template.Common.SharedKernel.Infrastructure.Email;
+using Template.Common.SharedKernel.Infrastructure.MongoDb;
 using Template.Common.SharedKernel.Infrastructure.Storage;
 using Template.Domain.Abstractions.Persistence;
 using Template.Infrastructure.Authentication;
@@ -21,7 +22,7 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddDefaultPostgresDb<ApplicationDbContext>(configuration, Components.Database.Template);
+        services.AddDefaultPostgresDb<ApplicationDbContext>(configuration, Components.RelationalDbs.Template);
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
         services.AddDefaultFluentEmailWithSmtp(configuration, Components.MailPit);
@@ -33,6 +34,8 @@ public static class DependencyInjection
         services.AddDefaultJwtAuthentication();
         services.AddScoped<ITokenProvider, TokenProvider>();
         services.AddDefaultJwtAuthorization();
+
+        services.AddDefaultMongo(configuration, Components.DocumentDbs.Template);
 
         services.AddTickerQ(options =>
         {

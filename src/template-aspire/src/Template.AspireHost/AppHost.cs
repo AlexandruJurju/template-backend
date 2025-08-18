@@ -10,8 +10,8 @@ IResourceBuilder<PostgresServerResource> postgresServer = builder
     .WithDataVolume()
     .WithLifetime(ContainerLifetime.Persistent);
 
-IResourceBuilder<PostgresDatabaseResource> templateDb = postgresServer
-    .AddDatabase(Components.Database.Template);
+IResourceBuilder<PostgresDatabaseResource> templatePostgresDb = postgresServer
+    .AddDatabase(Components.RelationalDbs.Template);
 
 IResourceBuilder<KeycloakResource> keycloak = builder
     .AddKeycloak(Components.KeyCloak, 18080)
@@ -39,10 +39,13 @@ IResourceBuilder<AzureStorageResource> storage = builder
             .WithLifetime(ContainerLifetime.Persistent)
     );
 
-// IResourceBuilder<MongoDBServerResource> mongoDb = builder
-//     .AddMongoDB(Components.MongoDb)
-//     .WithDataVolume()
-//     .WithLifetime(ContainerLifetime.Persistent);
+IResourceBuilder<MongoDBServerResource> mongoServer = builder
+    .AddMongoDB(Components.MongoDb)
+    .WithDataVolume()
+    .WithLifetime(ContainerLifetime.Persistent);
+
+IResourceBuilder<MongoDBDatabaseResource> templateMongoDb = mongoServer
+    .AddDatabase(Components.DocumentDbs.Template);
 
 IResourceBuilder<RabbitMQServerResource> rabbitMq = builder
     .AddRabbitMQ(Components.RabbitMq)
@@ -60,8 +63,8 @@ IResourceBuilder<ParameterResource> templateTickerQPassword = builder
     .AddParameter("tickerq-password", "admin", true);
 
 IResourceBuilder<ProjectResource> templateService = builder.AddProject<Template_API>(Services.TemplateApi)
-    .WithReference(templateDb)
-    .WaitFor(templateDb)
+    .WithReference(templatePostgresDb)
+    .WaitFor(templatePostgresDb)
     .WithReference(redis)
     .WaitFor(redis)
     .WithReference(mailpit)
@@ -74,6 +77,8 @@ IResourceBuilder<ProjectResource> templateService = builder.AddProject<Template_
     .WaitFor(seq)
     .WithReference(rabbitMq)
     .WaitFor(rabbitMq)
+    .WithReference(templateMongoDb)
+    .WaitFor(templateMongoDb)
     .WithEnvironment("TickerQBasicAuth__Username", templateTickerQUsername)
     .WithEnvironment("TickerQBasicAuth__Password", templateTickerQPassword);
 

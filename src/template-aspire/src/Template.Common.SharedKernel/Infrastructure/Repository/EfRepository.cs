@@ -10,29 +10,29 @@ public class EfRepository<TEntity>(DbContext dbContext) : IRepository<TEntity>
 {
     private readonly DbSet<TEntity> _dbSet = dbContext.Set<TEntity>();
 
-    public async Task<TEntity?> FirstOrDefaultAsync(QuerySpec<TEntity> spec, CancellationToken ct = default)
+    public async Task<TEntity?> FirstOrDefaultAsync(QuerySpec<TEntity> spec, CancellationToken cancellationToken = default)
     {
-        return await Apply(spec).FirstOrDefaultAsync(spec.Filter ?? (_ => true), ct);
+        return await Apply(spec).FirstOrDefaultAsync(spec.Filter ?? (_ => true), cancellationToken);
     }
 
-    public async Task<List<TEntity>> ListAsync(QuerySpec<TEntity>? spec = null, CancellationToken ct = default)
+    public async Task<List<TEntity>> ListAsync(QuerySpec<TEntity>? spec = null, CancellationToken cancellationToken = default)
     {
-        return await Apply(spec).ToListAsync(ct);
+        return await Apply(spec).ToListAsync(cancellationToken);
     }
 
-    public async Task<int> CountAsync(Expression<Func<TEntity, bool>>? filter = null, CancellationToken ct = default)
+    public async Task<int> CountAsync(Expression<Func<TEntity, bool>>? filter = null, CancellationToken cancellationToken = default)
     {
-        return await _dbSet.CountAsync(filter ?? (_ => true), ct);
+        return await _dbSet.CountAsync(filter ?? (_ => true), cancellationToken);
     }
 
-    public async Task AddAsync(TEntity entity, CancellationToken ct = default)
+    public async Task AddAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
-        await _dbSet.AddAsync(entity, ct);
+        await _dbSet.AddAsync(entity, cancellationToken);
     }
 
-    public async Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken ct = default)
+    public async Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
     {
-        await _dbSet.AddRangeAsync(entities, ct);
+        await _dbSet.AddRangeAsync(entities, cancellationToken);
     }
 
     public void Update(TEntity entity)

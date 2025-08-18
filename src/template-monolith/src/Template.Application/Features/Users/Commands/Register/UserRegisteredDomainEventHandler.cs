@@ -6,7 +6,7 @@ namespace Template.Application.Features.Users.Commands.Register;
 
 internal sealed class UserRegisteredDomainEventHandler(
     IApplicationDbContext dbContext,
-    ILogger<UserRegisteredIntegrationEventHandler> logger
+    ILogger<UserRegisteredDomainEventHandler> logger
     // IEmailService emailService
 ) : INotificationHandler<UserRegisteredDomainEvent>
 {

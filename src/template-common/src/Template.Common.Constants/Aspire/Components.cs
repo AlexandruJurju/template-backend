@@ -10,10 +10,16 @@ public static class Components
     public static readonly string Seq = nameof(Seq).ToLowerInvariant();
     public static readonly string MongoDb = nameof(MongoDb).ToLowerInvariant();
 
-    public static class Database
+    public static class RelationalDbs
     {
-        private const string Suffix = "db";
-        public static readonly string Template = $"{nameof(Template).ToLowerInvariant()}{Suffix}";
+        private const string Suffix = "pg";
+        public static readonly string Template = $"{nameof(Template).ToLowerInvariant()}-{Suffix}";
+    }
+
+    public static class DocumentDbs
+    {
+        private const string Suffix = "mongo";
+        public static readonly string Template = $"{nameof(Template).ToLowerInvariant()}-{Suffix}";
     }
 
     public static class Azure
