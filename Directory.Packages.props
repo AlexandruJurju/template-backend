@@ -1,121 +1,122 @@
 ﻿<Project>
-    <PropertyGroup>
-        <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-        <AspireVersion>9.4.1</AspireVersion>
-        <AspireUnstableVersion>9.4.0-preview.1.25378.8</AspireUnstableVersion>
-        <MsExtVersion>9.0.8</MsExtVersion>
-        <ToolKitVersion>9.7.0</ToolKitVersion>
-        <TickerQVersion>2.4.4</TickerQVersion>
-        <FluentEmailVersion>3.0.2</FluentEmailVersion>
-    </PropertyGroup>
-    <!-- ASPIRE -->
-    <ItemGroup Label="Aspire">
-        <!-- Core Aspire Hosting -->
-        <PackageVersion Include="Aspire.Hosting.AppHost" Version="$(AspireVersion)"/>
-        <PackageVersion Include="Aspire.Hosting.Azure.Storage" Version="$(AspireVersion)"/>
-        <PackageVersion Include="Aspire.Hosting.Kafka" Version="9.4.1"/>
-        <PackageVersion Include="Aspire.Hosting.Keycloak" Version="$(AspireUnstableVersion)"/>
-        <PackageVersion Include="Aspire.Hosting.MongoDB" Version="9.4.1"/>
-        <PackageVersion Include="Aspire.Hosting.NodeJs" Version="$(AspireVersion)"/>
-        <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="$(AspireVersion)"/>
-        <PackageVersion Include="Aspire.Hosting.RabbitMQ" Version="$(AspireVersion)"/>
-        <PackageVersion Include="Aspire.Hosting.Redis" Version="$(AspireVersion)"/>
-        <PackageVersion Include="Aspire.Hosting.Seq" Version="$(AspireVersion)"/>
-        <PackageVersion Include="Aspire.Hosting.Testing" Version="$(AspireVersion)"/>
-        <PackageVersion Include="Aspire.Hosting.Valkey" Version="$(AspireVersion)"/>
-        <PackageVersion Include="Aspire.Hosting.Garnet" Version="$(AspireVersion)"/>
-        <PackageVersion Include="Aspire.Keycloak.Authentication" Version="9.4.1-preview.1.25408.4"/>
-        <PackageVersion Include="Aspire.Seq" Version="9.4.1"/>
-        <PackageVersion Include="CommunityToolkit.Aspire.Hosting.MailPit" Version="9.7.0"/>
-        <!-- Community Toolkit add-ons -->
-        <PackageVersion Include="CommunityToolkit.Aspire.Hosting.PapercutSmtp" Version="$(ToolKitVersion)"/>
-        <PackageVersion Include="FluentAssertions" Version="8.6.0"/>
-        <PackageVersion Include="Keycloak.Net.Core" Version="1.0.34"/>
-        <PackageVersion Include="MassTransit" Version="8.5.2"/>
-        <PackageVersion Include="MassTransit.RabbitMQ" Version="8.5.2"/>
-        <PackageVersion Include="MongoDB.Driver" Version="3.4.0"/>
-        <PackageVersion Include="MongoDB.Driver.Core" Version="2.30.0"/>
-        <PackageVersion Include="Scalar.Aspire" Version="0.3.3"/>
-        <PackageVersion Include="Scrutor" Version="6.1.0"/>
-        <PackageVersion Include="Serilog.AspNetCore" Version="9.0.0"/>
-        <PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0"/>
-        <PackageVersion Include="SignalRSwaggerGen" Version="4.8.0"/>
-        <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.3"/>
-    </ItemGroup>
-    <!-- WEB API -->
-    <ItemGroup Label="Web API">
-        <!-- ASP.NET Core / Auth / OpenAPI -->
-        <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.8"/>
-        <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.Middleware" Version="$(MsExtVersion)"/>
-        <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8"/>
-        <!-- Swagger / Docs -->
-        <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerGen" Version="9.0.3"/>
-        <PackageVersion Include="Scalar.AspNetCore.Swashbuckle" Version="2.6.9"/>
-        <!-- Realtime / Other Web API helpers -->
-        <PackageVersion Include="Microsoft.Azure.SignalR.Management" Version="1.31.0"/>
-        <PackageVersion Include="Microsoft.FeatureManagement.AspNetCore" Version="4.2.1"/>
-        <PackageVersion Include="NSwag.MSBuild" Version="14.5.0"/>
-    </ItemGroup>
-    <!-- APPLICATION -->
-    <ItemGroup Label="Application">
-        <!-- CQRS / Validation / Results -->
-        <PackageVersion Include="MediatR" Version="13.0.0"/>
-        <PackageVersion Include="MediatR.Contracts" Version="2.0.1"/>
-        <PackageVersion Include="FluentValidation" Version="12.0.0"/>
-        <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0"/>
-        <PackageVersion Include="Ardalis.Result.AspNetCore" Version="10.1.0"/>
-        <PackageVersion Include="Ardalis.Result.FluentValidation" Version="10.1.0"/>
-        <!-- Serialization / Views -->
-        <PackageVersion Include="Newtonsoft.Json" Version="13.0.3"/>
-        <PackageVersion Include="RazorLight" Version="2.3.1"/>
-        <PackageVersion Include="Ardalis.GuardClauses" Version="5.0.0"/>
-    </ItemGroup>
-    <!-- INFRASTRUCTURE -->
-    <ItemGroup Label="Infrastructure">
-        <!-- Microsoft.Extensions -->
-        <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="$(MsExtVersion)"/>
-        <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="$(MsExtVersion)"/>
-        <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(MsExtVersion)"/>
-        <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="$(MsExtVersion)"/>
-        <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(MsExtVersion)"/>
-        <!-- Newer out-of-band Extensions -->
-        <PackageVersion Include="Microsoft.Extensions.Caching.Hybrid" Version="9.8.0"/>
-        <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.8.0"/>
-        <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.4.1"/>
-        <!-- Messaging / Storage -->
-        <PackageVersion Include="Azure.Storage.Blobs" Version="12.25.0"/>
-        <PackageVersion Include="Dapper" Version="2.1.66"/>
-        <!-- EF Core-->
-        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.8"/>
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.8"/>
-        <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4"/>
-        <PackageVersion Include="EFCore.NamingConventions" Version="9.0.0"/>
-        <!-- OpenTelemetry -->
-        <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0"/>
-        <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0"/>
-        <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0"/>
-        <PackageVersion Include="OpenTelemetry.Instrumentation.GrpcNetClient" Version="1.12.0-beta.1"/>
-        <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0"/>
-        <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0"/>
-        <!-- Serilog -->
-        <PackageVersion Include="Serilog" Version="4.3.0"/>
-        <!-- Email -->
-        <PackageVersion Include="FluentEmail.Razor" Version="$(FluentEmailVersion)"/>
-        <PackageVersion Include="FluentEmail.Smtp" Version="$(FluentEmailVersion)"/>
-        <!-- TickerQ -->
-        <PackageVersion Include="TickerQ" Version="$(TickerQVersion)"/>
-        <PackageVersion Include="TickerQ.Dashboard" Version="$(TickerQVersion)"/>
-        <PackageVersion Include="TickerQ.EntityFrameworkCore" Version="$(TickerQVersion)"/>
-    </ItemGroup>
-    <!-- TESTING -->
-    <ItemGroup Label="Testing">
-        <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.15.0.120848"/>
-        <PackageVersion Include="coverlet.collector" Version="6.0.4"/>
-        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1"/>
-        <PackageVersion Include="NUnit" Version="4.4.0"/>
-        <PackageVersion Include="NUnit.Analyzers" Version="4.10.0"/>
-        <PackageVersion Include="NUnit3TestAdapter" Version="5.1.0"/>
-        <PackageVersion Include="Microsoft.Playwright.NUnit" Version="1.54.0"/>
-    </ItemGroup>
+  <PropertyGroup>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <AspireVersion>9.4.1</AspireVersion>
+    <AspireUnstableVersion>9.4.0-preview.1.25378.8</AspireUnstableVersion>
+    <MsExtVersion>9.0.8</MsExtVersion>
+    <ToolKitVersion>9.7.0</ToolKitVersion>
+    <TickerQVersion>2.4.4</TickerQVersion>
+    <FluentEmailVersion>3.0.2</FluentEmailVersion>
+  </PropertyGroup>
+  <!-- ASPIRE -->
+  <ItemGroup Label="Aspire">
+    <!-- Core Aspire Hosting -->
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.Azure.Storage" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.Kafka" Version="9.4.1" />
+    <PackageVersion Include="Aspire.Hosting.Keycloak" Version="$(AspireUnstableVersion)" />
+    <PackageVersion Include="Aspire.Hosting.MongoDB" Version="9.4.1" />
+    <PackageVersion Include="Aspire.Hosting.NodeJs" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.RabbitMQ" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.Redis" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.Seq" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.Testing" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.Valkey" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.Garnet" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Keycloak.Authentication" Version="9.4.1-preview.1.25408.4" />
+    <PackageVersion Include="Aspire.Seq" Version="9.4.1" />
+    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.MailPit" Version="9.7.0" />
+    <!-- Community Toolkit add-ons -->
+    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.PapercutSmtp" Version="$(ToolKitVersion)" />
+    <PackageVersion Include="FluentAssertions" Version="8.6.0" />
+    <PackageVersion Include="Keycloak.Net.Core" Version="1.0.34" />
+    <PackageVersion Include="MassTransit" Version="8.5.2" />
+    <PackageVersion Include="MassTransit.RabbitMQ" Version="8.5.2" />
+    <PackageVersion Include="MongoDB.Driver" Version="3.4.0" />
+    <PackageVersion Include="MongoDB.Driver.Core" Version="2.30.0" />
+    <PackageVersion Include="Scalar.Aspire" Version="0.3.3" />
+    <PackageVersion Include="Scrutor" Version="6.1.0" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
+    <PackageVersion Include="Shouldly" Version="4.3.0" />
+    <PackageVersion Include="SignalRSwaggerGen" Version="4.8.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.3" />
+  </ItemGroup>
+  <!-- WEB API -->
+  <ItemGroup Label="Web API">
+    <!-- ASP.NET Core / Auth / OpenAPI -->
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.Middleware" Version="$(MsExtVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
+    <!-- Swagger / Docs -->
+    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerGen" Version="9.0.3" />
+    <PackageVersion Include="Scalar.AspNetCore.Swashbuckle" Version="2.6.9" />
+    <!-- Realtime / Other Web API helpers -->
+    <PackageVersion Include="Microsoft.Azure.SignalR.Management" Version="1.31.0" />
+    <PackageVersion Include="Microsoft.FeatureManagement.AspNetCore" Version="4.2.1" />
+    <PackageVersion Include="NSwag.MSBuild" Version="14.5.0" />
+  </ItemGroup>
+  <!-- APPLICATION -->
+  <ItemGroup Label="Application">
+    <!-- CQRS / Validation / Results -->
+    <PackageVersion Include="MediatR" Version="13.0.0" />
+    <PackageVersion Include="MediatR.Contracts" Version="2.0.1" />
+    <PackageVersion Include="FluentValidation" Version="12.0.0" />
+    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+    <PackageVersion Include="Ardalis.Result.AspNetCore" Version="10.1.0" />
+    <PackageVersion Include="Ardalis.Result.FluentValidation" Version="10.1.0" />
+    <!-- Serialization / Views -->
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="RazorLight" Version="2.3.1" />
+    <PackageVersion Include="Ardalis.GuardClauses" Version="5.0.0" />
+  </ItemGroup>
+  <!-- INFRASTRUCTURE -->
+  <ItemGroup Label="Infrastructure">
+    <!-- Microsoft.Extensions -->
+    <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="$(MsExtVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="$(MsExtVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(MsExtVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="$(MsExtVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(MsExtVersion)" />
+    <!-- Newer out-of-band Extensions -->
+    <PackageVersion Include="Microsoft.Extensions.Caching.Hybrid" Version="9.8.0" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.8.0" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.4.1" />
+    <!-- Messaging / Storage -->
+    <PackageVersion Include="Azure.Storage.Blobs" Version="12.25.0" />
+    <PackageVersion Include="Dapper" Version="2.1.66" />
+    <!-- EF Core-->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.8" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    <PackageVersion Include="EFCore.NamingConventions" Version="9.0.0" />
+    <!-- OpenTelemetry -->
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.GrpcNetClient" Version="1.12.0-beta.1" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
+    <!-- Serilog -->
+    <PackageVersion Include="Serilog" Version="4.3.0" />
+    <!-- Email -->
+    <PackageVersion Include="FluentEmail.Razor" Version="$(FluentEmailVersion)" />
+    <PackageVersion Include="FluentEmail.Smtp" Version="$(FluentEmailVersion)" />
+    <!-- TickerQ -->
+    <PackageVersion Include="TickerQ" Version="$(TickerQVersion)" />
+    <PackageVersion Include="TickerQ.Dashboard" Version="$(TickerQVersion)" />
+    <PackageVersion Include="TickerQ.EntityFrameworkCore" Version="$(TickerQVersion)" />
+  </ItemGroup>
+  <!-- TESTING -->
+  <ItemGroup Label="Testing">
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.15.0.120848" />
+    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="NUnit" Version="4.4.0" />
+    <PackageVersion Include="NUnit.Analyzers" Version="4.10.0" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="5.1.0" />
+    <PackageVersion Include="Microsoft.Playwright.NUnit" Version="1.54.0" />
+  </ItemGroup>
 </Project>

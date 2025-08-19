@@ -4,7 +4,7 @@ namespace Template.Common.SharedKernel.Application.EventBus;
 
 public abstract class IntegrationEventHandler<TIntegrationEvent>
     : IIntegrationEventHandler<TIntegrationEvent>, IConsumer<TIntegrationEvent>
-    where TIntegrationEvent : class, IIntegrationEvent
+    where TIntegrationEvent : IntegrationEvent
 {
     public abstract Task Handle(TIntegrationEvent integrationEvent, CancellationToken cancellationToken = default);
 

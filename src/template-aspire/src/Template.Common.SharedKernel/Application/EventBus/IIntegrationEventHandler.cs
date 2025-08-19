@@ -6,7 +6,7 @@ public interface IIntegrationEventHandler
 }
 
 public interface IIntegrationEventHandler<in TIntegrationEvent> : IIntegrationEventHandler
-    where TIntegrationEvent : IIntegrationEvent
+    where TIntegrationEvent : IntegrationEvent
 {
     Task Handle(TIntegrationEvent integrationEvent, CancellationToken cancellationToken = default);
 }
