@@ -1,3 +1,3 @@
 ﻿namespace Template.Application;
 
-internal sealed class AssemblyMarker;
+public sealed class AssemblyMarker;

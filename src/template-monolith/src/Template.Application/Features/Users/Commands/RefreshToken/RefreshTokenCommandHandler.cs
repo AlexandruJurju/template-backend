@@ -1,6 +1,5 @@
 ﻿using Template.Application.Contracts;
 using Template.Common.SharedKernel.Application.CQRS.Commands;
-using Template.Common.SharedKernel.Infrastructure;
 using Template.Common.SharedKernel.Infrastructure.Helpers;
 using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.Users;

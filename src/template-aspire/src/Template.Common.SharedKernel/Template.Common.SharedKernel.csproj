@@ -2,6 +2,8 @@
     <ItemGroup>
         <PackageReference Include="Ardalis.Result.AspNetCore"/>
         <PackageReference Include="Ardalis.Result.FluentValidation"/>
+        <PackageReference Include="Asp.Versioning.Http" />
+        <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" />
         <PackageReference Include="Dapper"/>
         <PackageReference Include="EFCore.NamingConventions"/>
         <PackageReference Include="FluentValidation"/>
@@ -26,6 +28,10 @@
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
         <PackageReference Include="Keycloak.Net.Core"/>
         <PackageReference Include="Aspire.Keycloak.Authentication"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
+        <PackageReference Include="Scalar.AspNetCore.Swashbuckle"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen"/>
+        <PackageReference Include="SignalRSwaggerGen"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -33,7 +39,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Api\Swagger\"/>
         <Folder Include="Infrastructure\Authorization\Keycloak\"/>
     </ItemGroup>
 </Project>
