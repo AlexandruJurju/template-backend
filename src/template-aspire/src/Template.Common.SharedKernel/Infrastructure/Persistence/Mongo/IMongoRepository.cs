@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.ComponentModel;
+using System.Linq.Expressions;
 
 namespace Template.Common.SharedKernel.Infrastructure.Persistence.Mongo;
 
@@ -16,3 +17,10 @@ public interface IMongoRepository<TDocument> where TDocument : IDocument
     Task<long> RemoveAsync(Expression<Func<TDocument, bool>> filter, CancellationToken cancellationToken = default);
     Task ReplaceOneAsync(Expression<Func<TDocument, bool>> filter, TDocument document, CancellationToken cancellationToken = default);
 }
+
+public sealed record MongoQuerySpec<T>(
+    Expression<Func<T, bool>>? Filter = null,
+    List<(Expression<Func<T, object>> KeySelector, ListSortDirection Direction)>? OrderBys = null,
+    int? Skip = null,
+    int? Take = null
+) where T : IDocument;
