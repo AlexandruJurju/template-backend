@@ -5,7 +5,6 @@ using Template.Common.Constants.Aspire;
 using Template.Common.SharedKernel.Application.CQRS.Mediator;
 using Template.Common.SharedKernel.Application.EventBus;
 using Template.Common.SharedKernel.Application.Mapper;
-using Template.Common.SharedKernel.Infrastructure.MongoDb;
 
 namespace Template.Application;
 

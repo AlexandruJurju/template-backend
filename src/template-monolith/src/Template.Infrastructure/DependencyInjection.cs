@@ -1,11 +1,12 @@
-﻿using Template.Application.Contracts;
+﻿using Microsoft.Extensions.Hosting;
+using Template.Application.Contracts;
 using Template.Common.Constants.Aspire;
 using Template.Common.SharedKernel.Infrastructure.Authentication.Jwt;
 using Template.Common.SharedKernel.Infrastructure.Authorization.Jwt;
 using Template.Common.SharedKernel.Infrastructure.Caching;
-using Template.Common.SharedKernel.Infrastructure.EF;
 using Template.Common.SharedKernel.Infrastructure.Email;
-using Template.Common.SharedKernel.Infrastructure.MongoDb;
+using Template.Common.SharedKernel.Infrastructure.Persistence.EntityFramework;
+using Template.Common.SharedKernel.Infrastructure.Persistence.Mongo;
 using Template.Common.SharedKernel.Infrastructure.Storage;
 using Template.Domain.Abstractions.Persistence;
 using Template.Infrastructure.Authentication;
@@ -19,10 +20,26 @@ namespace Template.Infrastructure;
 public static class DependencyInjection
 {
     public static void AddInfrastructure(
-        this IServiceCollection services,
-        IConfiguration configuration)
+        this IHostApplicationBuilder builder)
     {
-        services.AddDefaultPostgresDb<ApplicationDbContext>(configuration, Components.RelationalDbs.Template);
+        IServiceCollection services = builder.Services;
+        IConfiguration configuration = builder.Configuration;
+
+        builder.AddDefaultPostgresDb<ApplicationDbContext>(
+            Components.RelationalDbs.Template,
+            hostBuilder =>
+            {
+                if (hostBuilder.Environment.IsDevelopment())
+                {
+                    services.AddMigration<ApplicationDbContext, ApplicationDbContextSeeder>();
+                }
+                else
+                {
+                    services.AddMigration<ApplicationDbContext>();
+                }
+            }
+        );
+
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
         services.AddDefaultFluentEmailWithSmtp(configuration, Components.MailPit);

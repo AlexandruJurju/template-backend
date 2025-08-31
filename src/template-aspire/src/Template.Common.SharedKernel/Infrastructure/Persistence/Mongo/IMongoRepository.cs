@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Template.Common.SharedKernel.Infrastructure.MongoDb;
+namespace Template.Common.SharedKernel.Infrastructure.Persistence.Mongo;
 
 public interface IMongoRepository<TDocument> where TDocument : IDocument
 {

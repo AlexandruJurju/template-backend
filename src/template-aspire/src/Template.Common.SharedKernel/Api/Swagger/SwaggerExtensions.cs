@@ -23,9 +23,9 @@ public static class SwaggerExtensions
             options.ResolveConflictingActions(descriptions => descriptions.First());
 
             // Add xml comments
-            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-            options.IncludeXmlComments(xmlPath);
+            // var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            // var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            // options.IncludeXmlComments(xmlPath);
 
             // ================== Keycloak Configuration ==================
             // var keycloakSecurityScheme = new OpenApiSecurityScheme

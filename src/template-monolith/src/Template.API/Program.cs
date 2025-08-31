@@ -7,7 +7,7 @@ using Template.Application.Hubs;
 using Template.Common.SharedKernel.Api.Cors;
 using Template.Common.SharedKernel.Api.Endpoints;
 using Template.Common.SharedKernel.Api.Middleware;
-using Template.Common.SharedKernel.Infrastructure.EF;
+using Template.Common.SharedKernel.Infrastructure.Persistence.EntityFramework;
 using Template.Infrastructure;
 using Template.Infrastructure.Database;
 using Template.ServiceDefaults;
@@ -21,7 +21,7 @@ builder.AddServiceDefaults();
 
 builder.Services.AddPresentation(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.AddInfrastructure();
 // builder.AddSeqEndpoint(Components.Seq);
 
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
@@ -36,10 +36,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.MapScalarApiReference(options => options.WithOpenApiRoutePattern("/swagger/v1/swagger.json"));
-    app.ApplyMigrations<ApplicationDbContext>();
 }
-
-app.UseTickerQ();
 
 app.UseHttpsRedirection();
 
@@ -54,5 +51,7 @@ app.UseCors(CorsOptions.PolicyName);
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+// app.UseTickerQ();
 
 await app.RunAsync();

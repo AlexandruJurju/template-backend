@@ -5,7 +5,7 @@ using Template.Common.SharedKernel.Domain;
 using Template.Common.SharedKernel.Infrastructure.Outbox;
 using Template.Common.SharedKernel.Infrastructure.Serialization;
 
-namespace Template.Common.SharedKernel.Infrastructure.EF;
+namespace Template.Common.SharedKernel.Infrastructure.Persistence.EntityFramework;
 
 public sealed class InsertOutboxMessagesInterceptor : SaveChangesInterceptor
 {

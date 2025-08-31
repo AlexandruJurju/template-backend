@@ -1,8 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using Template.Common.SharedKernel.Infrastructure.Helpers;
 
-namespace Template.Common.SharedKernel.Infrastructure.MongoDb;
+namespace Template.Common.SharedKernel.Infrastructure.Persistence.Mongo;
 
 public interface IDocument
 {

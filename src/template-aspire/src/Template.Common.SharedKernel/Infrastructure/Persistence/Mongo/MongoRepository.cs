@@ -4,7 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
-namespace Template.Common.SharedKernel.Infrastructure.MongoDb;
+namespace Template.Common.SharedKernel.Infrastructure.Persistence.Mongo;
 
 public class MongoRepository<TDocument>(IMongoDatabase database) : IMongoRepository<TDocument>
     where TDocument : IDocument

@@ -2,27 +2,31 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Template.Common.SharedKernel.Infrastructure.Configuration;
-using Template.Common.SharedKernel.Infrastructure.Dapper;
-using Template.Common.SharedKernel.Infrastructure.Repository;
+using Template.Common.SharedKernel.Infrastructure.Persistence.Abstractions;
+using Template.Common.SharedKernel.Infrastructure.Persistence.Dapper;
+using Template.Common.SharedKernel.Infrastructure.Persistence.EntityFramework.Repository;
 
-namespace Template.Common.SharedKernel.Infrastructure.EF;
+namespace Template.Common.SharedKernel.Infrastructure.Persistence.EntityFramework;
 
 public static class DbContextExtensions
 {
     public static void AddDefaultPostgresDb<TDbContext>(
-        this IServiceCollection services,
-        IConfiguration configuration,
-        string name
+        this IHostApplicationBuilder builder,
+        string name,
+        Action<IHostApplicationBuilder>? action = null
     )
         where TDbContext : DbContext, IUnitOfWork
     {
+        IServiceCollection services = builder.Services;
+
         services.AddSingleton<IInterceptor, InsertOutboxMessagesInterceptor>();
 
         services.AddDbContext<TDbContext>((sp, options) =>
             {
                 options
-                    .UseNpgsql(configuration.GetConnectionStringOrThrow(name))
+                    .UseNpgsql(builder.Configuration.GetConnectionString(name))
                     .UseSnakeCaseNamingConvention()
                     // Issue: https://github.com/dotnet/efcore/issues/35285
                     .ConfigureWarnings(warnings =>
@@ -43,7 +47,9 @@ public static class DbContextExtensions
         services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
         services.AddSingleton<ISqlConnectionFactory>(_ =>
-            new SqlConnectionFactory(configuration.GetConnectionStringOrThrow(name))
+            new SqlConnectionFactory(builder.Configuration.GetConnectionStringOrThrow(name))
         );
+
+        action?.Invoke(builder);
     }
 }

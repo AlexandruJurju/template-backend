@@ -1,7 +1,8 @@
 ﻿using System.Linq.Expressions;
 using Template.Common.SharedKernel.Domain;
+using Template.Common.SharedKernel.Infrastructure.Persistence.EntityFramework.Repository;
 
-namespace Template.Common.SharedKernel.Infrastructure.Repository;
+namespace Template.Common.SharedKernel.Infrastructure.Persistence.Abstractions;
 
 public interface IRepository<T> where T : Entity
 {

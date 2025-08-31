@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using Npgsql;
 
-namespace Template.Common.SharedKernel.Infrastructure.Dapper;
+namespace Template.Common.SharedKernel.Infrastructure.Persistence.Dapper;
 
 internal sealed class SqlConnectionFactory(string connectionString) : ISqlConnectionFactory
 {

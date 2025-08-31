@@ -2,8 +2,9 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Template.Common.SharedKernel.Domain;
+using Template.Common.SharedKernel.Infrastructure.Persistence.Abstractions;
 
-namespace Template.Common.SharedKernel.Infrastructure.Repository;
+namespace Template.Common.SharedKernel.Infrastructure.Persistence.EntityFramework.Repository;
 
 public class EfRepository<TEntity>(DbContext dbContext) : IRepository<TEntity>
     where TEntity : Entity

@@ -1,5 +1,5 @@
 ﻿using Template.Common.SharedKernel.Infrastructure.Outbox;
-using Template.Common.SharedKernel.Infrastructure.Repository;
+using Template.Common.SharedKernel.Infrastructure.Persistence.Abstractions;
 using Template.Domain.Entities.ApiKeys;
 using Template.Domain.Entities.Users;
 

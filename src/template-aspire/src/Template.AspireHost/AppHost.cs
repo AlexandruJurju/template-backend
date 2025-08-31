@@ -13,11 +13,11 @@ IResourceBuilder<PostgresServerResource> postgresServer = builder
 IResourceBuilder<PostgresDatabaseResource> templatePostgresDb = postgresServer
     .AddDatabase(Components.RelationalDbs.Template);
 
-IResourceBuilder<KeycloakResource> keycloak = builder
-    .AddKeycloak(Components.KeyCloak, 18080)
-    .WithDataVolume()
-    .WithExternalHttpEndpoints()
-    .WithLifetime(ContainerLifetime.Persistent);
+// IResourceBuilder<KeycloakResource> keycloak = builder
+//     .AddKeycloak(Components.KeyCloak, 18080)
+//     .WithDataVolume()
+//     .WithExternalHttpEndpoints()
+//     .WithLifetime(ContainerLifetime.Persistent);
 
 IResourceBuilder<SeqResource> seq = builder
     .AddSeq(Components.Seq, 5341)
@@ -62,7 +62,7 @@ IResourceBuilder<ParameterResource> templateTickerQUsername = builder
 IResourceBuilder<ParameterResource> templateTickerQPassword = builder
     .AddParameter("tickerq-password", "admin", true);
 
-IResourceBuilder<ProjectResource> templateService = builder.AddProject<Template_API>(Services.TemplateApi)
+builder.AddProject<Template_API>(Services.TemplateApi)
     .WithReference(templatePostgresDb)
     .WaitFor(templatePostgresDb)
     .WithReference(redis)
@@ -71,8 +71,8 @@ IResourceBuilder<ProjectResource> templateService = builder.AddProject<Template_
     .WaitFor(mailpit)
     .WithReference(blobStorage)
     .WaitFor(blobStorage)
-    .WithReference(keycloak)
-    .WaitFor(keycloak)
+    // .WithReference(keycloak)
+    // .WaitFor(keycloak)
     .WithReference(seq)
     .WaitFor(seq)
     .WithReference(rabbitMq)
@@ -83,10 +83,10 @@ IResourceBuilder<ProjectResource> templateService = builder.AddProject<Template_
     .WithEnvironment("TickerQBasicAuth__Password", templateTickerQPassword);
 
 // Add Scalar API Reference for all services
-builder
-    .AddScalarApiReference()
-    .WithApiReference(templateService, options => options.WithOpenApiRoutePattern("/swagger/v1/swagger.json"))
-    .WaitFor(templateService);
+// builder
+//     .AddScalarApiReference()
+//     .WithApiReference(templateService, options => options.WithOpenApiRoutePattern("/swagger/v1/swagger.json"))
+//     .WaitFor(templateService);
 
 // builder.AddNpmApp(Services.AngularUi, "../../../../template-ui")
 //     .WithReference(templateApi)

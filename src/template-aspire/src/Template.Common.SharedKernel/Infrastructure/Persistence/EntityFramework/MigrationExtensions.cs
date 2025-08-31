@@ -6,20 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Template.Common.SharedKernel.Infrastructure.EF;
+namespace Template.Common.SharedKernel.Infrastructure.Persistence.EntityFramework;
 
 public static class MigrateDbContextExtensions
 {
-    public static void ApplyMigrations<TContext>(this IApplicationBuilder app)
-        where TContext : DbContext
-    {
-        using IServiceScope scope = app.ApplicationServices.CreateScope();
-
-        using TContext dbContext = scope.ServiceProvider.GetRequiredService<TContext>();
-
-        dbContext.Database.Migrate();
-    }
-
     private const string ActivitySourceName = "DbMigrations";
     private static readonly ActivitySource ActivitySource = new(ActivitySourceName);
 
@@ -60,16 +50,11 @@ public static class MigrateDbContextExtensions
         ILogger<TContext> logger = scopeServices.GetRequiredService<ILogger<TContext>>();
         TContext? context = scopeServices.GetService<TContext>();
 
-        using Activity? activity = ActivitySource.StartActivity(
-            $"Migration operation {typeof(TContext).Name}"
-        );
+        using Activity? activity = ActivitySource.StartActivity($"Migration operation {typeof(TContext).Name}");
 
         try
         {
-            logger.LogInformation(
-                "Migrating database associated with context {DbContextName}",
-                typeof(TContext).Name
-            );
+            logger.LogInformation("Migrating database associated with context {DbContextName}", typeof(TContext).Name);
 
             IExecutionStrategy? strategy = context?.Database.CreateExecutionStrategy();
 
@@ -88,10 +73,7 @@ public static class MigrateDbContextExtensions
 
             activity?.AddException(ex);
 
-            throw new InvalidOperationException(
-                $"Database migration failed for {typeof(TContext).Name}. See inner exception for details.",
-                ex
-            );
+            throw new InvalidOperationException($"Database migration failed for {typeof(TContext).Name}. See inner exception for details.", ex);
         }
     }
 

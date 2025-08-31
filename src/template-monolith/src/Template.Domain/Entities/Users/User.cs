@@ -29,7 +29,7 @@ public sealed class User : Entity
             Role = Role.Member
         };
 
-        user.RegisterDomainEvent(new UserRegisteredDomainEvent(user.Id));
+        // user.RegisterDomainEvent(new UserRegisteredDomainEvent(user.Id));
 
         return user;
     }
