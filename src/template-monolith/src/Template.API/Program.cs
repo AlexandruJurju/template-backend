@@ -7,11 +7,8 @@ using Template.Application.Hubs;
 using Template.Common.SharedKernel.Api.Cors;
 using Template.Common.SharedKernel.Api.Endpoints;
 using Template.Common.SharedKernel.Api.Middleware;
-using Template.Common.SharedKernel.Infrastructure.Persistence.EntityFramework;
 using Template.Infrastructure;
-using Template.Infrastructure.Database;
 using Template.ServiceDefaults;
-using TickerQ.DependencyInjection.Hosting;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -51,7 +48,5 @@ app.UseCors(CorsOptions.PolicyName);
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-// app.UseTickerQ();
 
 await app.RunAsync();

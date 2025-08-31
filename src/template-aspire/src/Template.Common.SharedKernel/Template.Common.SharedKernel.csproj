@@ -18,6 +18,7 @@
         <PackageReference Include="MongoDB.Driver.Core"/>
         <PackageReference Include="Newtonsoft.Json"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
+        <PackageReference Include="Quartz.Extensions.Hosting" />
         <PackageReference Include="Scrutor"/>
         <PackageReference Include="Serilog"/>
         <PackageReference Include="Microsoft.Extensions.Caching.Hybrid"/>

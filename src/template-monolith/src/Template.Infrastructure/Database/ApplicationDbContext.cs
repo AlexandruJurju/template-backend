@@ -5,7 +5,6 @@ using Template.Domain.Abstractions.Persistence;
 using Template.Domain.Entities.ApiKeys;
 using Template.Domain.Entities.Users;
 using Template.Infrastructure.Database.Configurations;
-using TickerQ.EntityFrameworkCore.Configurations;
 
 namespace Template.Infrastructure.Database;
 
@@ -31,10 +30,6 @@ public sealed class ApplicationDbContext(
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.HasDefaultSchema(Schema);
-
-        modelBuilder.ApplyConfiguration(new TimeTickerConfigurations());
-        modelBuilder.ApplyConfiguration(new CronTickerConfigurations());
-        modelBuilder.ApplyConfiguration(new CronTickerOccurrenceConfigurations());
 
         modelBuilder.ApplyConfiguration(new OutboxMessageConfiguration());
         modelBuilder.ApplyConfiguration(new ApiKeyConfiguration());

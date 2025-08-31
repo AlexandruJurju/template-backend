@@ -1,23 +1,23 @@
 ﻿using MediatR;
 using Newtonsoft.Json;
+using Quartz;
 using Template.Common.SharedKernel.Infrastructure.Helpers;
 using Template.Common.SharedKernel.Infrastructure.Outbox;
 using Template.Common.SharedKernel.Infrastructure.Serialization;
 using Template.Domain.Abstractions.Persistence;
-using TickerQ.Utilities.Base;
 
-namespace Template.Infrastructure.Jobs;
+namespace Template.Infrastructure.BackgroundJobs;
 
+[DisallowConcurrentExecution]
 public sealed class ProcessOutboxMessagesJob(
     IMediator mediator,
     IApplicationDbContext applicationDbContext,
     ILogger<ProcessOutboxMessagesJob> logger
-)
+) : IJob
 {
     private const int BatchSize = 1000;
 
-    [TickerFunction(nameof(ProcessOutboxMessagesJob), "* * * * *")]
-    public async Task ProcessAsync()
+    public async Task Execute(IJobExecutionContext context)
     {
         logger.LogInformation("Starting to process outbox messages");
 
