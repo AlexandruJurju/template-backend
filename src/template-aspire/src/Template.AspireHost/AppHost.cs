@@ -56,31 +56,14 @@ IResourceBuilder<RabbitMQServerResource> rabbitMq = builder
 IResourceBuilder<AzureBlobStorageContainerResource> blobStorage = storage
     .AddBlobContainer(Components.Azure.BlobContainer);
 
-IResourceBuilder<ParameterResource> templateTickerQUsername = builder
-    .AddParameter("tickerq-user", "admin", true);
-
-IResourceBuilder<ParameterResource> templateTickerQPassword = builder
-    .AddParameter("tickerq-password", "admin", true);
-
 builder.AddProject<Template_API>(Services.TemplateApi)
-    .WithReference(templatePostgresDb)
-    .WaitFor(templatePostgresDb)
-    .WithReference(redis)
-    .WaitFor(redis)
-    .WithReference(mailpit)
-    .WaitFor(mailpit)
-    .WithReference(blobStorage)
-    .WaitFor(blobStorage)
-    // .WithReference(keycloak)
-    // .WaitFor(keycloak)
-    .WithReference(seq)
-    .WaitFor(seq)
-    .WithReference(rabbitMq)
-    .WaitFor(rabbitMq)
-    .WithReference(templateMongoDb)
-    .WaitFor(templateMongoDb)
-    .WithEnvironment("TickerQBasicAuth__Username", templateTickerQUsername)
-    .WithEnvironment("TickerQBasicAuth__Password", templateTickerQPassword);
+    .WithReference(templatePostgresDb).WaitFor(templatePostgresDb)
+    .WithReference(redis).WaitFor(redis)
+    .WithReference(mailpit).WaitFor(mailpit)
+    .WithReference(blobStorage).WaitFor(blobStorage)
+    .WithReference(seq).WaitFor(seq)
+    .WithReference(rabbitMq).WaitFor(rabbitMq)
+    .WithReference(templateMongoDb).WaitFor(templateMongoDb);
 
 // Add Scalar API Reference for all services
 // builder
