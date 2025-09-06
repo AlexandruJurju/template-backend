@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Ardalis.GuardClauses;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
@@ -33,19 +34,17 @@ public static class ConfigurationExtensions
     {
         var connectionString = configuration.GetConnectionString(name);
 
-        if (string.IsNullOrEmpty(connectionString))
-        {
-            throw new InvalidOperationException(
-                $"Configuration missing value for: {(configuration is IConfigurationSection s ? s.Path + ":" + name : name)}"
-            );
-        }
+        Guard.Against.NullOrEmpty(connectionString, nameof(connectionString), "Connection string is null or empty");
 
         return connectionString;
     }
 
     public static T GetValueOrThrow<T>(this IConfiguration configuration, string name)
     {
-        return configuration.GetValue<T?>(name) ??
-               throw new InvalidOperationException($"The connection string {name} was not found");
+        T? value = configuration.GetValue<T?>(name);
+
+        Guard.Against.Null(value, nameof(name), $"The configuration value '{name}' was not found or is null.");
+
+        return value;
     }
 }

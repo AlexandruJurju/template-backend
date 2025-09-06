@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Ardalis.GuardClauses;
 
 namespace Template.Common.SharedKernel.Infrastructure.Authentication;
 
@@ -19,9 +20,8 @@ public static class ClaimsPrincipalExtensions
     {
         var userId = principal?.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        // todo: improve
-        return Guid.TryParse(userId, out Guid parsedUserId)
-            ? parsedUserId
-            : throw new ApplicationException("User id is unavailable");
+        Guard.Against.Null(userId, nameof(userId), "User ID was not found or is invalid");
+
+        return Guid.Parse(userId);
     }
 }
