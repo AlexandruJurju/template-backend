@@ -1,6 +1,5 @@
 using Aspire.Hosting.Azure;
 using Projects;
-using Scalar.Aspire;
 using Template.Common.Constants.Aspire;
 
 IDistributedApplicationBuilder builder = DistributedApplication.CreateBuilder(args);

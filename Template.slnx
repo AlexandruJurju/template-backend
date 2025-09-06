@@ -4,6 +4,7 @@
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
     <File Path=".editorconfig" />
+    <File Path="tests.runsettings" />
   </Folder>
   <Folder Name="/template-aspire/">
     <Project Path="src\template-aspire\src\Template.AspireHost\Template.AspireHost.csproj" Type="Classic C#" />
@@ -22,5 +23,6 @@
   </Folder>
   <Project Path="src\template-acceptance-tests\src\Template.AcceptanceTests\Template.AcceptanceTests.csproj" Type="Classic C#" />
   <Project Path="src\template-monolith\src\Template.Spec\Template.Spec.csproj" Type="Classic C#" />
+  <Project Path="Template.E2ETests\Template.E2ETests.csproj" Type="Classic C#" />
   <Project Path="Template.YARP\Template.YARP.csproj" Type="Classic C#" />
 </Solution>
