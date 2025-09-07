@@ -6,7 +6,7 @@ using Template.Domain.Entities.Users;
 
 namespace Template.Application.Features.Users.Commands.RefreshToken;
 
-public class RefreshTokenCommandHandler(
+internal sealed class RefreshTokenCommandHandler(
     IApplicationDbContext dbContext,
     ITokenProvider tokenProvider
 ) : ICommandHandler<RefreshTokenCommand, RefreshTokenResponse>

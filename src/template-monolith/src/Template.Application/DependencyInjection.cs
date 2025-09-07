@@ -12,15 +12,15 @@ public static class DependencyInjection
 {
     public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDefaultMediatR<AssemblyMarker>();
+        services.AddDefaultMediatR<ApplicationAssemblyMarker>();
 
         services.AddSignalR();
 
-        services.AddValidatorsFromAssembly(typeof(AssemblyMarker).Assembly, includeInternalTypes: true);
+        services.AddValidatorsFromAssembly(typeof(ApplicationAssemblyMarker).Assembly, includeInternalTypes: true);
 
-        services.AddMappersFromAssembly(typeof(AssemblyMarker).Assembly);
+        services.AddMappersFromAssembly(typeof(ApplicationAssemblyMarker).Assembly);
 
-        services.AddMassTransitEventBus(configuration, typeof(AssemblyMarker));
+        services.AddMassTransitEventBus(configuration, typeof(ApplicationAssemblyMarker));
 
         AddBackgroundServices(services);
 

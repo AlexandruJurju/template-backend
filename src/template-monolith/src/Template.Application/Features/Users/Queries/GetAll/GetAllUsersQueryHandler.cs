@@ -6,7 +6,7 @@ using Template.Domain.Entities.Users;
 
 namespace Template.Application.Features.Users.Queries.GetAll;
 
-public class GetAllUsersQueryHandler(
+internal sealed class GetAllUsersQueryHandler(
     IApplicationDbContext dbContext,
     IMapper<User, UserResponse> userMapper
 ) : IQueryHandler<GetAllUsersQuery, IEnumerable<UserResponse>>

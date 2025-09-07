@@ -5,7 +5,7 @@ using Template.Domain.Entities.Users;
 
 namespace Template.Application.Features.Users.Commands.Register;
 
-public sealed class RegisterUserCommandHandler(
+internal sealed class RegisterUserCommandHandler(
     IApplicationDbContext dbContext,
     IPasswordHasher passwordHasher
 ) : ICommandHandler<RegisterUserCommand, Guid>
