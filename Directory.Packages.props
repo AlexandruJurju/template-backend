@@ -2,10 +2,10 @@
   <PropertyGroup>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <AspireVersion>9.4.1</AspireVersion>
+    <AspireVersion>9.4.2</AspireVersion>
     <AspireUnstableVersion>9.4.0-preview.1.25378.8</AspireUnstableVersion>
     <MsExtVersion>9.0.8</MsExtVersion>
-    <ToolKitVersion>9.7.0</ToolKitVersion>
+    <ToolKitVersion>9.7.2</ToolKitVersion>
     <TickerQVersion>2.4.4</TickerQVersion>
     <FluentEmailVersion>3.0.2</FluentEmailVersion>
   </PropertyGroup>
@@ -17,9 +17,9 @@
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.Azure.Storage" Version="$(AspireVersion)" />
-    <PackageVersion Include="Aspire.Hosting.Kafka" Version="9.4.1" />
+    <PackageVersion Include="Aspire.Hosting.Kafka" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.Keycloak" Version="$(AspireUnstableVersion)" />
-    <PackageVersion Include="Aspire.Hosting.MongoDB" Version="9.4.1" />
+    <PackageVersion Include="Aspire.Hosting.MongoDB" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.NodeJs" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.RabbitMQ" Version="$(AspireVersion)" />
@@ -29,8 +29,8 @@
     <PackageVersion Include="Aspire.Hosting.Valkey" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.Garnet" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Keycloak.Authentication" Version="9.4.1-preview.1.25408.4" />
-    <PackageVersion Include="Aspire.Seq" Version="9.4.1" />
-    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.MailPit" Version="9.7.0" />
+    <PackageVersion Include="Aspire.Seq" Version="$(AspireVersion)" />
+    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.MailPit" Version="$(ToolKitVersion)" />
     <!-- Community Toolkit add-ons -->
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.PapercutSmtp" Version="$(ToolKitVersion)" />
     <PackageVersion Include="FluentAssertions" Version="8.6.0" />
@@ -41,7 +41,7 @@
     <PackageVersion Include="MongoDB.Driver.Core" Version="2.30.0" />
     <PackageVersion Include="Moq" Version="4.20.72" />
     <PackageVersion Include="Quartz.Extensions.Hosting" Version="3.15.0" />
-    <PackageVersion Include="Scalar.Aspire" Version="0.3.3" />
+    <PackageVersion Include="Scalar.Aspire" Version="0.4.2" />
     <PackageVersion Include="Scrutor" Version="6.1.0" />
     <PackageVersion Include="Serilog.AspNetCore" Version="9.0.0" />
     <PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
@@ -59,8 +59,8 @@
     <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.Middleware" Version="$(MsExtVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
     <!-- Swagger / Docs -->
-    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerGen" Version="9.0.3" />
-    <PackageVersion Include="Scalar.AspNetCore.Swashbuckle" Version="2.6.9" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerGen" Version="9.0.4" />
+    <PackageVersion Include="Scalar.AspNetCore.Swashbuckle" Version="2.7.2" />
     <!-- Realtime / Other Web API helpers -->
     <PackageVersion Include="Microsoft.Azure.SignalR.Management" Version="1.31.0" />
     <PackageVersion Include="Microsoft.FeatureManagement.AspNetCore" Version="4.2.1" />

@@ -2,6 +2,7 @@ using System.Reflection;
 using Scalar.AspNetCore;
 using Serilog;
 using Template.API;
+using Template.API.Endpoints.Users;
 using Template.Application;
 using Template.Application.Hubs;
 using Template.Common.SharedKernel.Api.Cors;
@@ -25,7 +26,7 @@ builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 
 WebApplication app = builder.Build();
 
-app.MapEndpoints();
+app.MapUserEndpoints();
 
 app.MapHub<RandomNumberHub>("random-number-hub");
 
