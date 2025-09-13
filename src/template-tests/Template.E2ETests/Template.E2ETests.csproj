@@ -33,7 +33,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\src\template-aspire\src\Template.AspireHost\Template.AspireHost.csproj" />
+      <ProjectReference Include="..\..\template-aspire\src\Template.AspireHost\Template.AspireHost.csproj" />
     </ItemGroup>
 
 </Project>

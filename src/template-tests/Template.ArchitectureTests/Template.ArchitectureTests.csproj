@@ -19,8 +19,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\template-monolith\src\Template.API\Template.API.csproj" />
-      <ProjectReference Include="..\..\src\template-monolith\src\Template.Infrastructure\Template.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\template-monolith\src\Template.API\Template.API.csproj" />
+      <ProjectReference Include="..\..\template-monolith\src\Template.Application\Template.Application.csproj" />
+      <ProjectReference Include="..\..\template-monolith\src\Template.Domain\Template.Domain.csproj" />
+      <ProjectReference Include="..\..\template-monolith\src\Template.Infrastructure\Template.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
