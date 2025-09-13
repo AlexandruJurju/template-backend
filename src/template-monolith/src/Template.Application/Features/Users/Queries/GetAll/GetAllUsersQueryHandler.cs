@@ -12,12 +12,12 @@ internal sealed class GetAllUsersQueryHandler(
 {
     public async Task<Result<IEnumerable<UserResponse>>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
     {
-        QuerySpec<User, UserResponse> spec = QuerySpec<User, UserResponse>
-            .Create()
-            .OrderBy(x => x.FirstName)
-            .Select(x => x.Map());
+        var spec = new QuerySpec<User, UserResponse>
+        {
+            Projection = u => u.Map(),
+        };
 
-        IReadOnlyList<UserResponse> users = await userRepository.GetAllAsync(spec, cancellationToken);
+        List<UserResponse> users = await userRepository.GetAllAsync(spec, cancellationToken);
 
         return users.ToList();
     }

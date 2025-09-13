@@ -117,7 +117,7 @@ public class EfRepository<TEntity>(DbContext dbContext) : IRepository<TEntity>
             query = query.Where(spec.Filter);
         }
 
-        foreach (var include in spec.Includes)
+        foreach (Expression<Func<TEntity, object?>> include in spec.Includes)
         {
             query = query.Include(include);
         }
@@ -129,7 +129,7 @@ public class EfRepository<TEntity>(DbContext dbContext) : IRepository<TEntity>
                 ? query.OrderByDescending(first.KeySelector)
                 : query.OrderBy(first.KeySelector);
 
-            foreach (var orderBy in spec.OrderBys.Skip(1))
+            foreach ((Expression<Func<TEntity, object>> KeySelector, ListSortDirection Direction) orderBy in spec.OrderBys.Skip(1))
             {
                 var ordered = (IOrderedQueryable<TEntity>)query;
                 query = orderBy.Direction == ListSortDirection.Descending
