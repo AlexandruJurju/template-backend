@@ -47,7 +47,7 @@ public static class DbContextExtensions
 
         services.AddScoped<IUnitOfWork>(provider => provider.GetRequiredService<TDbContext>());
 
-        services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+        services.AddScoped(typeof(IRepository<>), typeof(GenericEfRepository<>));
 
         services.AddSingleton<ISqlConnectionFactory>(_ =>
             new SqlConnectionFactory(builder.Configuration.GetConnectionStringOrThrow(name))

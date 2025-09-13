@@ -4,14 +4,14 @@ using Quartz;
 using Template.Common.SharedKernel.Infrastructure.Helpers;
 using Template.Common.SharedKernel.Infrastructure.Outbox;
 using Template.Common.SharedKernel.Infrastructure.Serialization;
-using Template.Domain.Abstractions.Persistence;
+using Template.Infrastructure.Database;
 
 namespace Template.Infrastructure.BackgroundJobs;
 
 [DisallowConcurrentExecution]
 public sealed class ProcessOutboxMessagesJob(
     IMediator mediator,
-    IApplicationDbContext applicationDbContext,
+    ApplicationDbContext applicationDbContext,
     ILogger<ProcessOutboxMessagesJob> logger
 ) : IJob
 {

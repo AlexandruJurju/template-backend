@@ -8,9 +8,7 @@ using Template.Common.SharedKernel.Infrastructure.Caching;
 using Template.Common.SharedKernel.Infrastructure.Configuration;
 using Template.Common.SharedKernel.Infrastructure.Email;
 using Template.Common.SharedKernel.Infrastructure.Persistence.EntityFramework;
-using Template.Common.SharedKernel.Infrastructure.Persistence.Mongo;
 using Template.Common.SharedKernel.Infrastructure.Storage;
-using Template.Domain.Abstractions.Persistence;
 using Template.Infrastructure.Authentication;
 using Template.Infrastructure.BackgroundJobs;
 using Template.Infrastructure.Database;
@@ -40,8 +38,6 @@ public static class DependencyInjection
             }
         );
 
-        services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
-
         services.AddDefaultFluentEmailWithSmtp(configuration, Components.MailPit);
 
         services.AddDefaultAzureBlobStorage(configuration, Components.Azure.BlobContainer);
@@ -52,7 +48,7 @@ public static class DependencyInjection
         services.AddScoped<ITokenProvider, TokenProvider>();
         services.AddDefaultJwtAuthorization();
 
-        services.AddDefaultMongo(configuration, Components.DocumentDbs.Template);
+        // services.AddDefaultMongo(configuration, Components.DocumentDbs.Template);
 
         // Custom
         services.AddBackgroundJobs();

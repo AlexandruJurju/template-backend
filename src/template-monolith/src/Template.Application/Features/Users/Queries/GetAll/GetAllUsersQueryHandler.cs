@@ -1,8 +1,7 @@
 ﻿using Template.Application.Mappers;
 using Template.Common.SharedKernel.Application.CQRS.Queries;
 using Template.Common.SharedKernel.Infrastructure.Persistence.Abstractions;
-using Template.Common.SharedKernel.Infrastructure.Persistence.EntityFramework.Repository;
-using Template.Domain.Entities.Users;
+using User = Template.Domain.Entities.Users.User;
 
 namespace Template.Application.Features.Users.Queries.GetAll;
 
@@ -12,13 +11,8 @@ internal sealed class GetAllUsersQueryHandler(
 {
     public async Task<Result<IEnumerable<UserResponse>>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
     {
-        var spec = new QuerySpec<User, UserResponse>
-        {
-            Projection = u => u.Map(),
-        };
+        List<UserResponse> users = await userRepository.GetAllAsync(x => x.Map(), cancellationToken);
 
-        List<UserResponse> users = await userRepository.GetAllAsync(spec, cancellationToken);
-
-        return users.ToList();
+        return users;
     }
 }

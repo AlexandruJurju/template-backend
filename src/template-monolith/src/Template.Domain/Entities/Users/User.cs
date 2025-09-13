@@ -2,6 +2,11 @@
 
 public sealed class User : Entity
 {
+    // For EF Core
+    private User()
+    {
+    }
+
     private User(Guid id, string email, string firstName, string lastName, string passwordHash)
     {
         Id = id;
@@ -11,25 +16,21 @@ public sealed class User : Entity
         PasswordHash = passwordHash;
     }
 
-    // For EF Core
-    private User()
-    {
-    }
-
     public string Email { get; init; } = null!;
     public string FirstName { get; init; } = null!;
     public string LastName { get; init; } = null!;
     public string PasswordHash { get; init; } = null!;
+    public int RoleId { get; init; }
     public Role Role { get; private set; }
 
     public static User Create(string email, string firstName, string lastName, string passwordHash)
     {
         var user = new User(Guid.NewGuid(), email, firstName, lastName, passwordHash)
         {
-            Role = Role.Member
+            RoleId = Role.Member.Id
         };
 
-        // user.RegisterDomainEvent(new UserRegisteredDomainEvent(user.Id));
+        user.RegisterDomainEvent(new UserRegisteredDomainEvent(user.Id));
 
         return user;
     }

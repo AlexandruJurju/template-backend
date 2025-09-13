@@ -2,4 +2,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\..\template-aspire\src\Template.Common.SharedKernel\Template.Common.SharedKernel.csproj"/>
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Abstractions\" />
+    </ItemGroup>
 </Project>

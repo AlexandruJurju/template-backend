@@ -1,7 +1,5 @@
 ﻿using Template.Application.Features.Users.Commands.Login;
-using Template.Application.Features.Users.Commands.RefreshToken;
 using Template.Application.Features.Users.Commands.Register;
-using Template.Application.Features.Users.Commands.VerifyEmail;
 using Template.Application.Features.Users.Queries;
 using Template.Application.Features.Users.Queries.GetAll;
 using Template.Application.Features.Users.Queries.GetByEmail;
@@ -44,18 +42,6 @@ public static class UsersModule
             .WithName("GetUserByEmail")
             .WithOpenApi()
             .ProducesGet<UserResponse>(false, true);
-
-        app.MapGet("users/verify-email", async (
-                Guid token,
-                ISender sender,
-                CancellationToken cancellationToken) =>
-            {
-                Result result = await sender.Send(new VerifyEmailCommand(token), cancellationToken);
-
-                return result.ToMinimalApiResult();
-            })
-            .WithTags(Tags.Users)
-            .WithOpenApi();
 
         app.MapPost("users/register", async (
                 [FromBody] RegisterRequest registerRequest,
@@ -111,22 +97,6 @@ public static class UsersModule
             .Produces<LoginResponse>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound);
-
-
-        app.MapPost("users/refresh-token", async (
-                [FromBody] RefreshTokenRequest refreshToken,
-                ISender sender, CancellationToken cancellationToken) =>
-            {
-                var command = new RefreshTokenCommand(refreshToken.RefreshToken);
-
-                Result<RefreshTokenResponse> result = await sender.Send(command, cancellationToken);
-
-                return result.ToMinimalApiResult();
-            })
-            .WithTags(Tags.Users)
-            .WithOpenApi()
-            .Produces<LoginResponse>()
-            .ProducesProblem(StatusCodes.Status400BadRequest);
 
         app.MapGet("users/me", async (
                 ISender sender, IUserContext userContext, CancellationToken cancellationToken) =>

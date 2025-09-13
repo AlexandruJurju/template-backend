@@ -30,6 +30,11 @@ public static class UserErrors
         return Result.NotFound($"Users.NotFound: The user with the Email: '{email}' was not found");
     }
 
+    public static Result PasswordNotVerified(string email)
+    {
+        return Result.NotFound($"Users.PasswordNotVerified: The user with the Email: '{email}' doesn't have a verified password");
+    }
+
     public static Result Unauthorized()
     {
         return Result.Unauthorized("Users.Unauthorized: You are not authorized to perform this action.");

@@ -31,4 +31,8 @@
         <ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="EmailTemplates\UserRegistered.cshtml" />
+    </ItemGroup>
+
 </Project>
