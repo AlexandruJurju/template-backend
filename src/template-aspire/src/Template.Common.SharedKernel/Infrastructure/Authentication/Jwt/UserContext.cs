@@ -2,7 +2,9 @@
 
 namespace Template.Common.SharedKernel.Infrastructure.Authentication.Jwt;
 
-internal sealed class UserContext(IHttpContextAccessor httpContextAccessor) : IUserContext
+internal sealed class UserContext(
+    IHttpContextAccessor httpContextAccessor
+) : IUserContext
 {
     public Guid GetUserId()
     {
