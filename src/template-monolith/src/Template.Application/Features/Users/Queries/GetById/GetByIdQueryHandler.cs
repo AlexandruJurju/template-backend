@@ -1,5 +1,4 @@
-﻿using Template.Application.Features.Users.Dto;
-using Template.Common.SharedKernel.Application.CQRS.Queries;
+﻿using Template.Common.SharedKernel.Application.CQRS.Queries;
 using Template.Common.SharedKernel.Infrastructure;
 using Template.Common.SharedKernel.Infrastructure.Persistence.Dapper;
 using Template.Domain.Entities.Users;

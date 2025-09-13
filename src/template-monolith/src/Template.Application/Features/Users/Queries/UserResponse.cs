@@ -1,4 +1,4 @@
-﻿namespace Template.Application.Features.Users.Dto;
+﻿namespace Template.Application.Features.Users.Queries;
 
 public sealed record UserResponse
 {

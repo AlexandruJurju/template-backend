@@ -4,6 +4,7 @@
         <PackageReference Include="Ardalis.Result.AspNetCore"/>
         <PackageReference Include="Ardalis.Result.FluentValidation"/>
         <PackageReference Include="Ardalis.SmartEnum" />
+        <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
         <PackageReference Include="Asp.Versioning.Http" />
         <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" />
         <PackageReference Include="Dapper"/>

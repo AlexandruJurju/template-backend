@@ -42,6 +42,9 @@ public static class DbContextExtensions
             }
         );
 
+        // hack - i register the generic TDbContext here but i use DbContext in EfRepository
+        services.AddScoped<DbContext>(provider => provider.GetRequiredService<TDbContext>());
+
         services.AddScoped<IUnitOfWork>(provider => provider.GetRequiredService<TDbContext>());
 
         services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));

@@ -2,7 +2,7 @@
 using Template.Application.Features.Users.Commands.RefreshToken;
 using Template.Application.Features.Users.Commands.Register;
 using Template.Application.Features.Users.Commands.VerifyEmail;
-using Template.Application.Features.Users.Dto;
+using Template.Application.Features.Users.Queries;
 using Template.Application.Features.Users.Queries.GetAll;
 using Template.Application.Features.Users.Queries.GetByEmail;
 using Template.Application.Features.Users.Queries.GetById;

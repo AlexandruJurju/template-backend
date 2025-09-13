@@ -1,22 +1,24 @@
-﻿using Template.Application.Features.Users.Dto;
+﻿using Template.Application.Mappers;
 using Template.Common.SharedKernel.Application.CQRS.Queries;
-using Template.Common.SharedKernel.Application.Mapper;
-using Template.Domain.Abstractions.Persistence;
+using Template.Common.SharedKernel.Infrastructure.Persistence.Abstractions;
+using Template.Common.SharedKernel.Infrastructure.Persistence.EntityFramework.Repository;
 using Template.Domain.Entities.Users;
 
 namespace Template.Application.Features.Users.Queries.GetAll;
 
 internal sealed class GetAllUsersQueryHandler(
-    IApplicationDbContext dbContext,
-    IMapper<User, UserResponse> userMapper
+    IRepository<User> userRepository
 ) : IQueryHandler<GetAllUsersQuery, IEnumerable<UserResponse>>
 {
     public async Task<Result<IEnumerable<UserResponse>>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
     {
-        IEnumerable<User> users = await dbContext.Users.ToListAsync(cancellationToken);
+        QuerySpec<User, UserResponse> spec = QuerySpec<User, UserResponse>
+            .Create()
+            .OrderBy(x => x.FirstName)
+            .Select(x => x.Map());
 
-        var userResponses = users.Select(userMapper.Map).ToList();
+        IReadOnlyList<UserResponse> users = await userRepository.GetAllAsync(spec, cancellationToken);
 
-        return userResponses;
+        return users.ToList();
     }
 }

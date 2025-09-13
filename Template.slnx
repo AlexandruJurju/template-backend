@@ -22,7 +22,6 @@
     <Project Path="src\template-monolith\src\Template.UnitTests\Template.UnitTests.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="src\template-acceptance-tests\src\Template.AcceptanceTests\Template.AcceptanceTests.csproj" Type="Classic C#" />
     <Project Path="template-tests\Template.ArchitectureTests\Template.ArchitectureTests.csproj" Type="Classic C#" />
     <Project Path="Template.E2ETests\Template.E2ETests.csproj" Type="Classic C#" />
   </Folder>
